@@ -129,7 +129,7 @@ body {
 /* Panels */
 .left-panel,
 .right-panel {
-  width: 320px;
+  width: 450px;
   background: #2c3e50;
   border-right: 1px solid #34495e;
   overflow-y: auto;
@@ -388,6 +388,9 @@ body {
 .asset-list {
   max-height: 150px;
   overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .asset-item {
@@ -400,6 +403,7 @@ body {
   font-size: 12px;
   position: relative;
   transition: all 0.2s ease;
+  width: 49%;
 }
 
 .asset-item:hover {
@@ -448,8 +452,8 @@ body {
 .preview-scene {
   width: 90%;
   height: 90%;
-  max-width: 800px;
-  max-height: 600px;
+  max-width: 920px;
+  max-height: 690px;
   position: relative;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
@@ -688,13 +692,20 @@ body {
   min-width: 40px;
   font-size: 11px;
   color: #7f8c8d;
-  text-align: right;
+  text-align: left;
+}
+
+.panel-section.info-panel {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* Choices */
 .choices-list {
   max-height: 300px;
   overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .choice-item {
@@ -703,6 +714,7 @@ body {
   border: 1px solid #34495e;
   border-radius: 4px;
   margin-bottom: 8px;
+  width: 49%;
 }
 
 .choice-item input {
@@ -729,8 +741,17 @@ body {
   display: none;
 }
 
+.overlay-controls .slider-group {
+  width: 48%;
+}
+
+.overlay-controls .form-group {
+  width: 48%;
+}
+
 .overlay-controls.visible {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* Modal */

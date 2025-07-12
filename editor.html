@@ -8,32 +8,6 @@
   </head>
   <body>
     <div id="editor-container">
-      <!-- Header -->
-      <header class="editor-header">
-        <h1>Story Config Editor</h1>
-        <div class="header-controls">
-          <button id="load-project" class="btn btn-secondary">
-            Load Project
-          </button>
-          <button id="save-project" class="btn btn-success">
-            Save Project
-          </button>
-          <input
-            type="file"
-            id="file-input"
-            accept=".json"
-            style="display: none"
-          />
-          <input
-            type="file"
-            id="asset-file-input"
-            accept="image/*"
-            multiple
-            style="display: none"
-          />
-        </div>
-      </header>
-
       <!-- Selected Object Panel -->
       <div class="selected-object-panel" id="selected-object-panel">
         <div id="object-properties" class="object-properties"></div>
@@ -44,7 +18,7 @@
         <!-- Left Panel: Scene Properties + Assets -->
         <div class="left-panel">
           <!-- Scene Properties -->
-          <div class="panel-section">
+          <div class="panel-section info-panel">
             <div class="form-group">
               <label>Scene ID:</label>
               <input type="text" id="scene-id" placeholder="Scene ID" />
@@ -73,15 +47,13 @@
 
           <!-- Overlay Properties -->
           <div class="panel-section">
-            <h3>Overlay</h3>
-            <div class="form-group">
-              <label>
-                <input type="checkbox" id="overlay-enabled" /> Enable Overlay
-              </label>
-            </div>
             <div id="overlay-controls" class="overlay-controls">
               <div class="form-group">
-                <label>Color:</label>
+                <label>
+                  <input type="checkbox" id="overlay-enabled" /> Enable Overlay
+                </label>
+              </div>
+              <div class="form-group">
                 <input type="color" id="overlay-color" value="#000000" />
               </div>
               <div class="slider-group">
@@ -158,6 +130,27 @@
 
         <!-- Right Panel: Content & Choices -->
         <div class="right-panel">
+          <div class="header-controls">
+            <button id="load-project" class="btn btn-secondary">
+              Load Project
+            </button>
+            <button id="save-project" class="btn btn-success">
+              Save Project
+            </button>
+            <input
+              type="file"
+              id="file-input"
+              accept=".json"
+              style="display: none"
+            />
+            <input
+              type="file"
+              id="asset-file-input"
+              accept="image/*"
+              multiple
+              style="display: none"
+            />
+          </div>
           <!-- Scene Content -->
           <div class="panel-section">
             <h3>Scene Content</h3>
