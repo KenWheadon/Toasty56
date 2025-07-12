@@ -10,10 +10,13 @@ class StoryEditor {
     this.isRotating = false;
     this.dragOffset = { x: 0, y: 0 };
     this.imageCache = new Map();
+    this.autoSaveInterval = null;
+    this.autoSaveStatus = "ready";
 
     this.initializeEditor();
     this.setupEventListeners();
-    this.createNewProject();
+    this.loadFromLocalStorage();
+    this.startAutoSave();
   }
 
   initializeEditor() {
@@ -30,6 +33,107 @@ class StoryEditor {
       currentScene: 1,
       scenes: {},
     };
+  }
+
+  // Auto-save functionality
+  startAutoSave() {
+    this.autoSaveInterval = setInterval(() => {
+      this.autoSave();
+    }, 10000); // Auto-save every 10 seconds
+  }
+
+  autoSave() {
+    if (!this.project || Object.keys(this.project.scenes).length === 0) {
+      return;
+    }
+
+    try {
+      this.updateAutoSaveStatus("saving");
+      const projectData = JSON.stringify(this.project);
+      localStorage.setItem("story-editor-autosave", projectData);
+      this.updateAutoSaveStatus("saved");
+    } catch (error) {
+      console.error("Auto-save failed:", error);
+      this.updateAutoSaveStatus("error");
+    }
+  }
+
+  updateAutoSaveStatus(status) {
+    this.autoSaveStatus = status;
+    const indicator = document.getElementById("auto-save-indicator");
+    if (indicator) {
+      indicator.className = status;
+      switch (status) {
+        case "saving":
+          indicator.textContent = "Saving...";
+          break;
+        case "saved":
+          indicator.textContent = "Saved";
+          setTimeout(() => {
+            if (this.autoSaveStatus === "saved") {
+              this.updateAutoSaveStatus("ready");
+            }
+          }, 2000);
+          break;
+        case "error":
+          indicator.textContent = "Error";
+          setTimeout(() => {
+            if (this.autoSaveStatus === "error") {
+              this.updateAutoSaveStatus("ready");
+            }
+          }, 3000);
+          break;
+        default:
+          indicator.textContent = "Ready";
+          break;
+      }
+    }
+  }
+
+  loadFromLocalStorage() {
+    try {
+      const savedData = localStorage.getItem("story-editor-autosave");
+      if (savedData) {
+        const projectData = JSON.parse(savedData);
+        this.project = projectData;
+        this.loadProjectData();
+        this.updateAutoSaveStatus("ready");
+      } else {
+        this.createNewProject();
+      }
+    } catch (error) {
+      console.error("Failed to load auto-save data:", error);
+      this.createNewProject();
+    }
+  }
+
+  // Helper function to get clean filename from path
+  getCleanFilename(path, type = "object") {
+    if (!path) return "";
+    // Remove folder path and extension
+    let filename = path.split("/").pop();
+    filename = filename.replace(/\.[^/.]+$/, "");
+
+    if (type === "background") {
+      // Remove bg- prefix from background names
+      filename = filename.replace(/^bg-/, "");
+    } else if (type === "object") {
+      // Replace dashes with spaces and capitalize each word
+      filename = filename
+        .replace(/-/g, " ")
+        .replace(/\b\w/g, (l) => l.toUpperCase());
+    }
+
+    return filename;
+  }
+
+  // Helper function to sort assets alphabetically
+  sortAssets(assets) {
+    return assets.sort((a, b) => {
+      const nameA = this.getCleanFilename(a).toLowerCase();
+      const nameB = this.getCleanFilename(b).toLowerCase();
+      return nameA.localeCompare(nameB);
+    });
   }
 
   setupEventListeners() {
@@ -273,6 +377,7 @@ class StoryEditor {
     this.refreshSceneList();
     this.refreshAssetLists();
     this.clearPreview();
+    this.updateSceneObjectsList();
   }
 
   loadProject() {
@@ -289,6 +394,9 @@ class StoryEditor {
         const projectData = JSON.parse(e.target.result);
         this.project = projectData;
         this.loadProjectData();
+        // Clear auto-save since we loaded a new project
+        localStorage.removeItem("story-editor-autosave");
+        this.updateAutoSaveStatus("ready");
       } catch (error) {
         this.showWarning("Error loading project: " + error.message);
       }
@@ -381,6 +489,7 @@ class StoryEditor {
       this.currentScene = null;
       this.refreshSceneList();
       this.clearPreview();
+      this.updateSceneObjectsList();
     }
   }
 
@@ -399,6 +508,7 @@ class StoryEditor {
     this.renderPreview();
     this.updateActiveSceneInList();
     this.updateObjectProperties();
+    this.updateSceneObjectsList();
   }
 
   updateActiveSceneInList() {
@@ -450,11 +560,15 @@ class StoryEditor {
 
     bgList.innerHTML = "";
 
-    this.backgrounds.forEach((bg) => {
+    // Sort backgrounds alphabetically
+    const sortedBackgrounds = this.sortAssets(this.backgrounds);
+
+    sortedBackgrounds.forEach((bg) => {
       const item = document.createElement("div");
       item.className = "asset-item";
+      const cleanName = this.getCleanFilename(bg, "background");
       item.innerHTML = `
-        ${bg}
+        ${cleanName}
         <button class="remove-btn" onclick="editor.removeBackground('${bg}')">&times;</button>
       `;
       bgList.appendChild(item);
@@ -470,13 +584,17 @@ class StoryEditor {
 
     objList.innerHTML = "";
 
-    this.objects.forEach((obj) => {
+    // Sort objects alphabetically
+    const sortedObjects = this.sortAssets(this.objects);
+
+    sortedObjects.forEach((obj) => {
       const item = document.createElement("div");
       item.className = "asset-item";
       item.draggable = true;
       item.dataset.objPath = obj;
+      const cleanName = this.getCleanFilename(obj, "object");
       item.innerHTML = `
-        ${obj}
+        ${cleanName}
         <button class="remove-btn" onclick="editor.removeObject('${obj}')">&times;</button>
       `;
 
@@ -491,6 +609,80 @@ class StoryEditor {
 
       objList.appendChild(item);
     });
+  }
+
+  // Update scene objects list
+  updateSceneObjectsList() {
+    const sceneObjectsList = document.getElementById("scene-objects-list");
+    if (!sceneObjectsList) {
+      console.warn("Scene objects list element not found");
+      return;
+    }
+
+    sceneObjectsList.innerHTML = "";
+
+    if (!this.currentScene) {
+      sceneObjectsList.innerHTML =
+        '<div class="scene-objects-empty">No scene selected</div>';
+      return;
+    }
+
+    const scene = this.project.scenes[this.currentScene];
+    if (!scene.images || scene.images.length === 0) {
+      sceneObjectsList.innerHTML =
+        '<div class="scene-objects-empty">No objects in scene</div>';
+      return;
+    }
+
+    scene.images.forEach((imageData, index) => {
+      const objectItem = document.createElement("div");
+      objectItem.className = "scene-object-item";
+      if (this.selectedObject === index) {
+        objectItem.classList.add("selected");
+      }
+
+      const cleanName = this.getCleanFilename(imageData.src, "object");
+      objectItem.innerHTML = `
+        <div class="scene-object-info">
+          <div class="scene-object-name">${cleanName}</div>
+          <div class="scene-object-details">
+            x: ${imageData.x.toFixed(1)}%, y: ${imageData.y.toFixed(1)}%, 
+            scale: ${imageData.scale.toFixed(1)}, z: ${imageData.zIndex}
+          </div>
+        </div>
+        <div class="scene-object-actions">
+          <button class="select-btn" onclick="editor.selectObjectFromList(${index})">Select</button>
+          <button class="delete-btn" onclick="editor.removeObjectFromList(${index})">Delete</button>
+        </div>
+      `;
+
+      sceneObjectsList.appendChild(objectItem);
+    });
+  }
+
+  selectObjectFromList(index) {
+    this.selectObject(index);
+    this.updateSceneObjectsList();
+  }
+
+  removeObjectFromList(index) {
+    if (!this.currentScene) return;
+
+    const scene = this.project.scenes[this.currentScene];
+    if (scene.images && scene.images[index]) {
+      scene.images.splice(index, 1);
+
+      // Update selected object index if necessary
+      if (this.selectedObject === index) {
+        this.selectedObject = null;
+      } else if (this.selectedObject > index) {
+        this.selectedObject--;
+      }
+
+      this.renderPreview();
+      this.updateObjectProperties();
+      this.updateSceneObjectsList();
+    }
   }
 
   removeBackground(bg) {
@@ -508,10 +700,13 @@ class StoryEditor {
     // Update background dropdown
     const bgSelect = document.getElementById("scene-background");
     bgSelect.innerHTML = '<option value="">No Background</option>';
-    this.backgrounds.forEach((bg) => {
+
+    // Sort backgrounds alphabetically for dropdown
+    const sortedBackgrounds = this.sortAssets(this.backgrounds);
+    sortedBackgrounds.forEach((bg) => {
       const option = document.createElement("option");
       option.value = bg;
-      option.textContent = bg;
+      option.textContent = this.getCleanFilename(bg, "background");
       bgSelect.appendChild(option);
     });
 
@@ -585,6 +780,7 @@ class StoryEditor {
     this.refreshSceneList();
     this.renderPreview();
     this.updateChoicesVisibility();
+    this.updateSceneObjectsList();
   }
 
   updateScenePropertiesDisplay() {
@@ -675,6 +871,7 @@ class StoryEditor {
     });
 
     this.refreshChoicesList();
+    this.renderPreview(); // Fix: Update preview when adding choices
   }
 
   refreshChoicesList() {
@@ -711,6 +908,7 @@ class StoryEditor {
     if (scene.choices && scene.choices[index]) {
       scene.choices[index][property] = value;
       this.validateSceneReferences();
+      this.renderPreview(); // Fix: Update preview when updating choices
     }
   }
 
@@ -721,6 +919,7 @@ class StoryEditor {
     if (scene.choices) {
       scene.choices.splice(index, 1);
       this.refreshChoicesList();
+      this.renderPreview(); // Fix: Update preview when removing choices
     }
   }
 
@@ -773,6 +972,7 @@ class StoryEditor {
     this.selectedObject = null;
     this.updateObjectProperties();
     this.hideObjectControls();
+    this.updateSceneObjectsList();
 
     // Remove selection from all objects
     document.querySelectorAll(".preview-object").forEach((obj) => {
@@ -816,6 +1016,7 @@ class StoryEditor {
 
     scene.images.push(newObject);
     this.renderPreview();
+    this.updateSceneObjectsList();
   }
 
   async renderPreview() {
@@ -965,6 +1166,7 @@ class StoryEditor {
 
     this.updateObjectProperties();
     this.showObjectControls();
+    this.updateSceneObjectsList();
   }
 
   maintainSelection() {
@@ -1047,6 +1249,7 @@ class StoryEditor {
 
       this.updateObjectVisual();
       this.updateObjectProperties();
+      this.updateSceneObjectsList();
     };
 
     const mouseUpHandler = () => {
@@ -1084,6 +1287,7 @@ class StoryEditor {
 
       this.updateObjectVisual();
       this.updateObjectProperties();
+      this.updateSceneObjectsList();
     };
 
     const mouseUpHandler = () => {
@@ -1252,6 +1456,7 @@ class StoryEditor {
     obj.effect = document.getElementById("obj-effect").value || undefined;
 
     this.updateObjectVisual();
+    this.updateSceneObjectsList();
   }
 
   removeSelectedObject() {
@@ -1263,6 +1468,7 @@ class StoryEditor {
     this.hideObjectControls();
     this.renderPreview();
     this.updateObjectProperties();
+    this.updateSceneObjectsList();
   }
 
   startDrag(e, index) {
@@ -1291,6 +1497,7 @@ class StoryEditor {
 
       this.updateObjectVisual();
       this.updateObjectProperties();
+      this.updateSceneObjectsList();
     };
 
     const mouseUpHandler = () => {
@@ -1318,6 +1525,7 @@ class StoryEditor {
 
     this.selectedObject = null;
     this.hideObjectControls();
+    this.updateSceneObjectsList();
   }
 
   showWarning(message) {

@@ -37,6 +37,32 @@ body {
 .header-controls {
   display: flex;
   gap: 10px;
+  align-items: center;
+}
+
+/* Auto-save Status */
+.auto-save-status {
+  font-size: 12px;
+  color: #bdc3c7;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #1a1a1a;
+}
+
+#auto-save-indicator {
+  font-weight: bold;
+}
+
+#auto-save-indicator.saving {
+  color: #f39c12;
+}
+
+#auto-save-indicator.saved {
+  color: #27ae60;
+}
+
+#auto-save-indicator.error {
+  color: #e74c3c;
 }
 
 /* Selected Object Panel */
@@ -169,6 +195,93 @@ body {
   color: #bdc3c7;
 }
 
+/* Scene Objects List */
+.scene-objects-section {
+  margin-top: 12px;
+}
+
+.scene-objects-list {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #34495e;
+  border-radius: 4px;
+  background: #1a1a1a;
+}
+
+.scene-object-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #34495e;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.scene-object-item:hover {
+  background: #2c3e50;
+}
+
+.scene-object-item.selected {
+  background: #3498db;
+  color: white;
+}
+
+.scene-object-item:last-child {
+  border-bottom: none;
+}
+
+.scene-object-info {
+  flex: 1;
+  font-size: 12px;
+}
+
+.scene-object-name {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.scene-object-details {
+  color: #bdc3c7;
+  font-size: 10px;
+}
+
+.scene-object-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.scene-object-actions button {
+  padding: 2px 6px;
+  border: none;
+  border-radius: 2px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.scene-object-actions button:hover {
+  opacity: 0.8;
+}
+
+.scene-object-actions .select-btn {
+  background: #3498db;
+  color: white;
+}
+
+.scene-object-actions .delete-btn {
+  background: #e74c3c;
+  color: white;
+}
+
+.scene-objects-empty {
+  padding: 16px;
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 12px;
+  font-style: italic;
+}
+
 /* Drag Instructions */
 .drag-instructions {
   background: #34495e;
@@ -176,7 +289,7 @@ body {
   border-radius: 4px;
   font-size: 12px;
   color: #ecf0f1;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   text-align: center;
   border: 1px solid #3498db;
 }
@@ -347,7 +460,7 @@ body {
 .asset-drop-zone {
   border: 2px dashed #34495e;
   border-radius: 6px;
-  padding: 8px;
+  padding: 0px 8px;
   margin-bottom: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -368,6 +481,9 @@ body {
   text-align: center;
   padding: 4px;
   border-bottom: 1px solid #34495e;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .drop-zone-icon {
@@ -386,7 +502,7 @@ body {
 
 /* Asset List */
 .asset-list {
-  max-height: 150px;
+  max-height: 200px;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
@@ -403,7 +519,7 @@ body {
   font-size: 12px;
   position: relative;
   transition: all 0.2s ease;
-  width: 49%;
+  width: 32%;
 }
 
 .asset-item:hover {
@@ -698,6 +814,10 @@ body {
 .panel-section.info-panel {
   display: flex;
   flex-wrap: wrap;
+}
+
+.panel-section.info-panel .form-group {
+  width: 24%;
 }
 
 /* Choices */

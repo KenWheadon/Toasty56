@@ -95,7 +95,6 @@
               Drag images directly from the library to the scene to add them
             </p>
             <div class="asset-section">
-              <h4>Backgrounds</h4>
               <div class="asset-drop-zone" id="background-drop-zone">
                 <div class="drop-zone-visual">
                   <div class="drop-zone-icon">📁</div>
@@ -106,7 +105,6 @@
               </div>
             </div>
             <div class="asset-section">
-              <h4>Objects</h4>
               <div class="asset-drop-zone" id="object-drop-zone">
                 <div class="drop-zone-visual">
                   <div class="drop-zone-icon">🖼️</div>
@@ -137,6 +135,9 @@
             <button id="save-project" class="btn btn-success">
               Save Project
             </button>
+            <div class="auto-save-status" id="auto-save-status">
+              Auto-save: <span id="auto-save-indicator">Ready</span>
+            </div>
             <input
               type="file"
               id="file-input"
@@ -160,6 +161,12 @@
                 id="scene-content"
                 placeholder="Scene content/text"
               ></textarea>
+            </div>
+
+            <!-- Scene Objects List -->
+            <div class="scene-objects-section">
+              <h4>Objects in Scene</h4>
+              <div id="scene-objects-list" class="scene-objects-list"></div>
             </div>
           </div>
 
