@@ -1,0 +1,175 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+#game-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scene {
+  width: 90vw;
+  height: 90vh;
+  max-width: 800px;
+  max-height: 600px;
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border: 2px solid #34495e;
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+}
+
+.scene-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 45;
+}
+
+.text-content {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 15px 20px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 8px;
+  max-width: 80%;
+  font-size: 18px;
+  line-height: 1.6;
+  z-index: 100;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.text-content.choice-layout {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  transform: none;
+  text-align: left;
+  max-width: 55%;
+}
+
+.scene-image {
+  position: absolute;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.continue-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.continue-button:hover {
+  background: linear-gradient(135deg, #2980b9, #1f618d);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+}
+
+.continue-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.choices-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 200;
+  max-width: 40%;
+}
+
+.choice-button {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+.choice-button:hover {
+  background: linear-gradient(135deg, #c0392b, #a93226);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+.choice-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+@media (max-width: 768px) {
+  .scene {
+    width: 95vw;
+    height: 95vh;
+  }
+
+  .text-content {
+    font-size: 16px;
+    max-width: 90%;
+    bottom: 100px;
+  }
+
+  .text-content.choice-layout {
+    max-width: 100%;
+    bottom: 160px;
+  }
+
+  .choices-container {
+    max-width: 100%;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+  }
+
+  .choice-button {
+    white-space: normal;
+    min-height: 44px;
+  }
+}

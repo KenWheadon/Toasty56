@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Story Config Editor</title>
+    <link rel="stylesheet" href="editor.css" />
+  </head>
+  <body>
+    <div id="editor-container">
+      <!-- Header -->
+      <header class="editor-header">
+        <h1>Story Config Editor</h1>
+        <div class="header-controls">
+          <button id="load-project" class="btn btn-secondary">
+            Load Project
+          </button>
+          <button id="save-project" class="btn btn-success">
+            Save Project
+          </button>
+          <input
+            type="file"
+            id="file-input"
+            accept=".json"
+            style="display: none"
+          />
+          <input
+            type="file"
+            id="asset-file-input"
+            accept="image/*"
+            multiple
+            style="display: none"
+          />
+        </div>
+      </header>
+
+      <!-- Selected Object Panel -->
+      <div class="selected-object-panel" id="selected-object-panel">
+        <div id="object-properties" class="object-properties"></div>
+      </div>
+
+      <!-- Main Editor Area -->
+      <div class="editor-main">
+        <!-- Left Panel: Scene Properties + Assets -->
+        <div class="left-panel">
+          <!-- Scene Properties -->
+          <div class="panel-section">
+            <div class="form-group">
+              <label>Scene ID:</label>
+              <input type="text" id="scene-id" placeholder="Scene ID" />
+            </div>
+            <div class="form-group">
+              <label>Type:</label>
+              <select id="scene-type">
+                <option value="choice">Choice</option>
+                <option value="image">Image</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Background:</label>
+              <select id="scene-background">
+                <option value="">No Background</option>
+              </select>
+            </div>
+            <div class="form-group" id="next-scene-group">
+              <label>Next Scene:</label>
+              <select id="next-scene">
+                <option value="">Select Scene</option>
+                <option value="null">End</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Overlay Properties -->
+          <div class="panel-section">
+            <h3>Overlay</h3>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" id="overlay-enabled" /> Enable Overlay
+              </label>
+            </div>
+            <div id="overlay-controls" class="overlay-controls">
+              <div class="form-group">
+                <label>Color:</label>
+                <input type="color" id="overlay-color" value="#000000" />
+              </div>
+              <div class="slider-group">
+                <label>Opacity:</label>
+                <div class="slider-container">
+                  <input
+                    type="range"
+                    id="overlay-opacity"
+                    min="0"
+                    max="1"
+                    step="0.1"
+                    value="0.5"
+                  />
+                  <span class="slider-value" id="overlay-opacity-value"
+                    >0.5</span
+                  >
+                </div>
+              </div>
+              <div class="slider-group">
+                <label>Z-Index:</label>
+                <div class="slider-container">
+                  <input
+                    type="range"
+                    id="overlay-zindex"
+                    min="1"
+                    max="100"
+                    step="1"
+                    value="45"
+                  />
+                  <span class="slider-value" id="overlay-zindex-value">45</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assets -->
+          <div class="panel-section">
+            <p class="drag-instructions">
+              Drag images directly from the library to the scene to add them
+            </p>
+            <div class="asset-section">
+              <h4>Backgrounds</h4>
+              <div class="asset-drop-zone" id="background-drop-zone">
+                <div class="drop-zone-visual">
+                  <div class="drop-zone-icon">📁</div>
+                  <p>Drop background images here</p>
+                  <p class="drop-zone-sub">or click to select</p>
+                </div>
+                <div id="background-list" class="asset-list"></div>
+              </div>
+            </div>
+            <div class="asset-section">
+              <h4>Objects</h4>
+              <div class="asset-drop-zone" id="object-drop-zone">
+                <div class="drop-zone-visual">
+                  <div class="drop-zone-icon">🖼️</div>
+                  <p>Drop object images here</p>
+                  <p class="drop-zone-sub">or click to select</p>
+                </div>
+                <div id="object-list" class="asset-list"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Panel: Scene Preview -->
+        <div class="center-panel">
+          <div class="scene-preview" id="scene-preview">
+            <div class="preview-scene" id="preview-scene">
+              <div class="drop-zone">Drop objects here or click to place</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel: Content & Choices -->
+        <div class="right-panel">
+          <!-- Scene Content -->
+          <div class="panel-section">
+            <h3>Scene Content</h3>
+            <div class="form-group">
+              <label>Content:</label>
+              <textarea
+                id="scene-content"
+                placeholder="Scene content/text"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Choices -->
+          <div class="panel-section" id="choices-section">
+            <h3>Choices</h3>
+            <button id="add-choice" class="btn btn-small">Add Choice</button>
+            <div id="choices-list" class="choices-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Panel: Scenes -->
+      <div class="bottom-panel">
+        <div class="scene-controls">
+          <button id="add-scene" class="btn btn-small">Add Scene</button>
+          <button id="duplicate-scene" class="btn btn-small">Duplicate</button>
+          <button id="delete-scene" class="btn btn-small btn-danger">
+            Delete
+          </button>
+        </div>
+        <div id="scene-list" class="scene-list-horizontal"></div>
+      </div>
+    </div>
+
+    <!-- Modal for warnings -->
+    <div id="warning-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Warning</h3>
+        <p id="warning-message"></p>
+      </div>
+    </div>
+
+    <script src="editor.js"></script>
+  </body>
+</html>
