@@ -289,7 +289,7 @@ body {
   border-radius: 4px;
   font-size: 12px;
   color: #ecf0f1;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
   text-align: center;
   border: 1px solid #3498db;
 }
@@ -400,6 +400,7 @@ body {
   gap: 4px;
   overflow-x: auto;
   flex: 1;
+  position: relative;
 }
 
 .scene-list-horizontal::-webkit-scrollbar {
@@ -422,7 +423,7 @@ body {
   background: #1a1a1a;
   border: 2px solid #34495e;
   border-radius: 8px;
-  cursor: pointer;
+  cursor: move;
   transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
@@ -430,6 +431,7 @@ body {
   align-items: center;
   padding: 8px;
   text-align: center;
+  user-select: none;
 }
 
 .scene-item:hover {
@@ -440,6 +442,17 @@ body {
 .scene-item.active {
   background: #3498db;
   border-color: #2980b9;
+}
+
+.scene-item.dragging {
+  opacity: 0.5;
+  transform: scale(0.9);
+  z-index: 1000;
+}
+
+.scene-item.drag-over {
+  border-color: #27ae60;
+  background: #1e3a2a;
 }
 
 .scene-item-title {
@@ -456,11 +469,28 @@ body {
   word-wrap: break-word;
 }
 
+/* Drag insertion indicator */
+.scene-insertion-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #27ae60;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 999;
+}
+
+.scene-insertion-indicator.visible {
+  opacity: 1;
+}
+
 /* Asset Drop Zones */
 .asset-drop-zone {
   border: 2px dashed #34495e;
   border-radius: 6px;
-  padding: 0px 8px;
+  padding: 8px;
   margin-bottom: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -481,9 +511,6 @@ body {
   text-align: center;
   padding: 4px;
   border-bottom: 1px solid #34495e;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
 }
 
 .drop-zone-icon {
@@ -502,7 +529,7 @@ body {
 
 /* Asset List */
 .asset-list {
-  max-height: 200px;
+  max-height: 150px;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
@@ -519,7 +546,7 @@ body {
   font-size: 12px;
   position: relative;
   transition: all 0.2s ease;
-  width: 32%;
+  width: 49%;
 }
 
 .asset-item:hover {
@@ -814,10 +841,6 @@ body {
 .panel-section.info-panel {
   display: flex;
   flex-wrap: wrap;
-}
-
-.panel-section.info-panel .form-group {
-  width: 24%;
 }
 
 /* Choices */

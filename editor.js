@@ -12,6 +12,8 @@ class StoryEditor {
     this.imageCache = new Map();
     this.autoSaveInterval = null;
     this.autoSaveStatus = "ready";
+    this.draggedScene = null;
+    this.insertionIndicator = null;
 
     this.initializeEditor();
     this.setupEventListeners();
@@ -462,6 +464,7 @@ class StoryEditor {
     this.project.scenes[sceneId] = newScene;
     this.project.totalScenes = Object.keys(this.project.scenes).length;
     this.refreshSceneList();
+    this.updateSceneDropdowns();
     this.selectScene(sceneId);
   }
 
@@ -477,6 +480,7 @@ class StoryEditor {
     this.project.scenes[sceneId] = duplicatedScene;
     this.project.totalScenes = Object.keys(this.project.scenes).length;
     this.refreshSceneList();
+    this.updateSceneDropdowns();
     this.selectScene(sceneId);
   }
 
@@ -486,11 +490,36 @@ class StoryEditor {
     if (confirm("Are you sure you want to delete this scene?")) {
       delete this.project.scenes[this.currentScene];
       this.project.totalScenes = Object.keys(this.project.scenes).length;
+
+      // Clean up references to deleted scene
+      this.cleanupDeletedSceneReferences(this.currentScene);
+
       this.currentScene = null;
       this.refreshSceneList();
+      this.updateSceneDropdowns();
       this.clearPreview();
       this.updateSceneObjectsList();
     }
+  }
+
+  cleanupDeletedSceneReferences(deletedSceneId) {
+    Object.keys(this.project.scenes).forEach((sceneId) => {
+      const scene = this.project.scenes[sceneId];
+
+      // Clean up nextScene references
+      if (scene.nextScene === deletedSceneId) {
+        scene.nextScene = undefined;
+      }
+
+      // Clean up choice references
+      if (scene.choices) {
+        scene.choices.forEach((choice) => {
+          if (choice.nextScene === deletedSceneId) {
+            choice.nextScene = "";
+          }
+        });
+      }
+    });
   }
 
   getNextSceneId() {
@@ -533,17 +562,234 @@ class StoryEditor {
 
     sceneList.innerHTML = "";
 
-    Object.keys(this.project.scenes).forEach((sceneId) => {
+    // Get ordered scene keys (sorted numerically)
+    const orderedSceneKeys = this.getOrderedSceneKeys();
+
+    orderedSceneKeys.forEach((sceneId, index) => {
       const scene = this.project.scenes[sceneId];
       const sceneItem = document.createElement("div");
       sceneItem.className = "scene-item";
       sceneItem.dataset.sceneId = sceneId;
+      sceneItem.dataset.sceneIndex = index;
+      sceneItem.draggable = true;
       sceneItem.innerHTML = `
         <div class="scene-item-id">${sceneId}</div>
       `;
-      sceneItem.addEventListener("click", () => this.selectScene(sceneId));
+
+      // Add click handler (not drag start)
+      sceneItem.addEventListener("click", (e) => {
+        if (!this.draggedScene) {
+          this.selectScene(sceneId);
+        }
+      });
+
+      // Add drag handlers
+      sceneItem.addEventListener("dragstart", (e) =>
+        this.handleSceneDragStart(e, sceneId, index)
+      );
+      sceneItem.addEventListener("dragend", (e) => this.handleSceneDragEnd(e));
+      sceneItem.addEventListener("dragover", (e) =>
+        this.handleSceneDragOver(e, sceneId, index)
+      );
+      sceneItem.addEventListener("drop", (e) =>
+        this.handleSceneDrop(e, sceneId, index)
+      );
+      sceneItem.addEventListener("dragenter", (e) =>
+        this.handleSceneDragEnter(e)
+      );
+      sceneItem.addEventListener("dragleave", (e) =>
+        this.handleSceneDragLeave(e)
+      );
+
       sceneList.appendChild(sceneItem);
     });
+
+    // Create insertion indicator
+    this.createInsertionIndicator();
+  }
+
+  getOrderedSceneKeys() {
+    return Object.keys(this.project.scenes).sort(
+      (a, b) => parseInt(a) - parseInt(b)
+    );
+  }
+
+  createInsertionIndicator() {
+    const sceneList = document.getElementById("scene-list");
+    if (!this.insertionIndicator) {
+      this.insertionIndicator = document.createElement("div");
+      this.insertionIndicator.className = "scene-insertion-indicator";
+      sceneList.appendChild(this.insertionIndicator);
+    }
+  }
+
+  handleSceneDragStart(e, sceneId, index) {
+    this.draggedScene = { id: sceneId, index: index };
+    e.currentTarget.classList.add("dragging");
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", sceneId);
+
+    // Prevent text selection during drag
+    e.dataTransfer.setDragImage(e.currentTarget, 0, 0);
+  }
+
+  handleSceneDragEnd(e) {
+    e.currentTarget.classList.remove("dragging");
+    this.draggedScene = null;
+    this.hideInsertionIndicator();
+
+    // Remove drag-over class from all items
+    document.querySelectorAll(".scene-item").forEach((item) => {
+      item.classList.remove("drag-over");
+    });
+  }
+
+  handleSceneDragOver(e, sceneId, index) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+
+    if (!this.draggedScene || this.draggedScene.id === sceneId) {
+      return;
+    }
+
+    // Calculate drop position
+    const rect = e.currentTarget.getBoundingClientRect();
+    const midpoint = rect.left + rect.width / 2;
+    const dropPosition = e.clientX < midpoint ? "before" : "after";
+
+    this.showInsertionIndicator(e.currentTarget, dropPosition);
+  }
+
+  handleSceneDragEnter(e) {
+    e.preventDefault();
+    if (this.draggedScene) {
+      e.currentTarget.classList.add("drag-over");
+    }
+  }
+
+  handleSceneDragLeave(e) {
+    e.currentTarget.classList.remove("drag-over");
+  }
+
+  handleSceneDrop(e, targetSceneId, targetIndex) {
+    e.preventDefault();
+
+    if (!this.draggedScene || this.draggedScene.id === targetSceneId) {
+      return;
+    }
+
+    // Calculate drop position
+    const rect = e.currentTarget.getBoundingClientRect();
+    const midpoint = rect.left + rect.width / 2;
+    const dropPosition = e.clientX < midpoint ? "before" : "after";
+
+    let newIndex = targetIndex;
+    if (dropPosition === "after") {
+      newIndex = targetIndex + 1;
+    }
+
+    // Adjust for dragging item removal
+    if (this.draggedScene.index < newIndex) {
+      newIndex--;
+    }
+
+    this.reorderScene(this.draggedScene.id, newIndex);
+    this.hideInsertionIndicator();
+  }
+
+  showInsertionIndicator(targetElement, position) {
+    if (!this.insertionIndicator) return;
+
+    const rect = targetElement.getBoundingClientRect();
+    const containerRect = document
+      .getElementById("scene-list")
+      .getBoundingClientRect();
+
+    let left;
+    if (position === "before") {
+      left = rect.left - containerRect.left - 2;
+    } else {
+      left = rect.right - containerRect.left + 2;
+    }
+
+    this.insertionIndicator.style.left = `${left}px`;
+    this.insertionIndicator.classList.add("visible");
+  }
+
+  hideInsertionIndicator() {
+    if (this.insertionIndicator) {
+      this.insertionIndicator.classList.remove("visible");
+    }
+  }
+
+  reorderScene(sceneId, newIndex) {
+    const orderedSceneKeys = this.getOrderedSceneKeys();
+    const currentIndex = orderedSceneKeys.indexOf(sceneId);
+
+    if (currentIndex === -1 || currentIndex === newIndex) {
+      return;
+    }
+
+    // Create new ordered array
+    const newOrderedScenes = [...orderedSceneKeys];
+    newOrderedScenes.splice(currentIndex, 1);
+    newOrderedScenes.splice(newIndex, 0, sceneId);
+
+    // Create ID mapping for renumbering
+    const idMapping = {};
+    newOrderedScenes.forEach((oldId, index) => {
+      const newId = (index + 1).toString();
+      idMapping[oldId] = newId;
+    });
+
+    // Apply the renumbering
+    this.renumberScenes(idMapping);
+
+    // Update current scene selection
+    if (this.currentScene) {
+      this.currentScene = idMapping[this.currentScene];
+    }
+
+    // Refresh UI
+    this.refreshSceneList();
+    this.updateSceneDropdowns();
+    this.updateActiveSceneInList();
+    this.updateScenePropertiesDisplay();
+  }
+
+  renumberScenes(idMapping) {
+    const newScenes = {};
+    const oldScenes = { ...this.project.scenes };
+
+    // First pass: Create new scene objects with updated IDs
+    Object.keys(oldScenes).forEach((oldId) => {
+      const newId = idMapping[oldId];
+      const scene = { ...oldScenes[oldId] };
+      scene.id = `scene_${newId}`;
+      newScenes[newId] = scene;
+    });
+
+    // Second pass: Update all references
+    Object.keys(newScenes).forEach((sceneId) => {
+      const scene = newScenes[sceneId];
+
+      // Update nextScene references
+      if (scene.nextScene && idMapping[scene.nextScene]) {
+        scene.nextScene = idMapping[scene.nextScene];
+      }
+
+      // Update choice references
+      if (scene.choices) {
+        scene.choices.forEach((choice) => {
+          if (choice.nextScene && idMapping[choice.nextScene]) {
+            choice.nextScene = idMapping[choice.nextScene];
+          }
+        });
+      }
+    });
+
+    // Replace the scenes object
+    this.project.scenes = newScenes;
   }
 
   refreshAssetLists() {
@@ -710,15 +956,17 @@ class StoryEditor {
       bgSelect.appendChild(option);
     });
 
-    // Update next scene dropdown
+    // Update next scene dropdown with ordered scenes
     const nextSceneSelect = document.getElementById("next-scene");
     nextSceneSelect.innerHTML =
       '<option value="">Select Scene</option><option value="null">End</option>';
-    Object.keys(this.project.scenes).forEach((sceneId) => {
+
+    const orderedSceneKeys = this.getOrderedSceneKeys();
+    orderedSceneKeys.forEach((sceneId) => {
       const scene = this.project.scenes[sceneId];
       const option = document.createElement("option");
       option.value = sceneId;
-      option.textContent = `${sceneId}`;
+      option.textContent = `Scene ${sceneId}`;
       nextSceneSelect.appendChild(option);
     });
 
@@ -728,15 +976,18 @@ class StoryEditor {
 
   updateChoiceDropdowns() {
     const choiceSelects = document.querySelectorAll(".choice-next-scene");
+    const orderedSceneKeys = this.getOrderedSceneKeys();
+
     choiceSelects.forEach((select) => {
       const currentValue = select.value;
       select.innerHTML =
         '<option value="">Select Scene</option><option value="null">End</option>';
-      Object.keys(this.project.scenes).forEach((sceneId) => {
+
+      orderedSceneKeys.forEach((sceneId) => {
         const scene = this.project.scenes[sceneId];
         const option = document.createElement("option");
         option.value = sceneId;
-        option.textContent = `${sceneId}`;
+        option.textContent = `Scene ${sceneId}`;
         if (sceneId === currentValue) option.selected = true;
         select.appendChild(option);
       });
@@ -757,10 +1008,16 @@ class StoryEditor {
         return;
       }
 
-      // Update scene ID
-      this.project.scenes[newSceneId] = scene;
-      delete this.project.scenes[this.currentScene];
+      // Create mapping for the ID change
+      const idMapping = {};
+      Object.keys(this.project.scenes).forEach((id) => {
+        idMapping[id] = id === this.currentScene ? newSceneId : id;
+      });
+
+      // Apply the renumbering
+      this.renumberScenes(idMapping);
       this.currentScene = newSceneId;
+
       this.refreshSceneList();
       this.updateSceneDropdowns();
     }
