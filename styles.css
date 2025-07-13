@@ -35,7 +35,8 @@ body {
   backdrop-filter: blur(2px);
 }
 
-.scene.initial-screen {
+.scene.initial-screen,
+.scene.loading-screen {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -43,22 +44,59 @@ body {
   text-align: center;
 }
 
-.scene.initial-screen .text-content {
+.scene.initial-screen .text-content,
+.scene.loading-screen .text-content {
   position: static;
   transform: none;
   margin-bottom: 30px;
+  max-width: 90%;
 }
 
-.scene.initial-screen h2 {
+.scene.initial-screen h2,
+.scene.loading-screen h2 {
   font-size: 2.5em;
   margin-bottom: 20px;
   color: #3498db;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.scene.initial-screen p {
+.scene.initial-screen p,
+.scene.loading-screen p {
   font-size: 1.2em;
   opacity: 0.9;
+}
+
+/* Loading Screen Styles */
+.progress-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3498db, #2980b9);
+  border-radius: 10px;
+  width: 0%;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+}
+
+.progress-text {
+  font-size: 1.1em;
+  color: #3498db;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .scene-overlay {
@@ -132,7 +170,8 @@ body {
   box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
 }
 
-.scene.initial-screen .continue-button {
+.scene.initial-screen .continue-button,
+.scene.loading-screen .continue-button {
   position: static;
   transform: none;
   font-size: 18px;
@@ -183,6 +222,23 @@ body {
   animation: subtle-glow 0.3s ease-in-out;
 }
 
+/* Loading animation for progress bar */
+@keyframes loading-pulse {
+  0% {
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+  }
+}
+
+.progress-fill {
+  animation: loading-pulse 2s infinite;
+}
+
 @keyframes subtle-glow {
   0% {
     filter: none;
@@ -201,12 +257,18 @@ body {
     height: 95vh;
   }
 
-  .scene.initial-screen h2 {
+  .scene.initial-screen h2,
+  .scene.loading-screen h2 {
     font-size: 2em;
   }
 
-  .scene.initial-screen p {
+  .scene.initial-screen p,
+  .scene.loading-screen p {
     font-size: 1em;
+  }
+
+  .progress-container {
+    max-width: 300px;
   }
 
   .text-content {

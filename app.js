@@ -1,3 +1,89 @@
+class ImagePreloader {
+  constructor() {
+    this.imageCache = new Map();
+    this.preloadPromises = new Map();
+    this.loadedCount = 0;
+    this.totalCount = 0;
+    this.onProgressCallback = null;
+  }
+
+  setProgressCallback(callback) {
+    this.onProgressCallback = callback;
+  }
+
+  async preloadImage(src) {
+    // Return cached image if already loaded
+    if (this.imageCache.has(src)) {
+      return this.imageCache.get(src);
+    }
+
+    // Return existing promise if currently loading
+    if (this.preloadPromises.has(src)) {
+      return this.preloadPromises.get(src);
+    }
+
+    const promise = new Promise((resolve, reject) => {
+      const img = new Image();
+
+      img.onload = () => {
+        this.imageCache.set(src, img);
+        this.preloadPromises.delete(src);
+        this.loadedCount++;
+
+        if (this.onProgressCallback) {
+          this.onProgressCallback(this.loadedCount, this.totalCount);
+        }
+
+        resolve(img);
+      };
+
+      img.onerror = () => {
+        this.preloadPromises.delete(src);
+        console.warn(`Failed to preload image: ${src}`);
+        this.loadedCount++;
+
+        if (this.onProgressCallback) {
+          this.onProgressCallback(this.loadedCount, this.totalCount);
+        }
+
+        // Don't reject - just resolve with null to prevent breaking the game
+        resolve(null);
+      };
+
+      img.src = src;
+    });
+
+    this.preloadPromises.set(src, promise);
+    return promise;
+  }
+
+  async preloadAllImages(imagePaths) {
+    this.totalCount = imagePaths.length;
+    this.loadedCount = 0;
+
+    const promises = imagePaths.map((src) => this.preloadImage(src));
+    await Promise.all(promises);
+
+    console.log(`Preloaded ${this.imageCache.size} images`);
+    return this.imageCache;
+  }
+
+  getImage(src) {
+    return this.imageCache.get(src);
+  }
+
+  isImageLoaded(src) {
+    return this.imageCache.has(src);
+  }
+
+  clear() {
+    this.imageCache.clear();
+    this.preloadPromises.clear();
+    this.loadedCount = 0;
+    this.totalCount = 0;
+  }
+}
+
 class AudioManager {
   constructor() {
     this.audioCache = new Map();
@@ -216,7 +302,9 @@ class ScenarioGenerator {
     this.elementPool = new ElementPool();
     this.animations = new Map();
     this.audioManager = new AudioManager();
+    this.imagePreloader = new ImagePreloader();
     this.isInitialized = false;
+    this.isLoading = false;
 
     this.setupEventDelegation();
     this.initializeCSS();
@@ -248,13 +336,109 @@ class ScenarioGenerator {
     this.gameContainer.appendChild(initialScreen);
   }
 
-  async startGame() {
-    if (!this.isInitialized) {
-      await this.loadStory();
-      this.audioManager.startBackgroundMusic();
-      this.isInitialized = true;
+  showLoadingScreen() {
+    const loadingScreen = this.elementPool.getDiv();
+    loadingScreen.className = "scene loading-screen";
+    loadingScreen.innerHTML = `
+      <div class="text-content">
+        <h2>Loading Adventure...</h2>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p class="progress-text" id="progress-text">0%</p>
+        </div>
+      </div>
+    `;
+
+    this.gameContainer.innerHTML = "";
+    this.gameContainer.appendChild(loadingScreen);
+  }
+
+  updateLoadingProgress(loaded, total) {
+    const progressFill = document.getElementById("progress-fill");
+    const progressText = document.getElementById("progress-text");
+
+    if (progressFill && progressText) {
+      const percentage = Math.round((loaded / total) * 100);
+      progressFill.style.width = `${percentage}%`;
+      progressText.textContent = `${percentage}%`;
     }
-    this.renderScene();
+  }
+
+  async startGame() {
+    if (this.isLoading) return;
+
+    this.isLoading = true;
+    this.showLoadingScreen();
+
+    try {
+      if (!this.isInitialized) {
+        await this.loadStory();
+        await this.preloadAllImages();
+        this.audioManager.startBackgroundMusic();
+        this.isInitialized = true;
+      }
+
+      this.isLoading = false;
+      this.renderScene();
+    } catch (error) {
+      console.error("Failed to start game:", error);
+      this.isLoading = false;
+      this.showErrorScreen();
+    }
+  }
+
+  showErrorScreen() {
+    const errorScreen = this.elementPool.getDiv();
+    errorScreen.className = "scene initial-screen";
+    errorScreen.innerHTML = `
+      <div class="text-content">
+        <h2>Error Loading Game</h2>
+        <p>There was a problem loading the game. Please try again.</p>
+      </div>
+    `;
+
+    const retryButton = this.elementPool.getButton();
+    retryButton.className = "continue-button";
+    retryButton.textContent = "Retry";
+    retryButton.addEventListener("click", () => this.startGame());
+
+    errorScreen.appendChild(retryButton);
+    this.gameContainer.innerHTML = "";
+    this.gameContainer.appendChild(errorScreen);
+  }
+
+  async preloadAllImages() {
+    if (!this.scenario) return;
+
+    const imagePaths = new Set();
+
+    // Collect all image paths from the scenario
+    Object.values(this.scenario.scenes).forEach((scene) => {
+      // Add background images
+      if (scene.background) {
+        imagePaths.add(scene.background);
+      }
+
+      // Add scene images
+      if (scene.images) {
+        scene.images.forEach((imageData) => {
+          imagePaths.add(imageData.src);
+        });
+      }
+    });
+
+    // Set up progress callback
+    this.imagePreloader.setProgressCallback((loaded, total) => {
+      this.updateLoadingProgress(loaded, total);
+    });
+
+    // Preload all images
+    const imagePathsArray = Array.from(imagePaths);
+    await this.imagePreloader.preloadAllImages(imagePathsArray);
+
+    console.log(`Successfully preloaded ${imagePathsArray.length} images`);
   }
 
   setupEventDelegation() {
@@ -390,7 +574,15 @@ class ScenarioGenerator {
 
   createImage(imageData) {
     const img = this.elementPool.getImage();
-    img.src = imageData.src;
+
+    // Use preloaded image if available
+    const preloadedImage = this.imagePreloader.getImage(imageData.src);
+    if (preloadedImage) {
+      img.src = preloadedImage.src;
+    } else {
+      img.src = imageData.src;
+      console.warn(`Image not preloaded: ${imageData.src}`);
+    }
 
     const scale = imageData.scale || 1.0;
     const rotation = imageData.rotation || 0;
@@ -610,15 +802,21 @@ class ScenarioGenerator {
     return this.audioManager;
   }
 
+  getImagePreloader() {
+    return this.imagePreloader;
+  }
+
   destroy() {
     this.animations.forEach((animation) => animation.cancel());
     this.animations.clear();
     this.sceneCache.clear();
+    this.imagePreloader.clear();
     this.gameContainer.innerHTML = "";
     this.audioManager.destroy();
     this.scenario = null;
     this.currentScene = null;
     this.isInitialized = false;
+    this.isLoading = false;
   }
 }
 
