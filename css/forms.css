@@ -1,8 +1,4 @@
 /* Form Elements */
-.form-group {
-  margin-bottom: 6px;
-}
-
 .form-group label {
   display: block;
   margin-bottom: 4px;
@@ -141,6 +137,10 @@
 .panel-section.info-panel {
   display: flex;
   flex-wrap: wrap;
+}
+
+.panel-section.info-panel .form-group {
+  width: 24%;
 }
 
 /* Choices */

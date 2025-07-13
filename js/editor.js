@@ -451,6 +451,19 @@ class StoryEditor {
   }
 
   /**
+   * Update scene objects list
+   */
+  updateSceneObjectsList() {
+    const project = this.projectManager.getProject();
+    const selectedObject = this.previewManager.getSelectedObject();
+    this.uiManager.updateSceneObjectsList(
+      project,
+      this.currentScene,
+      selectedObject
+    );
+  }
+
+  /**
    * Update selected object from UI controls
    */
   updateSelectedObject() {

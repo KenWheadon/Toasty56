@@ -1,11 +1,11 @@
 /* Drag Instructions */
 .drag-instructions {
   background: #34495e;
-  padding: 8px;
+  padding: 3px;
   border-radius: 4px;
   font-size: 12px;
   color: #ecf0f1;
-  margin-bottom: 12px;
+  margin-bottom: 2px;
   text-align: center;
   border: 1px solid #3498db;
 }
@@ -14,8 +14,7 @@
 .asset-drop-zone {
   border: 2px dashed #34495e;
   border-radius: 6px;
-  padding: 8px;
-  margin-bottom: 8px;
+  padding: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
   background: #1a1a1a;
@@ -33,7 +32,7 @@
 
 .drop-zone-visual {
   text-align: center;
-  padding: 4px;
+  padding: 0px 0px 5px 0px;
   border-bottom: 1px solid #34495e;
 }
 
@@ -53,24 +52,24 @@
 
 /* Asset List */
 .asset-list {
-  max-height: 150px;
+  max-height: 245px;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 0.3%;
 }
 
 .asset-item {
-  padding: 8px;
+  padding: 6px;
   background: #34495e;
-  border: 1px solid #2c3e50;
-  border-radius: 4px;
-  margin-bottom: 4px;
+  border: 0.5px solid #2c3e50;
+  border-radius: 2px;
+  margin-bottom: 2px;
   cursor: grab;
   font-size: 12px;
   position: relative;
   transition: all 0.2s ease;
-  width: 49%;
+  width: 32.75%;
 }
 
 .asset-item:hover {
@@ -107,5 +106,5 @@
 
 /* Asset Section */
 .asset-section {
-  margin-bottom: 12px;
+  margin-bottom: 4px;
 }

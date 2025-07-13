@@ -12,8 +12,8 @@
 .preview-scene {
   width: 90%;
   height: 90%;
-  max-width: 920px;
-  max-height: 690px;
+  max-width: 960px;
+  max-height: 720px;
   position: relative;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
