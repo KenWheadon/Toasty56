@@ -25,14 +25,40 @@ body {
 .scene {
   width: 90vw;
   height: 90vh;
-  max-width: 800px;
-  max-height: 600px;
+  max-width: 880px;
+  max-height: 660px;
   position: relative;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   border: 2px solid #34495e;
   overflow: hidden;
   backdrop-filter: blur(2px);
+}
+
+.scene.initial-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.scene.initial-screen .text-content {
+  position: static;
+  transform: none;
+  margin-bottom: 30px;
+}
+
+.scene.initial-screen h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #3498db;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.scene.initial-screen p {
+  font-size: 1.2em;
+  opacity: 0.9;
 }
 
 .scene-overlay {
@@ -106,6 +132,13 @@ body {
   box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
 }
 
+.scene.initial-screen .continue-button {
+  position: static;
+  transform: none;
+  font-size: 18px;
+  padding: 15px 30px;
+}
+
 .choices-container {
   position: absolute;
   bottom: 20px;
@@ -144,10 +177,36 @@ body {
   box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
 }
 
+/* Audio-related visual feedback */
+.continue-button:hover,
+.choice-button:hover {
+  animation: subtle-glow 0.3s ease-in-out;
+}
+
+@keyframes subtle-glow {
+  0% {
+    filter: none;
+  }
+  50% {
+    filter: brightness(1.1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+  }
+  100% {
+    filter: none;
+  }
+}
+
 @media (max-width: 768px) {
   .scene {
     width: 95vw;
     height: 95vh;
+  }
+
+  .scene.initial-screen h2 {
+    font-size: 2em;
+  }
+
+  .scene.initial-screen p {
+    font-size: 1em;
   }
 
   .text-content {

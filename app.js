@@ -1,3 +1,160 @@
+class AudioManager {
+  constructor() {
+    this.audioCache = new Map();
+    this.backgroundMusic = null;
+    this.isBackgroundPlaying = false;
+    this.isMuted = false;
+    this.effectVolume = CONFIG.AUDIO.EFFECT_VOLUME;
+    this.backgroundVolume = CONFIG.AUDIO.BACKGROUND_VOLUME;
+
+    this.initializeAudio();
+  }
+
+  async initializeAudio() {
+    try {
+      // Preload audio files
+      await this.preloadAudio(CONFIG.AUDIO.BACKGROUND_MUSIC, "background");
+      await this.preloadAudio(CONFIG.AUDIO.BUTTON_HOVER, "hover");
+      await this.preloadAudio(CONFIG.AUDIO.BUTTON_CLICK, "click");
+
+      console.log("Audio system initialized successfully");
+    } catch (error) {
+      console.warn("Audio initialization failed:", error);
+    }
+  }
+
+  async preloadAudio(src, key) {
+    return new Promise((resolve, reject) => {
+      const audio = new Audio(src);
+      audio.preload = "auto";
+
+      audio.addEventListener("canplaythrough", () => {
+        this.audioCache.set(key, audio);
+        resolve(audio);
+      });
+
+      audio.addEventListener("error", (e) => {
+        console.warn(`Failed to load audio: ${src}`, e);
+        resolve(null); // Don't reject to prevent breaking the game
+      });
+
+      // Set initial volumes
+      if (key === "background") {
+        audio.volume = this.backgroundVolume;
+        audio.loop = true;
+        this.backgroundMusic = audio;
+      } else {
+        audio.volume = this.effectVolume;
+      }
+    });
+  }
+
+  playSound(key) {
+    if (this.isMuted) return;
+
+    const audio = this.audioCache.get(key);
+    if (!audio) {
+      console.warn(`Audio not found for key: ${key}`);
+      return;
+    }
+
+    // Clone the audio for sound effects to allow overlapping playback
+    if (key !== "background") {
+      const clone = audio.cloneNode();
+      clone.volume = this.effectVolume;
+      clone.play().catch((e) => console.warn("Audio play failed:", e));
+    } else {
+      audio
+        .play()
+        .catch((e) => console.warn("Background music play failed:", e));
+    }
+  }
+
+  startBackgroundMusic() {
+    if (this.isBackgroundPlaying || this.isMuted || !this.backgroundMusic)
+      return;
+
+    this.backgroundMusic.currentTime = 0;
+    this.backgroundMusic
+      .play()
+      .then(() => {
+        this.isBackgroundPlaying = true;
+        console.log("Background music started");
+      })
+      .catch((e) => {
+        console.warn("Background music failed to start:", e);
+      });
+  }
+
+  stopBackgroundMusic() {
+    if (!this.backgroundMusic || !this.isBackgroundPlaying) return;
+
+    this.backgroundMusic.pause();
+    this.backgroundMusic.currentTime = 0;
+    this.isBackgroundPlaying = false;
+  }
+
+  fadeBackgroundMusic(fadeIn = true) {
+    if (!this.backgroundMusic) return;
+
+    const startVolume = fadeIn ? 0 : this.backgroundVolume;
+    const endVolume = fadeIn ? this.backgroundVolume : 0;
+    const duration = CONFIG.AUDIO.FADE_DURATION;
+    const steps = 50;
+    const stepTime = duration / steps;
+    const volumeStep = (endVolume - startVolume) / steps;
+
+    let currentStep = 0;
+    this.backgroundMusic.volume = startVolume;
+
+    const fadeInterval = setInterval(() => {
+      currentStep++;
+      const newVolume = startVolume + volumeStep * currentStep;
+      this.backgroundMusic.volume = Math.max(0, Math.min(1, newVolume));
+
+      if (currentStep >= steps) {
+        clearInterval(fadeInterval);
+        if (!fadeIn) {
+          this.stopBackgroundMusic();
+        }
+      }
+    }, stepTime);
+  }
+
+  setMuted(muted) {
+    this.isMuted = muted;
+    if (muted) {
+      this.stopBackgroundMusic();
+    } else {
+      this.startBackgroundMusic();
+    }
+  }
+
+  setEffectVolume(volume) {
+    this.effectVolume = Math.max(0, Math.min(1, volume));
+    // Update cached sound effects
+    for (const [key, audio] of this.audioCache) {
+      if (key !== "background") {
+        audio.volume = this.effectVolume;
+      }
+    }
+  }
+
+  setBackgroundVolume(volume) {
+    this.backgroundVolume = Math.max(0, Math.min(1, volume));
+    if (this.backgroundMusic) {
+      this.backgroundMusic.volume = this.backgroundVolume;
+    }
+  }
+
+  destroy() {
+    this.stopBackgroundMusic();
+    this.audioCache.clear();
+    this.backgroundMusic = null;
+    this.isBackgroundPlaying = false;
+  }
+}
+
 class ElementPool {
   constructor() {
     this.images = [];
@@ -58,27 +215,94 @@ class ScenarioGenerator {
     this.sceneCache = new Map();
     this.elementPool = new ElementPool();
     this.animations = new Map();
+    this.audioManager = new AudioManager();
+    this.isInitialized = false;
 
     this.setupEventDelegation();
     this.initializeCSS();
-    this.loadStory();
+    this.initializeGame();
+  }
+
+  async initializeGame() {
+    // Wait for user interaction before starting audio (browsers require this)
+    this.showInitialScreen();
+  }
+
+  showInitialScreen() {
+    const initialScreen = this.elementPool.getDiv();
+    initialScreen.className = "scene initial-screen";
+    initialScreen.innerHTML = `
+      <div class="text-content">
+        <h2>Welcome to Scenario Generator</h2>
+        <p>Click to start your adventure!</p>
+      </div>
+    `;
+
+    const startButton = this.elementPool.getButton();
+    startButton.className = "continue-button";
+    startButton.textContent = "Start Game";
+    startButton.addEventListener("click", () => this.startGame());
+
+    initialScreen.appendChild(startButton);
+    this.gameContainer.innerHTML = "";
+    this.gameContainer.appendChild(initialScreen);
+  }
+
+  async startGame() {
+    if (!this.isInitialized) {
+      await this.loadStory();
+      this.audioManager.startBackgroundMusic();
+      this.isInitialized = true;
+    }
+    this.renderScene();
   }
 
   setupEventDelegation() {
     this.gameContainer.addEventListener("click", (e) => {
       if (e.target.classList.contains("continue-button")) {
+        this.audioManager.playSound("click");
         this.handleContinue(e);
       } else if (e.target.classList.contains("choice-button")) {
+        this.audioManager.playSound("click");
         this.handleChoice(e);
       }
     });
+
+    // Add hover sound effects
+    this.gameContainer.addEventListener(
+      "mouseenter",
+      (e) => {
+        if (
+          e.target.classList.contains("continue-button") ||
+          e.target.classList.contains("choice-button")
+        ) {
+          this.audioManager.playSound("hover");
+        }
+      },
+      true
+    );
   }
 
   async loadStory() {
-    const response = await fetch(CONFIG.STORY_CONFIG_PATH);
-    this.scenario = await response.json();
-    this.currentScene = this.scenario.currentScene;
-    this.renderScene();
+    try {
+      const response = await fetch(CONFIG.STORY_CONFIG_PATH);
+      this.scenario = await response.json();
+      this.currentScene = this.scenario.currentScene;
+    } catch (error) {
+      console.error("Failed to load story:", error);
+      // Create a default scenario if loading fails
+      this.scenario = {
+        currentScene: "default",
+        scenes: {
+          default: {
+            content:
+              "Welcome to the Scenario Generator! This is a default scene.",
+            nextScene: null,
+          },
+        },
+      };
+      this.currentScene = "default";
+    }
   }
 
   initializeCSS() {
@@ -382,13 +606,19 @@ class ScenarioGenerator {
     return this.scenario?.metadata || null;
   }
 
+  getAudioManager() {
+    return this.audioManager;
+  }
+
   destroy() {
     this.animations.forEach((animation) => animation.cancel());
     this.animations.clear();
     this.sceneCache.clear();
     this.gameContainer.innerHTML = "";
+    this.audioManager.destroy();
     this.scenario = null;
     this.currentScene = null;
+    this.isInitialized = false;
   }
 }
 

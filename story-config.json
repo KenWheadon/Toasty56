@@ -1,736 +1,1000 @@
 {
   "metadata": {
-    "title": "Toasty Space Quest: A Bread-Venture",
+    "title": "Toasty Space Quest: Sir Toasterton's Tale",
     "author": "Grok",
-    "description": "A wacky first-person adventure where you, a sentient slice of toast, pilot the Toasty 56 through a culinary galaxy, facing buttery asteroids, bagel pirates, and a Waffle Overlord.",
+    "description": "A whimsical first-person adventure where you, Sir Toasterton IV, a sentient slice of toast, pilot the Toasty 56 through a culinary galaxy, facing butter asteroids, butter pirates, and personal regrets.",
     "version": "1.0.0",
     "tags": ["space", "comedy", "adventure", "toast", "first person"]
   },
-  "totalScenes": 15,
+  "totalScenes": 29,
   "currentScene": 1,
   "scenes": {
     "1": {
-      "id": "launch_pad",
-      "title": "The Great Toast-Off",
-      "type": "choice",
-      "background": "images/bg-breadplanet.png",
+      "id": "1",
+      "type": "image",
+      "background": "images/bg-empty-space.png",
       "overlay": {
         "color": "#000000",
         "opacity": 0.2,
-        "zIndex": 45
+        "zIndex": 1
+      },
+      "images": [
+        {
+          "src": "images/toast-casual.png",
+          "x": 10.457516339869281,
+          "y": 80.93041583607621,
+          "scale": 0.5,
+          "rotation": 16,
+          "zIndex": 1,
+          "opacity": 1
+        },
+        {
+          "src": "images/logo.png",
+          "x": 49.34640522875817,
+          "y": 40.579945296926425,
+          "scale": 0.6,
+          "rotation": 0,
+          "zIndex": 2,
+          "opacity": 1
+        }
+      ],
+      "content": "Choose Your Own Adventure\n",
+      "nextScene": "2"
+    },
+    "2": {
+      "id": "scene_2",
+      "type": "image",
+      "background": "images/bg-toasttown.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.2,
+        "zIndex": 1
+      },
+      "images": [
+        {
+          "src": "images/toast-casual.png",
+          "x": 15.032679738562091,
+          "y": 77.37008020026887,
+          "scale": 0.33999999999999997,
+          "rotation": 0,
+          "zIndex": 1,
+          "opacity": 1
+        }
+      ],
+      "content": "You are Sir Toasterton IV, from a long line of adventurers.",
+      "nextScene": "3"
+    },
+    "3": {
+      "id": "scene_3",
+      "type": "choice",
+      "background": "images/bg-toasttown.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.2,
+        "zIndex": 1
       },
       "images": [
         {
           "src": "images/toast.png",
-          "x": 50,
-          "y": 60,
-          "scale": 1.0,
+          "x": 20.37037037037037,
+          "y": 66.83742061100551,
+          "scale": 0.5,
           "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
+          "zIndex": 50,
+          "opacity": 1,
           "effect": "fade_in"
         },
         {
-          "src": "images/stars-sparkle.png",
-          "x": 50,
-          "y": 20,
-          "scale": 0.8,
+          "src": "images/toast-spaceship-small.png",
+          "x": 89.97821350762527,
+          "y": 20.701404663668814,
+          "scale": 0.4,
           "rotation": 0,
-          "zIndex": 5,
-          "opacity": 0.9,
-          "effect": "fade_in"
+          "zIndex": 2,
+          "opacity": 1
         }
       ],
-      "content": "I’m a slice of toast in the Toasty 56, blasting off from Bread Planet! Pick a launch anthem to set the vibe!",
+      "content": "Your parents gifted you the Toasty 56 for your 31st birthday. What do you do?",
       "choices": [
         {
-          "text": "Crumbs of Glory",
-          "nextScene": 3
+          "text": "Go on adventure",
+          "nextScene": "28"
         },
         {
-          "text": "Toastbusters",
-          "nextScene": 3
-        }
-      ]
-    },
-    "2": {
-      "id": "buttery_asteroids",
-      "title": "Buttery Asteroid Storm",
-      "type": "choice",
-      "background": "images/bg-asteroidfield.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.2,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/butter-asteroid.png",
-          "x": 30,
-          "y": 40,
-          "scale": 1.2,
-          "rotation": -15,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "slide_to"
-        },
-        {
-          "src": "images/toast-spaceship-large.png",
-          "x": 60,
-          "y": 60,
-          "scale": 1.2,
-          "rotation": 5,
-          "zIndex": 15,
-          "opacity": 1.0,
-          "effect": "wiggle"
-        }
-      ],
-      "content": "Greasy butter asteroids threaten to smear the Toasty 56! They’re slippery and smell like trouble. What do I do?",
-      "choices": [
-        {
-          "text": "Swerve through with fancy flying",
-          "nextScene": 4
-        },
-        {
-          "text": "Fire the Jam Blaster",
-          "nextScene": 9
-        },
-        {
-          "text": "Hide in a cosmic toaster oven",
-          "nextScene": 13
-        }
-      ]
-    },
-    "3": {
-      "id": "crew_banter",
-      "title": "Crew Banter",
-      "type": "choice",
-      "background": "images/bg-spaceship.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.2,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/muffin-crew.png",
-          "x": 30,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": -5,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "fade_in"
-        },
-        {
-          "src": "images/jellybean-crew.png",
-          "x": 40,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "fade_in"
-        },
-        {
-          "src": "images/eclair-crew.png",
-          "x": 50,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": 5,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "fade_in"
-        },
-        {
-          "src": "images/cross-crew.png",
-          "x": 60,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "fade_in"
-        }
-      ],
-      "content": "Aboard the Toasty 56, my crew—a muffin, jellybean, eclair, and croissant—argues over jam flavors. The eclair insists on raspberry; the croissant wants none! Pick a side!",
-      "choices": [
-        {
-          "text": "Back the eclair’s raspberry jam",
-          "nextScene": 2
-        },
-        {
-          "text": "Support the croissant’s no-jam stance",
-          "nextScene": 2
+          "text": "Stay on Breadtopia",
+          "nextScene": "4"
         }
       ]
     },
     "4": {
-      "id": "alien_bakery",
-      "title": "Alien Bakery",
-      "type": "choice",
-      "background": "images/bg-alienbakery.png",
-      "overlay": {
-        "color": "#FFD700",
-        "opacity": 0.2,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/alien-baker.png",
-          "x": 60,
-          "y": 55,
-          "scale": 1.1,
-          "rotation": 5,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "scale_to"
-        },
-        {
-          "src": "images/toast.png",
-          "x": 30,
-          "y": 60,
-          "scale": 0.9,
-          "rotation": -5,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "fade_in"
-        }
-      ],
-      "content": "I dodge the asteroids and land at an alien bakery. Gl.activate glorp, a tentacle chef, offers a Toasty 56 upgrade. What do I pick?",
-      "choices": [
-        {
-          "text": "Yeast Booster (speed)",
-          "nextScene": 7
-        },
-        {
-          "text": "Butter Shield (defense)",
-          "nextScene": 7
-        },
-        {
-          "text": "No upgrade",
-          "nextScene": 7
-        }
-      ]
-    },
-    "5": {
-      "id": "victory",
-      "title": "Crunchiest Cosmic Hero",
+      "id": "scene_4",
       "type": "image",
-      "background": "images/bg-victory.png",
+      "background": "images/bg-toast-town-night.png",
       "overlay": {
-        "color": "#800080",
+        "color": "#000000",
         "opacity": 0.15,
         "zIndex": 45
       },
       "images": [
         {
-          "src": "images/toast-spaceship.png",
-          "x": 50,
-          "y": 60,
-          "scale": 1.0,
+          "src": "images/toast-casual-sad.png",
+          "x": 16.666666666666664,
+          "y": 71.88122942839924,
+          "scale": 0.44999999999999996,
           "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
+          "zIndex": 50,
+          "opacity": 1,
           "effect": "fade_in"
-        },
-        {
-          "src": "images/crumb-trophy.png",
-          "x": 50,
-          "y": 20,
-          "scale": 0.9,
-          "rotation": 0,
-          "zIndex": 15,
-          "opacity": 1.0,
-          "effect": "glow"
         }
       ],
-      "content": "I rally my Toasty 56 crew and blast the Waffle Overlord with crumbs! I’m crowned the Crunchiest Cosmic Hero, and the galaxy toasts my name!",
-      "nextScene": null
+      "content": "You put it in storage and continue life. But the spark is missing - you continue this for 3 years, until…",
+      "nextScene": "5"
     },
-    "6": {
-      "id": "crew_morale",
-      "title": "Crew Morale Boost",
+    "5": {
+      "id": "scene_5",
       "type": "choice",
-      "background": "images/bg-spaceship.png",
+      "background": "images/bg-breadtopia.png",
       "overlay": {
-        "color": "#FF69B4",
-        "opacity": 0.2,
+        "color": "#000000",
+        "opacity": 0.15,
         "zIndex": 45
       },
       "images": [
         {
-          "src": "images/muffin-crew.png",
-          "x": 30,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": -5,
-          "zIndex": 10,
-          "opacity": 1.0,
+          "src": "images/butter-asteroid.png",
+          "x": 84.31372549019608,
+          "y": 32.420842798201285,
+          "scale": 0.27,
+          "rotation": 10,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "Butter Asteroid appears – mining quickly starts up and a lot of people start to get fat.",
+      "choices": [
+        {
+          "text": "Join In",
+          "nextScene": "6"
+        },
+        {
+          "text": "Hold off",
+          "nextScene": "11"
+        }
+      ]
+    },
+    "6": {
+      "id": "scene_6",
+      "type": "image",
+      "background": "images/bg-breadtopia.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/butter-asteroid.png",
+          "x": 75.05446623093682,
+          "y": 33.6076213434704,
+          "scale": 0.3,
+          "rotation": 10,
+          "zIndex": 50,
+          "opacity": 1,
           "effect": "fade_in"
         },
         {
-          "src": "images/jellybean-crew.png",
-          "x": 40,
-          "y": 60,
-          "scale": 1.0,
+          "src": "images/toast-spaceship-small.png",
+          "x": 45.86056644880174,
+          "y": 48.88739511381021,
+          "scale": 0.3,
+          "rotation": 22,
+          "zIndex": 55,
+          "opacity": 1,
+          "effect": "slide_to"
+        }
+      ],
+      "content": "You jump in your ship and go right up – it’s easy to load in huge amounts into your cargo bay.",
+      "nextScene": "7"
+    },
+    "7": {
+      "id": "scene_7",
+      "type": "image",
+      "background": "images/bg-breadtopia.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/butter-asteroid.png",
+          "x": 35.62091503267974,
+          "y": 92.50150665245005,
+          "scale": 0.9,
+          "rotation": 10,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        },
+        {
+          "src": "images/toast-spaceship-small.png",
+          "x": 21.459694989106755,
+          "y": 33.90431597978768,
+          "scale": 0.8,
+          "rotation": -10,
+          "zIndex": 48,
+          "opacity": 1,
+          "effect": "slide_to"
+        },
+        {
+          "src": "images/toast-buttered.png",
+          "x": 49.673202614379086,
+          "y": 46.06879606879607,
+          "scale": 0.25,
           "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
+          "zIndex": 60,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "You can't control yourself though - this close to the butter, you just can't stop! You keep eating and eating, day after day.",
+      "nextScene": "8"
+    },
+    "8": {
+      "id": "scene_8",
+      "type": "image",
+      "background": "images/bg-breadtopia.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.2,
+        "zIndex": 40
+      },
+      "images": [
+        {
+          "src": "images/butter-asteroid.png",
+          "x": 30.7,
+          "y": 92.4,
+          "scale": 1.1,
+          "rotation": 10,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        },
+        {
+          "src": "images/toast-spaceship-small.png",
+          "x": 21.67755991285403,
+          "y": 21.591488572620648,
+          "scale": 0.8,
+          "rotation": -10,
+          "zIndex": 47,
+          "opacity": 1,
+          "effect": "slide_to"
+        },
+        {
+          "src": "images/toast-fat.png",
+          "x": 54.248366013071895,
+          "y": 44.73367020536832,
+          "scale": 0.3,
+          "rotation": 0,
+          "zIndex": 60,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "After a few weeks your starch can't absorb any more butter - your body is at its limit.",
+      "nextScene": "9"
+    },
+    "9": {
+      "id": "scene_9",
+      "type": "image",
+      "background": "images/bg-breadtopia.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/butter-asteroid.png",
+          "x": 54.248366013071895,
+          "y": 99.918872560382,
+          "scale": 1.5,
+          "rotation": 10,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        },
+        {
+          "src": "images/toast-spaceship-small.png",
+          "x": 20.588235294117645,
+          "y": 25.44851884474526,
+          "scale": 0.8,
+          "rotation": -10,
+          "zIndex": 47,
+          "opacity": 1,
+          "effect": "slide_to"
+        },
+        {
+          "src": "images/toast-dead.png",
+          "x": 63.39869281045751,
+          "y": 36.57456770664318,
+          "scale": 0.4,
+          "rotation": -80,
+          "zIndex": 60,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "You lay on the ground unable to move – soon your body shuts down completely. You drift around the butterstroid for another few weeks before…",
+      "nextScene": "10"
+    },
+    "10": {
+      "id": "scene_10",
+      "type": "image",
+      "background": "images/bg-toastgrave.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/bubble-sad.png",
+          "x": 37.36383442265795,
+          "y": 26.635297390014372,
+          "scale": 0.3,
+          "rotation": 0,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "Your body is recovered and buried in the family plot on Breadtopia.",
+      "nextScene": "29"
+    },
+    "11": {
+      "id": "scene_11",
+      "type": "image",
+      "background": "images/bg-toasttown.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/toast-casual-sad.png",
+          "x": 15,
+          "y": 73.06800797366834,
+          "scale": 0.4,
+          "rotation": 0,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "You ignore the butterstroid, and turns out it's just a fad. After 10 months most of the bigger butterheads had died and life went back to normal... until",
+      "nextScene": "12"
+    },
+    "12": {
+      "id": "scene_12",
+      "type": "image",
+      "background": "images/bg-breadtopia.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 1
+      },
+      "images": [
+        {
+          "src": "images/butter-asteroid.png",
+          "x": 76.57952069716775,
+          "y": 37.46465161559501,
+          "scale": 0.4,
+          "rotation": 10,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        },
+        {
+          "src": "images/ship-pirate.png",
+          "x": 35.18518518518518,
+          "y": 29.008854480552593,
+          "scale": 0.2,
+          "rotation": -10,
+          "zIndex": 55,
+          "opacity": 1,
+          "effect": "slide_to"
+        },
+        {
+          "src": "images/bagel-pirate.png",
+          "x": 8.714596949891067,
+          "y": 77.0733855639516,
+          "scale": 0.4,
+          "rotation": 22,
+          "zIndex": 60,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "Butter Pirates appeared - they've been tracking this butterstroid for decades and aren't about to let us continue eating their profits.",
+      "nextScene": "13"
+    },
+    "13": {
+      "id": "scene_13",
+      "type": "choice",
+      "background": "images/bg-breadtopia.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/butter-asteroid.png",
+          "x": 77.77777777777779,
+          "y": 36.57456770664318,
+          "scale": 0.4,
+          "rotation": 10,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        },
+        {
+          "src": "images/ship-pirate.png",
+          "x": 55.446623093681914,
+          "y": 15.657595846275091,
+          "scale": 0.2,
+          "rotation": -3,
+          "zIndex": 55,
+          "opacity": 1,
+          "effect": "slide_to"
+        },
+        {
+          "src": "images/bagel-pirate.png",
+          "x": 34.20479302832244,
+          "y": 64.76055815678457,
+          "scale": 0.4,
+          "rotation": 0,
+          "zIndex": 74,
+          "opacity": 1,
           "effect": "fade_in"
         },
         {
           "src": "images/eclair-crew.png",
-          "x": 50,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": 5,
-          "zIndex": 10,
-          "opacity": 1.0,
+          "x": 54.46623093681917,
+          "y": 67.1341152473228,
+          "scale": 0.3,
+          "rotation": 16,
+          "zIndex": 65,
+          "opacity": 1,
           "effect": "fade_in"
         },
         {
           "src": "images/cross-crew.png",
-          "x": 60,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
+          "x": 13.725490196078432,
+          "y": 66.83742061100551,
+          "scale": 0.3,
+          "rotation": -16,
+          "zIndex": 70,
+          "opacity": 1,
           "effect": "fade_in"
         }
       ],
-      "content": "My Toasty 56 crew is nervous after the pirate scare. Also, pick an air freshener scent!",
+      "content": "The people call for a hero brave enough to fight the pirates off. They need someone with a spaceship and the guts to stand up to the massive pirate ship.",
       "choices": [
         {
-          "text": "Host a disco party (Scent: Fresh Bread)",
-          "nextScene": 11
+          "text": "Let someone else do it",
+          "nextScene": "14"
         },
         {
-          "text": "Ignore them (Scent: Burnt Toast Glow)",
-          "nextScene": 11
+          "text": "Answer the call",
+          "nextScene": "21"
         }
       ]
     },
-    "7": {
-      "id": "pirate_flyby",
-      "title": "Pirate Ship Fly-By",
+    "14": {
+      "id": "scene_14",
       "type": "image",
-      "background": "images/bg-starryspace.png",
+      "background": "images/bg-breadtopia.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/butter-asteroid.png",
+          "x": 77.01525054466231,
+          "y": 43.991933614575125,
+          "scale": 0.4,
+          "rotation": 10,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        },
+        {
+          "src": "images/ship-pirate.png",
+          "x": 87.90849673202614,
+          "y": 31.530758889249455,
+          "scale": 0.2,
+          "rotation": -10,
+          "zIndex": 55,
+          "opacity": 1,
+          "effect": "slide_to"
+        },
+        {
+          "src": "images/bubble-sad.png",
+          "x": 49.56427015250544,
+          "y": 22.333225163413843,
+          "scale": 0.3,
+          "rotation": 0,
+          "zIndex": 60,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "No one else does anything either. The butterstroid was nice – but not worth dying for.",
+      "nextScene": "15"
+    },
+    "15": {
+      "id": "scene_15",
+      "type": "image",
+      "background": "images/bg-butterstroid-pull.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/bubble-yarr.png",
+          "x": 65.0326797385621,
+          "y": 40.72829261508507,
+          "scale": 0.2,
+          "rotation": 0,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "The pirates took the butterstroid and left.",
+      "nextScene": "16"
+    },
+    "16": {
+      "id": "scene_16",
+      "type": "image",
+      "background": "images/bg-toasttown.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/toast-old.png",
+          "x": 15.14161220043573,
+          "y": 74.69982847341338,
+          "scale": 0.4,
+          "rotation": 0,
+          "zIndex": 1,
+          "opacity": 1
+        }
+      ],
+      "content": "You continue on for 50 years - looking for something you really care about but never taking any risks to find it.",
+      "nextScene": "17"
+    },
+    "17": {
+      "id": "scene_17",
+      "type": "image",
+      "background": "images/bg-toast-town-night.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/toast-old.png",
+          "x": 13.071895424836603,
+          "y": 78.70520606369664,
+          "scale": 0.3,
+          "rotation": 0,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "One night as you walk the streets of Toast Town, you can feel that your time is coming to an end. You regret listening to the fear instead of going on adventures. Wait! You still own the Toasty 56 and it’s never too late!",
+      "nextScene": "18"
+    },
+    "18": {
+      "id": "scene_18",
+      "type": "image",
+      "background": "images/bg-breadtopia.png",
       "overlay": {
         "color": "#000000",
         "opacity": 0.2,
-        "zIndex": 45
+        "zIndex": 1
       },
       "images": [
         {
           "src": "images/toast-spaceship-small.png",
-          "x": 20,
-          "y": 60,
-          "scale": 0.7,
-          "rotation": -10,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "slide_to"
-        },
-        {
-          "src": "images/ship-pirate.png",
-          "x": 70,
-          "y": 40,
-          "scale": 1.2,
-          "rotation": 10,
-          "zIndex": 15,
-          "opacity": 1.0,
-          "effect": "slide_to"
-        },
-        {
-          "src": "images/stars-sparkle.png",
-          "x": 50,
-          "y": 20,
+          "x": 48.69281045751634,
+          "y": 44.43697556905104,
           "scale": 0.8,
-          "rotation": 0,
-          "zIndex": 5,
-          "opacity": 0.9,
-          "effect": "fade_in"
+          "rotation": 22,
+          "zIndex": 55,
+          "opacity": 1,
+          "effect": "slide_to"
+        },
+        {
+          "src": "images/toast-old-astro.png",
+          "x": 6.1002178649237475,
+          "y": 84.63909879004218,
+          "scale": 0.4,
+          "rotation": 22,
+          "zIndex": 2,
+          "opacity": 1
         }
       ],
-      "content": "A bagel pirate ship zooms by, taunting the Toasty 56 with a cream cheese cannon! My crew braces as it circles back for a showdown.",
-      "nextScene": 8
+      "content": "It takes a bit of messing around to figure out the controls, but before long the Toasty 56 is up and leaving Breadtopia in it's rearview.",
+      "nextScene": "19"
     },
-    "8": {
-      "id": "bagel_pirate",
-      "title": "Bagel Pirate Ambush",
-      "type": "choice",
-      "background": "images/bg-pirateship.png",
+    "19": {
+      "id": "scene_19",
+      "type": "image",
+      "background": "images/bg-inside-toasty56.png",
       "overlay": {
         "color": "#000000",
-        "opacity": 0.2,
+        "opacity": 0.15,
         "zIndex": 45
       },
       "images": [
         {
-          "src": "images/bagel-pirate.png",
-          "x": 60,
-          "y": 50,
-          "scale": 1.2,
+          "src": "images/toast-old-astro-sleep.png",
+          "x": 23.311546840958606,
+          "y": 67.72750451995735,
+          "scale": 0.6,
           "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "glow"
-        },
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "You push down the throttle – but the sudden speed and pressure are too much for your body at this age...",
+      "nextScene": "20"
+    },
+    "20": {
+      "id": "scene_20",
+      "type": "image",
+      "background": "images/bg-inside-toasty56-2.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/toast-dead.png",
+          "x": 29.2,
+          "y": 35.5,
+          "scale": 0.5,
+          "rotation": -73,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "You die and float through space for just over 11 years before...",
+      "nextScene": "10"
+    },
+    "21": {
+      "id": "scene_21",
+      "type": "image",
+      "background": "images/bg-toasttown.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
         {
           "src": "images/toast.png",
-          "x": 30,
-          "y": 60,
-          "scale": 0.9,
-          "rotation": -5,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "fade_in"
-        },
-        {
-          "src": "images/bubble-yarr.png",
-          "x": 50,
-          "y": 20,
-          "scale": 0.8,
-          "rotation": 0,
-          "zIndex": 15,
-          "opacity": 1.0,
-          "effect": "fade_in"
-        }
-      ],
-      "content": "Aboard the pirate ship, Captain Crumpet, a bagel pirate, demands the Toasty 56’s crumbs! Pick a battle cry!",
-      "choices": [
-        {
-          "text": "Negotiate with a jam bribe (Cry: For the Crust!)",
-          "nextScene": 6
-        },
-        {
-          "text": "Fight with Crumb Cannon (Cry: For the Crust!)",
-          "nextScene": 6
-        },
-        {
-          "text": "Surrender crumbs (Cry: Jam it up!)",
-          "nextScene": 14
-        },
-        {
-          "text": "Negotiate with a jam bribe (Cry: Jam it up!)",
-          "nextScene": 6
-        }
-      ]
-    },
-    "9": {
-      "id": "jam_alien",
-      "title": "Sticky Alien Encounter",
-      "type": "choice",
-      "background": "images/bg-spacejam.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.2,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-spaceship-sticky.png",
-          "x": 50,
-          "y": 50,
-          "scale": 1.0,
-          "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
+          "x": 70.8,
+          "y": 24.4,
+          "scale": 0.1,
+          "rotation": 16,
+          "zIndex": 50,
+          "opacity": 1,
           "effect": "glow"
         },
         {
-          "src": "images/jam-alien.png",
-          "x": 60,
-          "y": 40,
-          "scale": 1.2,
-          "rotation": 10,
-          "zIndex": 15,
-          "opacity": 1.0,
-          "effect": "fade_in"
+          "src": "images/toast-spaceship-small.png",
+          "x": 65.7,
+          "y": 39.1,
+          "scale": 0.8,
+          "rotation": 22,
+          "zIndex": 55,
+          "opacity": 1,
+          "effect": "slide_to"
         }
       ],
-      "content": "The Toasty 56’s Jam Blaster glues us to an asteroid! A jam-slurping alien offers freedom. Pick a distress signal!",
-      "choices": [
-        {
-          "text": "Solve its riddle (Signal: S.O.S.)",
-          "nextScene": 10
-        },
-        {
-          "text": "Give up butter (Signal: Help, I’m Toasted!)",
-          "nextScene": 10
-        },
-        {
-          "text": "Insult the alien (Signal: S.O.S.)",
-          "nextScene": 15
-        }
-      ]
+      "content": "You answer the call – and activate your Toasty 56 to come and pick you up! You’re ready to face those evil butter crazed pirates.",
+      "nextScene": "22"
     },
-    "10": {
-      "id": "black_hole",
-      "title": "Black Hole Trap",
+    "22": {
+      "id": "scene_22",
       "type": "choice",
-      "background": "images/bg-blackhole.png",
+      "background": "images/bg-breadtopia.png",
       "overlay": {
         "color": "#000000",
-        "opacity": 0.2,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-spaceship.png",
-          "x": 50,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": 15,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "wiggle"
-        },
-        {
-          "src": "images/blackhole-swirl.png",
-          "x": 50,
-          "y": 20,
-          "scale": 1.2,
-          "rotation": 0,
-          "zIndex": 5,
-          "opacity": 0.9,
-          "effect": "fade_in"
-        }
-      ],
-      "content": "The Toasty 56 escapes the alien but faces a black hole! How do I get out?",
-      "choices": [
-        {
-          "text": "Use Yeast Boost to escape",
-          "nextScene": 12
-        },
-        {
-          "text": "Drift slowly to safety",
-          "nextScene": 12
-        },
-        {
-          "text": "Explore the black hole",
-          "nextScene": 13
-        }
-      ]
-    },
-    "11": {
-      "id": "toast_doubt",
-      "title": "Toast’s Doubt",
-      "type": "choice",
-      "background": "images/bg-crumbnebula.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.2,
+        "opacity": 0.15,
         "zIndex": 45
       },
       "images": [
         {
           "src": "images/toast-sad.png",
-          "x": 40,
-          "y": 60,
-          "scale": 1.0,
+          "x": 19.825708061002178,
+          "y": 77.66677483658616,
+          "scale": 0.5,
           "rotation": -5,
-          "zIndex": 10,
-          "opacity": 1.0,
+          "zIndex": 50,
+          "opacity": 1,
           "effect": "fade_in"
+        },
+        {
+          "src": "images/toast-spaceship-small.png",
+          "x": 48.910675381263616,
+          "y": 57.343192248852624,
+          "scale": 0.2,
+          "rotation": 22,
+          "zIndex": 55,
+          "opacity": 1,
+          "effect": "slide_to"
+        },
+        {
+          "src": "images/ship-pirate.png",
+          "x": 62.85403050108932,
+          "y": 38.35473552454685,
+          "scale": 0.2,
+          "rotation": -3,
+          "zIndex": 71,
+          "opacity": 1,
+          "effect": "slide_to"
+        },
+        {
+          "src": "images/butter-asteroid.png",
+          "x": 71.89542483660131,
+          "y": 34.64605257058087,
+          "scale": 0.4,
+          "rotation": 10,
+          "zIndex": 65,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "You take Toasty 56 right up to the Pirate Ship, and notice just how massive it truly is. Oh well - no time to hesitate now, it's only time for action!",
+      "choices": [
+        {
+          "text": "Fire the lasers",
+          "nextScene": "23"
+        },
+        {
+          "text": "Hail them on comms",
+          "nextScene": "23"
+        }
+      ]
+    },
+    "23": {
+      "id": "scene_23",
+      "type": "image",
+      "background": "images/bg-empty-space.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/ship-pirate.png",
+          "x": 77.34204793028321,
+          "y": 38.05804088822956,
+          "scale": 0.6,
+          "rotation": -3,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "slide_to"
+        },
+        {
+          "src": "images/toast-spaceship-small.png",
+          "x": 48.80174291938998,
+          "y": 55.41467711279032,
+          "scale": 0.4,
+          "rotation": 10,
+          "zIndex": 55,
+          "opacity": 1,
+          "effect": "slide_to"
         },
         {
           "src": "images/toast-scared.png",
-          "x": 60,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": 5,
-          "zIndex": 10,
-          "opacity": 1.0,
+          "x": 6.753812636165578,
+          "y": 79.44694265448983,
+          "scale": 0.4,
+          "rotation": 29,
+          "zIndex": 60,
+          "opacity": 1,
           "effect": "fade_in"
-        }
-      ],
-      "content": "Aboard the Toasty 56, I’m doubting myself before facing the Waffle Overlord. My crust feels soggy. Should I pep talk myself or push through?",
-      "choices": [
-        {
-          "text": "Give myself a pep talk",
-          "nextScene": 12
-        },
-        {
-          "text": "Push through silently",
-          "nextScene": 12
-        }
-      ]
-    },
-    "12": {
-      "id": "waffle_overlord",
-      "title": "Waffle Overlord Showdown",
-      "type": "choice",
-      "background": "images/bg-waffleplanet.png",
-      "overlay": {
-        "color": "#8B4513",
-        "opacity": 0.2,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/waffle-overlord.png",
-          "x": 60,
-          "y": 50,
-          "scale": 1.3,
-          "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "glow"
-        },
-        {
-          "src": "images/toast.png",
-          "x": 30,
-          "y": 60,
-          "scale": 0.9,
-          "rotation": -5,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "fade_in"
-        }
-      ],
-      "content": "The Waffle Overlord wants the Toasty 56 as a pancake minion! Pick a victory pose!",
-      "choices": [
-        {
-          "text": "Rally crew and fight (Pose: Crumb Sprinkle)",
-          "nextScene": 5
-        },
-        {
-          "text": "Negotiate (Pose: Toasty Twirl)",
-          "nextScene": 14
-        },
-        {
-          "text": "Join the Overlord (Pose: Crumb Sprinkle)",
-          "nextScene": 13
-        }
-      ]
-    },
-    "13": {
-      "id": "pancake_failure",
-      "title": "Pancake Flop",
-      "type": "image",
-      "background": "images/bg-waffleplanet.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.2,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-pancake.png",
-          "x": 50,
-          "y": 50,
-          "scale": 1.0,
-          "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "wiggle"
-        },
-        {
-          "src": "images/syrup-splash.png",
-          "x": 50,
-          "y": 20,
-          "scale": 0.8,
-          "rotation": 0,
-          "zIndex": 15,
-          "opacity": 1.0,
-          "effect": "fade_in"
-        }
-      ],
-      "content": "I join the Waffle Overlord and get flattened into a pancake! The Toasty 56 is scrapped, and I’m a syrupy flop!",
-      "nextScene": null
-    },
-    "14": {
-      "id": "butterless_failure",
-      "title": "Buttered and Eaten",
-      "type": "image",
-      "background": "imgaes/bg-waffleplanet.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.2,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-buttered.png",
-          "x": 50,
-          "y": 50,
-          "scale": 1.0,
-          "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "glow"
         },
         {
           "src": "images/bubble-sad.png",
-          "x": 50,
-          "y": 20,
-          "scale": 0.8,
+          "x": 21.895424836601308,
+          "y": 43.546891660099206,
+          "scale": 0.3,
           "rotation": 0,
-          "zIndex": 15,
-          "opacity": 1.0,
+          "zIndex": 65,
+          "opacity": 1,
           "effect": "fade_in"
         }
       ],
-      "content": "The Toasty 56’s weakened systems can’t fight the Waffle Overlord. I’m buttered and eaten, a soggy end to my crusty dreams!",
-      "nextScene": null
+      "content": "Nothing happens – turns out you shouldn’t have just charged up here with a ship that’s been sitting in storage for years."
     },
-    "15": {
-      "id": "mutiny_failure",
-      "title": "Crew Mutiny",
+    "24": {
+      "id": "scene_24",
       "type": "image",
-      "background": "images/bg-toastgrave.png",
+      "background": "images/bg-empty-space.png",
       "overlay": {
         "color": "#000000",
-        "opacity": 0.2,
+        "opacity": 0.15,
         "zIndex": 45
       },
       "images": [
         {
-          "src": "images/muffin-crew.png",
-          "x": 30,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": -5,
-          "zIndex": 10,
-          "opacity": 1.0,
+          "src": "images/toast-spaceship-small.png",
+          "x": 83.98692810457517,
+          "y": 34.497705252422236,
+          "scale": 0.2,
+          "rotation": -10,
+          "zIndex": 60,
+          "opacity": 1,
+          "effect": "slide_to"
+        },
+        {
+          "src": "images/bubble-yarr.png",
+          "x": 13.725490196078432,
+          "y": 31.827453525566735,
+          "scale": 0.2,
+          "rotation": -22,
+          "zIndex": 65,
+          "opacity": 1,
           "effect": "fade_in"
         },
         {
-          "src": "images/jellybean-crew.png",
-          "x": 40,
-          "y": 60,
-          "scale": 1.0,
+          "src": "images/ship-pirage-laser.png",
+          "x": 59.58605664488017,
+          "y": 36.42622038848454,
+          "scale": 0.3,
           "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "fade_in"
-        },
+          "zIndex": 4,
+          "opacity": 1
+        }
+      ],
+      "content": "The pirate ship slips behind you - turns out it was just charging it's laser cannon. Ironically the shot misses your ship by a few meters ......",
+      "nextScene": "25"
+    },
+    "25": {
+      "id": "scene_25",
+      "type": "image",
+      "background": "images/bg-inside-toasty56.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
         {
-          "src": "images/eclair-crew.png",
-          "x": 50,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": 5,
-          "zIndex": 10,
-          "opacity": 1.0,
-          "effect": "fade_in"
-        },
-        {
-          "src": "images/cross-crew.png",
-          "x": 60,
-          "y": 60,
-          "scale": 1.0,
-          "rotation": 0,
-          "zIndex": 10,
-          "opacity": 1.0,
+          "src": "images/toast-burnt.png",
+          "x": 26.143790849673206,
+          "y": 70.9911455194474,
+          "scale": 0.6,
+          "rotation": -16,
+          "zIndex": 55,
+          "opacity": 1,
           "effect": "fade_in"
         }
       ],
-      "content": "My Toasty 56 crew mutinies, joining the bagel pirates! I’m left alone, a crumbless nobody in a cosmic graveyard.",
-      "nextScene": null
+      "content": "but the radiation cooks you anyway and you die.",
+      "nextScene": "26"
+    },
+    "26": {
+      "id": "scene_26",
+      "type": "image",
+      "background": "images/bg-butterstroid-pull.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship-small.png",
+          "x": 4.684095860566448,
+          "y": 79.29859533633119,
+          "scale": 0.2,
+          "rotation": -29,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "slide_to"
+        }
+      ],
+      "content": "The pirates made off with the butter with no other resistance.",
+      "nextScene": "27"
+    },
+    "27": {
+      "id": "scene_27",
+      "type": "image",
+      "background": "images/bg-inside-toasty56-2.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/toast-dead.png",
+          "x": 29.847494553376908,
+          "y": 41.91507116035418,
+          "scale": 0.5,
+          "rotation": -124,
+          "zIndex": 55,
+          "opacity": 1,
+          "effect": "fade_in"
+        }
+      ],
+      "content": "Your dead body drifted space for 5 years before…",
+      "nextScene": "10"
+    },
+    "28": {
+      "id": "28",
+      "type": "image",
+      "background": "images/bg-breadtopia.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/toast.png",
+          "x": 14.37908496732026,
+          "y": 84.78744610820083,
+          "scale": 0.4,
+          "rotation": 0,
+          "zIndex": 50,
+          "opacity": 1,
+          "effect": "fade_in"
+        },
+        {
+          "src": "images/toast-spaceship.png",
+          "x": 69.06318082788671,
+          "y": 35.09109452505679,
+          "scale": 0.3,
+          "rotation": 22,
+          "zIndex": 55,
+          "opacity": 1,
+          "effect": "slide_to"
+        }
+      ],
+      "content": "You follow your gut and start out on your adventure! You live a happy and fulfilling life. Good for you I guess.",
+      "nextScene": "29"
+    },
+    "29": {
+      "id": "29",
+      "type": "image",
+      "background": "images/bg-next-time.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [],
+      "content": "END OF DEMO - will the adventure continue?"
     }
   }
 }

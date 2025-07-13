@@ -12,15 +12,15 @@
     GAME_CONTAINER_ID: "game-container",
     STORY_CONFIG_PATH: "story-config.json",
 
-    SCENE_WIDTH: 800,
-    SCENE_HEIGHT: 600,
-
-    MIN_SCALE: 0.1,
-    MAX_SCALE: 3.0,
-    MIN_ROTATION: -360,
-    MAX_ROTATION: 360,
-    MIN_OPACITY: 0.0,
-    MAX_OPACITY: 1.0,
+    // Audio Configuration
+    AUDIO: {
+      BACKGROUND_MUSIC: "audio/background.mp3",
+      BUTTON_HOVER: "audio/hover.wav",
+      BUTTON_CLICK: "audio/click.wav",
+      BACKGROUND_VOLUME: 0.3,
+      EFFECT_VOLUME: 0.5,
+      FADE_DURATION: 1000,
+    },
   };
 
   window.CONFIG = Object.freeze(CONFIG);
