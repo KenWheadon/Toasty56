@@ -1,0 +1,221 @@
+/* Scene Preview */
+.scene-preview {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+}
+
+.preview-scene {
+  width: 90%;
+  height: 90%;
+  max-width: 920px;
+  max-height: 690px;
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border: 2px solid #34495e;
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.drop-zone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #7f8c8d;
+  font-size: 18px;
+  text-align: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.preview-object {
+  position: absolute;
+  cursor: move;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.preview-object:hover {
+  border-color: #3498db;
+}
+
+.preview-object.selected {
+  border-color: #e74c3c;
+}
+
+.preview-object img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.preview-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 45;
+}
+
+/* Object Controls */
+.object-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.object-controls.visible {
+  pointer-events: auto;
+}
+
+.control-handle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  pointer-events: auto;
+}
+
+.control-handle:hover {
+  transform: scale(1.2);
+}
+
+.scale-handle {
+  bottom: -6px;
+  right: -6px;
+  cursor: se-resize;
+  background: #27ae60;
+}
+
+.rotate-handle {
+  top: -6px;
+  right: -6px;
+  cursor: grab;
+  background: #e74c3c;
+}
+
+.rotate-handle:active {
+  cursor: grabbing;
+}
+
+/* Preview Text Content */
+.preview-text-content {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 15px 20px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 8px;
+  max-width: 80%;
+  font-size: 18px;
+  line-height: 1.6;
+  z-index: 100;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.preview-text-content.choice-layout {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  transform: none;
+  text-align: left;
+  max-width: 55%;
+}
+
+/* Preview Continue Button */
+.preview-continue-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: default;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+  pointer-events: none;
+}
+
+/* Preview Choices */
+.preview-choices-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 200;
+  max-width: 40%;
+}
+
+.preview-choice-button {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: default;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+  pointer-events: none;
+}
+
+/* Responsive Preview */
+@media (max-width: 768px) {
+  .preview-text-content {
+    font-size: 16px;
+    max-width: 90%;
+    bottom: 100px;
+  }
+
+  .preview-text-content.choice-layout {
+    max-width: 100%;
+    bottom: 160px;
+  }
+
+  .preview-choices-container {
+    max-width: 100%;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+  }
+
+  .preview-choice-button {
+    white-space: normal;
+    min-height: 44px;
+  }
+}

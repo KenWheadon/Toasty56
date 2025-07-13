@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#editor-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.editor-header {
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.editor-header h1 {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.header-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Auto-save Status */
+.auto-save-status {
+  font-size: 12px;
+  color: #bdc3c7;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #1a1a1a;
+}
+
+#auto-save-indicator {
+  font-weight: bold;
+}
+
+#auto-save-indicator.saving {
+  color: #f39c12;
+}
+
+#auto-save-indicator.saved {
+  color: #27ae60;
+}
+
+#auto-save-indicator.error {
+  color: #e74c3c;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .left-panel,
+  .right-panel {
+    width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .editor-main {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    width: 100%;
+    height: 200px;
+  }
+
+  .center-panel {
+    height: 400px;
+  }
+}
