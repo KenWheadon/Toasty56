@@ -233,8 +233,8 @@ class ScenarioGenerator {
     initialScreen.className = "scene initial-screen";
     initialScreen.innerHTML = `
       <div class="text-content">
-        <h2>Welcome to Scenario Generator</h2>
-        <p>Click to start your adventure!</p>
+        <h2>Weird Demon Games Presents</h2>
+        <p>A choose your own adventure game!</p>
       </div>
     `;
 

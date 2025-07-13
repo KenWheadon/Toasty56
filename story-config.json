@@ -38,7 +38,7 @@
           "opacity": 1
         }
       ],
-      "content": "Choose Your Own Adventure\n",
+      "content": "Will you answer the call to Adventure?\n",
       "nextScene": "2"
     },
     "2": {
@@ -838,7 +838,8 @@
           "effect": "fade_in"
         }
       ],
-      "content": "Nothing happens – turns out you shouldn’t have just charged up here with a ship that’s been sitting in storage for years."
+      "content": "Nothing happens – turns out you shouldn’t have just charged up here with a ship that’s been sitting in storage for years",
+      "nextScene": "24"
     },
     "24": {
       "id": "scene_24",
@@ -994,7 +995,8 @@
         "zIndex": 45
       },
       "images": [],
-      "content": "END OF DEMO - will the adventure continue?"
+      "content": "END OF DEMO - will the adventure continue?",
+      "nextScene": "1"
     }
   }
 }

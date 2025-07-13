@@ -15,8 +15,8 @@
     // Audio Configuration
     AUDIO: {
       BACKGROUND_MUSIC: "audio/background.mp3",
-      BUTTON_HOVER: "audio/hover.wav",
-      BUTTON_CLICK: "audio/click.wav",
+      BUTTON_HOVER: "audio/hover.mp3",
+      BUTTON_CLICK: "audio/click.mp3",
       BACKGROUND_VOLUME: 0.3,
       EFFECT_VOLUME: 0.5,
       FADE_DURATION: 1000,
