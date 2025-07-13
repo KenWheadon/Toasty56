@@ -92,6 +92,9 @@ class UIManager {
     // Update background dropdown
     const bgSelect = document.getElementById("scene-background");
     if (bgSelect) {
+      // Preserve current selection
+      const currentBgValue = bgSelect.value;
+
       bgSelect.innerHTML = '<option value="">No Background</option>';
 
       // Sort backgrounds alphabetically for dropdown
@@ -102,11 +105,17 @@ class UIManager {
         option.textContent = Utils.getCleanFilename(bg, "background");
         bgSelect.appendChild(option);
       });
+
+      // Restore selection
+      bgSelect.value = currentBgValue;
     }
 
     // Update next scene dropdown with ordered scenes
     const nextSceneSelect = document.getElementById("next-scene");
     if (nextSceneSelect) {
+      // Preserve current selection
+      const currentNextValue = nextSceneSelect.value;
+
       nextSceneSelect.innerHTML =
         '<option value="">Select Scene</option><option value="null">End</option>';
 
@@ -117,6 +126,9 @@ class UIManager {
         option.textContent = `Scene ${sceneId}`;
         nextSceneSelect.appendChild(option);
       });
+
+      // Restore selection
+      nextSceneSelect.value = currentNextValue;
     }
 
     // Update choice dropdowns
@@ -132,7 +144,9 @@ class UIManager {
     const orderedSceneKeys = Utils.getOrderedSceneKeys(project.scenes);
 
     choiceSelects.forEach((select) => {
+      // Preserve current selection
       const currentValue = select.value;
+
       select.innerHTML =
         '<option value="">Select Scene</option><option value="null">End</option>';
 
@@ -140,9 +154,11 @@ class UIManager {
         const option = document.createElement("option");
         option.value = sceneId;
         option.textContent = `Scene ${sceneId}`;
-        if (sceneId === currentValue) option.selected = true;
         select.appendChild(option);
       });
+
+      // Restore selection
+      select.value = currentValue;
     });
   }
 
