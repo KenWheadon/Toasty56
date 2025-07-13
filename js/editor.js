@@ -448,6 +448,20 @@ class StoryEditor {
       this.currentScene,
       selectedObject
     );
+
+    // Auto-handle drawer based on current effect
+    if (
+      selectedObject !== null &&
+      this.currentScene &&
+      project.scenes[this.currentScene]
+    ) {
+      const obj = project.scenes[this.currentScene].images[selectedObject];
+      if (obj && obj.effect) {
+        this.uiManager.handleEffectChange(obj.effect);
+      } else {
+        this.uiManager.closeEffectDrawer();
+      }
+    }
   }
 
   /**
@@ -490,12 +504,67 @@ class StoryEditor {
     if (opacityInput) obj.opacity = parseFloat(opacityInput.value);
     if (effectSelect) obj.effect = effectSelect.value || undefined;
 
+    // Clear effect properties when effect changes
+    this.clearEffectProperties(obj);
+
     this.previewManager.updateObjectVisual();
     this.uiManager.updateSceneObjectsList(
       project,
       this.currentScene,
       selectedObject
     );
+  }
+
+  /**
+   * Update selected object from drawer controls
+   */
+  updateSelectedObjectFromDrawer() {
+    const selectedObject = this.previewManager.getSelectedObject();
+    if (selectedObject === null || !this.currentScene) return;
+
+    const project = this.projectManager.getProject();
+    const scene = project.scenes[this.currentScene];
+    const obj = scene.images[selectedObject];
+
+    // Update effect-specific properties from drawer
+    if (obj.effect === "scale_to") {
+      const scaleStartInput = document.getElementById("drawer-scale-start");
+      const scaleEndInput = document.getElementById("drawer-scale-end");
+
+      if (scaleStartInput) obj.scaleStart = parseFloat(scaleStartInput.value);
+      if (scaleEndInput) obj.scaleEnd = parseFloat(scaleEndInput.value);
+    } else if (obj.effect === "slide_to") {
+      const moveStartXInput = document.getElementById("drawer-move-start-x");
+      const moveStartYInput = document.getElementById("drawer-move-start-y");
+      const moveEndXInput = document.getElementById("drawer-move-end-x");
+      const moveEndYInput = document.getElementById("drawer-move-end-y");
+
+      if (moveStartXInput) obj.moveStartX = parseFloat(moveStartXInput.value);
+      if (moveStartYInput) obj.moveStartY = parseFloat(moveStartYInput.value);
+      if (moveEndXInput) obj.moveEndX = parseFloat(moveEndXInput.value);
+      if (moveEndYInput) obj.moveEndY = parseFloat(moveEndYInput.value);
+    }
+
+    this.previewManager.updateObjectVisual();
+    this.uiManager.updateSceneObjectsList(
+      project,
+      this.currentScene,
+      selectedObject
+    );
+  }
+
+  /**
+   * Clear effect properties when effect type changes
+   * @param {Object} obj - Object data
+   */
+  clearEffectProperties(obj) {
+    // Always clear all effect properties first
+    delete obj.scaleStart;
+    delete obj.scaleEnd;
+    delete obj.moveStartX;
+    delete obj.moveStartY;
+    delete obj.moveEndX;
+    delete obj.moveEndY;
   }
 
   /**

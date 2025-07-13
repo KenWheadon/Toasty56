@@ -72,6 +72,11 @@ class UIManager {
       if (window.editor) window.editor.addChoice();
     });
 
+    // Effect drawer controls
+    Utils.addEventListenerSafe("close-effect-drawer", "click", () => {
+      this.closeEffectDrawer();
+    });
+
     // Modal controls
     Utils.addQueryListenerSafe(".close", "click", () => this.closeModal());
 
@@ -442,18 +447,21 @@ class UIManager {
             )}</span>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group effect-group">
           <label>Effect:</label>
-          <select id="obj-effect">
-            <option value="">No Effect</option>
-            <option value="fade_in">Fade In</option>
-            <option value="slide_to">Slide To</option>
-            <option value="scale_to">Scale To</option>
-            <option value="glow">Glow</option>
-            <option value="wiggle">Wiggle</option>
-          </select>
+          <div class="effect-controls-inline">
+            <select id="obj-effect">
+              <option value="">No Effect</option>
+              <option value="fade_in">Fade In</option>
+              <option value="fade_out">Fade Out</option>
+              <option value="slide_to">Slide To</option>
+              <option value="scale_to">Scale To</option>
+              <option value="glow">Glow</option>
+              <option value="wiggle">Wiggle</option>
+            </select>
+            <button class="btn btn-danger btn-small" onclick="if(window.editor) window.editor.removeSelectedObject()">Remove Object</button>
+          </div>
         </div>
-        <button class="btn btn-danger btn-small" onclick="if(window.editor) window.editor.removeSelectedObject()">Remove Object</button>
       </div>
     `;
 
@@ -486,9 +494,216 @@ class UIManager {
 
     if (effectSelect) {
       effectSelect.addEventListener("change", () => {
-        if (window.editor) window.editor.updateSelectedObject();
+        if (window.editor) {
+          window.editor.updateSelectedObject();
+          // Auto-open/close drawer based on effect type
+          this.handleEffectChange(effectSelect.value);
+        }
       });
     }
+  }
+
+  /**
+   * Handle effect change and auto-open/close drawer
+   * @param {string} effectType - Selected effect type
+   */
+  handleEffectChange(effectType) {
+    if (effectType === "scale_to" || effectType === "slide_to") {
+      // Auto-open drawer for effects with settings
+      this.autoOpenEffectDrawer();
+    } else {
+      // Auto-close drawer for effects without settings
+      this.closeEffectDrawer();
+    }
+  }
+
+  /**
+   * Auto-open effect controls drawer (only if object is selected)
+   */
+  autoOpenEffectDrawer() {
+    const selectedObject = window.previewManager
+      ? window.previewManager.getSelectedObject()
+      : null;
+    if (
+      selectedObject === null ||
+      !window.editor ||
+      !window.editor.currentScene
+    ) {
+      return;
+    }
+
+    const project = window.editor.projectManager.getProject();
+    const scene = project.scenes[window.editor.currentScene];
+    const obj = scene.images[selectedObject];
+
+    if (!obj) return;
+
+    const drawer = document.getElementById("effect-controls-drawer");
+    const drawerContent = document.getElementById("effect-drawer-content");
+
+    if (!drawer || !drawerContent) return;
+
+    // Update drawer content with current object's effect settings
+    this.updateEffectDrawerContent(obj);
+
+    // Show the drawer
+    drawer.classList.add("open");
+  }
+
+  /**
+   * Close effect controls drawer
+   */
+  closeEffectDrawer() {
+    const drawer = document.getElementById("effect-controls-drawer");
+    if (drawer) {
+      drawer.classList.remove("open");
+    }
+  }
+
+  /**
+   * Update effect drawer content based on selected object
+   * @param {Object} obj - Object data
+   */
+  updateEffectDrawerContent(obj) {
+    const drawerContent = document.getElementById("effect-drawer-content");
+    if (!drawerContent) return;
+
+    const effectType = obj.effect || "";
+
+    if (effectType === "scale_to") {
+      drawerContent.innerHTML = `
+        <div class="effect-controls-section">
+          <h5>Scale Effect Settings</h5>
+          <div class="slider-group">
+            <label>Start Scale:</label>
+            <div class="slider-container">
+              <input type="range" id="drawer-scale-start" min="0.1" max="5" step="0.1" value="${
+                obj.scaleStart || 1
+              }">
+              <span class="slider-value" id="drawer-scale-start-value">${(
+                obj.scaleStart || 1
+              ).toFixed(1)}</span>
+            </div>
+          </div>
+          <div class="slider-group">
+            <label>End Scale:</label>
+            <div class="slider-container">
+              <input type="range" id="drawer-scale-end" min="0.1" max="5" step="0.1" value="${
+                obj.scaleEnd || 1
+              }">
+              <span class="slider-value" id="drawer-scale-end-value">${(
+                obj.scaleEnd || 1
+              ).toFixed(1)}</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Add event listeners for scale controls
+      const scaleStartSlider = document.getElementById("drawer-scale-start");
+      const scaleStartValue = document.getElementById(
+        "drawer-scale-start-value"
+      );
+      const scaleEndSlider = document.getElementById("drawer-scale-end");
+      const scaleEndValue = document.getElementById("drawer-scale-end-value");
+
+      if (scaleStartSlider && scaleStartValue) {
+        scaleStartSlider.addEventListener("input", () => {
+          const value = parseFloat(scaleStartSlider.value);
+          scaleStartValue.textContent = value.toFixed(1);
+          if (window.editor) window.editor.updateSelectedObjectFromDrawer();
+        });
+      }
+
+      if (scaleEndSlider && scaleEndValue) {
+        scaleEndSlider.addEventListener("input", () => {
+          const value = parseFloat(scaleEndSlider.value);
+          scaleEndValue.textContent = value.toFixed(1);
+          if (window.editor) window.editor.updateSelectedObjectFromDrawer();
+        });
+      }
+    } else if (effectType === "slide_to") {
+      drawerContent.innerHTML = `
+        <div class="effect-controls-section">
+          <h5>Move Effect Settings</h5>
+          <div class="slider-group">
+            <label>Start X Position:</label>
+            <div class="slider-container">
+              <input type="range" id="drawer-move-start-x" min="0" max="100" step="0.1" value="${
+                obj.moveStartX || 0
+              }">
+              <span class="slider-value" id="drawer-move-start-x-value">${(
+                obj.moveStartX || 0
+              ).toFixed(1)}</span>
+            </div>
+          </div>
+          <div class="slider-group">
+            <label>Start Y Position:</label>
+            <div class="slider-container">
+              <input type="range" id="drawer-move-start-y" min="0" max="100" step="0.1" value="${
+                obj.moveStartY || 0
+              }">
+              <span class="slider-value" id="drawer-move-start-y-value">${(
+                obj.moveStartY || 0
+              ).toFixed(1)}</span>
+            </div>
+          </div>
+          <div class="slider-group">
+            <label>End X Position:</label>
+            <div class="slider-container">
+              <input type="range" id="drawer-move-end-x" min="0" max="100" step="0.1" value="${
+                obj.moveEndX || 100
+              }">
+              <span class="slider-value" id="drawer-move-end-x-value">${(
+                obj.moveEndX || 100
+              ).toFixed(1)}</span>
+            </div>
+          </div>
+          <div class="slider-group">
+            <label>End Y Position:</label>
+            <div class="slider-container">
+              <input type="range" id="drawer-move-end-y" min="0" max="100" step="0.1" value="${
+                obj.moveEndY || 100
+              }">
+              <span class="slider-value" id="drawer-move-end-y-value">${(
+                obj.moveEndY || 100
+              ).toFixed(1)}</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Add event listeners for move controls
+      const moveControls = [
+        { id: "drawer-move-start-x", valueId: "drawer-move-start-x-value" },
+        { id: "drawer-move-start-y", valueId: "drawer-move-start-y-value" },
+        { id: "drawer-move-end-x", valueId: "drawer-move-end-x-value" },
+        { id: "drawer-move-end-y", valueId: "drawer-move-end-y-value" },
+      ];
+
+      moveControls.forEach(({ id, valueId }) => {
+        const slider = document.getElementById(id);
+        const valueDisplay = document.getElementById(valueId);
+
+        if (slider && valueDisplay) {
+          slider.addEventListener("input", () => {
+            const value = parseFloat(slider.value);
+            valueDisplay.textContent = value.toFixed(1);
+            if (window.editor) window.editor.updateSelectedObjectFromDrawer();
+          });
+        }
+      });
+    }
+    // Note: No else clause - drawer content remains empty for effects without settings
+  }
+
+  /**
+   * Update effect-specific controls based on selected effect
+   * @param {Object} obj - Object data
+   */
+  updateEffectControls(obj) {
+    // This method is no longer used as effect controls are now in the drawer
+    // Keeping it for backwards compatibility but it does nothing
   }
 
   /**
