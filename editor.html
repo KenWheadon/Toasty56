@@ -25,6 +25,68 @@
         <!-- Left Panel: Scene Properties + Assets -->
         <div class="left-panel">
           <!-- Scene Properties -->
+          <!-- Assets -->
+          <div class="panel-section asset-panels">
+            <div class="asset-section">
+              <div class="asset-drop-zone" id="background-drop-zone">
+                <div class="drop-zone-visual">
+                  <div class="drop-zone-icon">
+                    Backgrounds: Click of drag here
+                  </div>
+                </div>
+                <div id="background-list" class="asset-list"></div>
+              </div>
+            </div>
+            <div class="asset-section">
+              <div class="asset-drop-zone" id="object-drop-zone">
+                <div class="drop-zone-visual">
+                  <div class="drop-zone-icon">Objects: Click of drag here</div>
+                </div>
+                <div id="object-list" class="asset-list"></div>
+              </div>
+            </div>
+            <p class="drag-instructions">
+              Adding objects: Drag them directly from the library to the scene
+            </p>
+          </div>
+        </div>
+
+        <!-- Center Panel: Scene Preview -->
+        <div class="center-panel">
+          <div class="scene-preview" id="scene-preview">
+            <div class="preview-scene" id="preview-scene">
+              <div class="drop-zone">Drop objects here or click to place</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel: Content & Choices -->
+        <div class="right-panel">
+          <div class="header-controls">
+            <button id="load-project" class="btn btn-secondary">
+              Load Project
+            </button>
+            <button id="save-project" class="btn btn-success">
+              Save Project
+            </button>
+            <div class="auto-save-status" id="auto-save-status">
+              Auto-save: <span id="auto-save-indicator">Ready</span>
+            </div>
+            <input
+              type="file"
+              id="file-input"
+              accept=".json"
+              style="display: none"
+            />
+            <input
+              type="file"
+              id="asset-file-input"
+              accept="image/*"
+              multiple
+              style="display: none"
+            />
+          </div>
+
           <div class="panel-section info-panel">
             <div class="form-group">
               <label>Scene ID:</label>
@@ -96,67 +158,6 @@
             </div>
           </div>
 
-          <!-- Assets -->
-          <div class="panel-section asset-panels">
-            <div class="asset-section">
-              <div class="asset-drop-zone" id="background-drop-zone">
-                <div class="drop-zone-visual">
-                  <div class="drop-zone-icon">
-                    Backgrounds: Click of drag here
-                  </div>
-                </div>
-                <div id="background-list" class="asset-list"></div>
-              </div>
-            </div>
-            <div class="asset-section">
-              <div class="asset-drop-zone" id="object-drop-zone">
-                <div class="drop-zone-visual">
-                  <div class="drop-zone-icon">Objects: Click of drag here</div>
-                </div>
-                <div id="object-list" class="asset-list"></div>
-              </div>
-            </div>
-            <p class="drag-instructions">
-              Adding objects: Drag them directly from the library to the scene
-            </p>
-          </div>
-        </div>
-
-        <!-- Center Panel: Scene Preview -->
-        <div class="center-panel">
-          <div class="scene-preview" id="scene-preview">
-            <div class="preview-scene" id="preview-scene">
-              <div class="drop-zone">Drop objects here or click to place</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Panel: Content & Choices -->
-        <div class="right-panel">
-          <div class="header-controls">
-            <button id="load-project" class="btn btn-secondary">
-              Load Project
-            </button>
-            <button id="save-project" class="btn btn-success">
-              Save Project
-            </button>
-            <div class="auto-save-status" id="auto-save-status">
-              Auto-save: <span id="auto-save-indicator">Ready</span>
-            </div>
-            <input
-              type="file"
-              id="file-input"
-              accept=".json"
-              style="display: none"
-            />
-            <input
-              type="file"
-              id="asset-file-input"
-              accept="image/*"
-              multiple
-              style="display: none"
-            />
-          </div>
           <!-- Scene Content -->
           <div class="panel-section">
             <h3>Scene Content</h3>

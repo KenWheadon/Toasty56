@@ -137,6 +137,7 @@
 .panel-section.info-panel {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 4px;
 }
 
 .panel-section.info-panel .form-group {
