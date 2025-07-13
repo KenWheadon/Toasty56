@@ -309,3 +309,55 @@
   margin-top: 8px;
   width: 100%;
 }
+
+/* Effect Toggle Controls */
+.effect-toggle-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  justify-content: center;
+}
+
+.effect-toggle-btn {
+  padding: 6px 12px;
+  border: 1px solid #34495e;
+  border-radius: 4px;
+  background: #1a1a1a;
+  color: #bdc3c7;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.effect-toggle-btn.active {
+  background: #3498db;
+  color: white;
+  border-color: #2980b9;
+}
+
+.effect-toggle-btn:hover:not(.active) {
+  background: #34495e;
+  color: white;
+}
+
+/* Effect State Indicator */
+.effect-state-indicator {
+  text-align: center;
+  margin-bottom: 12px;
+  padding: 8px;
+  background: #1a252f;
+  border-radius: 4px;
+  border: 1px solid #34495e;
+}
+
+.effect-state-indicator .state-label {
+  font-size: 12px;
+  color: #3498db;
+  font-weight: bold;
+}
+
+.effect-state-indicator .state-description {
+  font-size: 10px;
+  color: #7f8c8d;
+  margin-top: 2px;
+}

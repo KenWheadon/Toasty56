@@ -3,6 +3,7 @@
 class UIManager {
   constructor() {
     this.modalElement = null;
+    this.currentEffectEditMode = "start"; // 'start' or 'end'
   }
 
   /**
@@ -543,6 +544,9 @@ class UIManager {
 
     if (!drawer || !drawerContent) return;
 
+    // Reset edit mode to start when opening drawer
+    this.currentEffectEditMode = "start";
+
     // Update drawer content with current object's effect settings
     this.updateEffectDrawerContent(obj);
 
@@ -558,6 +562,55 @@ class UIManager {
     if (drawer) {
       drawer.classList.remove("open");
     }
+    // Reset edit mode when closing
+    this.currentEffectEditMode = "start";
+  }
+
+  /**
+   * Toggle effect edit mode
+   * @param {string} mode - 'start' or 'end'
+   */
+  toggleEffectEditMode(mode) {
+    this.currentEffectEditMode = mode;
+
+    // Update toggle button states and UI
+    this.updateToggleButtonStates();
+
+    // Update the object visual to show the current edit mode
+    if (window.previewManager) {
+      window.previewManager.updateObjectVisualForEffectMode(mode);
+    }
+  }
+
+  /**
+   * Update toggle button states and state indicator
+   */
+  updateToggleButtonStates() {
+    // Update toggle button states
+    const startBtn = document.getElementById("effect-toggle-start");
+    const endBtn = document.getElementById("effect-toggle-end");
+
+    if (startBtn && endBtn) {
+      startBtn.classList.toggle(
+        "active",
+        this.currentEffectEditMode === "start"
+      );
+      endBtn.classList.toggle("active", this.currentEffectEditMode === "end");
+    }
+
+    // Update state indicator
+    const stateLabel = document.getElementById("effect-state-label");
+    const stateDesc = document.getElementById("effect-state-description");
+
+    if (stateLabel && stateDesc) {
+      if (this.currentEffectEditMode === "start") {
+        stateLabel.textContent = "Editing Start Position";
+        stateDesc.textContent = "Adjusting where the effect begins";
+      } else {
+        stateLabel.textContent = "Editing End Position";
+        stateDesc.textContent = "Adjusting where the effect finishes";
+      }
+    }
   }
 
   /**
@@ -572,16 +625,28 @@ class UIManager {
 
     if (effectType === "scale_to") {
       drawerContent.innerHTML = `
+        <div class="effect-state-indicator">
+          <div class="state-label" id="effect-state-label">Editing Start Position</div>
+          <div class="state-description" id="effect-state-description">Adjusting where the effect begins</div>
+        </div>
+        
+        <div class="effect-toggle-controls">
+          <button class="effect-toggle-btn active" id="effect-toggle-start" onclick="if(window.uiManager) window.uiManager.toggleEffectEditMode('start')">Start</button>
+          <button class="effect-toggle-btn" id="effect-toggle-end" onclick="if(window.uiManager) window.uiManager.toggleEffectEditMode('end')">End</button>
+        </div>
+
         <div class="effect-controls-section">
           <h5>Scale Effect Settings</h5>
           <div class="slider-group">
             <label>Start Scale:</label>
             <div class="slider-container">
               <input type="range" id="drawer-scale-start" min="0.1" max="5" step="0.1" value="${
-                obj.scaleStart || 1
+                obj.scaleStart !== undefined ? obj.scaleStart : obj.scale
               }">
-              <span class="slider-value" id="drawer-scale-start-value">${(
-                obj.scaleStart || 1
+              <span class="slider-value" id="drawer-scale-start-value">${(obj.scaleStart !==
+              undefined
+                ? obj.scaleStart
+                : obj.scale
               ).toFixed(1)}</span>
             </div>
           </div>
@@ -589,10 +654,12 @@ class UIManager {
             <label>End Scale:</label>
             <div class="slider-container">
               <input type="range" id="drawer-scale-end" min="0.1" max="5" step="0.1" value="${
-                obj.scaleEnd || 1
+                obj.scaleEnd !== undefined ? obj.scaleEnd : obj.scale
               }">
-              <span class="slider-value" id="drawer-scale-end-value">${(
-                obj.scaleEnd || 1
+              <span class="slider-value" id="drawer-scale-end-value">${(obj.scaleEnd !==
+              undefined
+                ? obj.scaleEnd
+                : obj.scale
               ).toFixed(1)}</span>
             </div>
           </div>
@@ -624,16 +691,28 @@ class UIManager {
       }
     } else if (effectType === "slide_to") {
       drawerContent.innerHTML = `
+        <div class="effect-state-indicator">
+          <div class="state-label" id="effect-state-label">Editing Start Position</div>
+          <div class="state-description" id="effect-state-description">Adjusting where the effect begins</div>
+        </div>
+        
+        <div class="effect-toggle-controls">
+          <button class="effect-toggle-btn active" id="effect-toggle-start" onclick="if(window.uiManager) window.uiManager.toggleEffectEditMode('start')">Start</button>
+          <button class="effect-toggle-btn" id="effect-toggle-end" onclick="if(window.uiManager) window.uiManager.toggleEffectEditMode('end')">End</button>
+        </div>
+
         <div class="effect-controls-section">
           <h5>Move Effect Settings</h5>
           <div class="slider-group">
             <label>Start X Position:</label>
             <div class="slider-container">
               <input type="range" id="drawer-move-start-x" min="0" max="100" step="0.1" value="${
-                obj.moveStartX || 0
+                obj.moveStartX !== undefined ? obj.moveStartX : obj.x
               }">
-              <span class="slider-value" id="drawer-move-start-x-value">${(
-                obj.moveStartX || 0
+              <span class="slider-value" id="drawer-move-start-x-value">${(obj.moveStartX !==
+              undefined
+                ? obj.moveStartX
+                : obj.x
               ).toFixed(1)}</span>
             </div>
           </div>
@@ -641,10 +720,12 @@ class UIManager {
             <label>Start Y Position:</label>
             <div class="slider-container">
               <input type="range" id="drawer-move-start-y" min="0" max="100" step="0.1" value="${
-                obj.moveStartY || 0
+                obj.moveStartY !== undefined ? obj.moveStartY : obj.y
               }">
-              <span class="slider-value" id="drawer-move-start-y-value">${(
-                obj.moveStartY || 0
+              <span class="slider-value" id="drawer-move-start-y-value">${(obj.moveStartY !==
+              undefined
+                ? obj.moveStartY
+                : obj.y
               ).toFixed(1)}</span>
             </div>
           </div>
@@ -652,10 +733,12 @@ class UIManager {
             <label>End X Position:</label>
             <div class="slider-container">
               <input type="range" id="drawer-move-end-x" min="0" max="100" step="0.1" value="${
-                obj.moveEndX || 100
+                obj.moveEndX !== undefined ? obj.moveEndX : obj.x
               }">
-              <span class="slider-value" id="drawer-move-end-x-value">${(
-                obj.moveEndX || 100
+              <span class="slider-value" id="drawer-move-end-x-value">${(obj.moveEndX !==
+              undefined
+                ? obj.moveEndX
+                : obj.x
               ).toFixed(1)}</span>
             </div>
           </div>
@@ -663,10 +746,12 @@ class UIManager {
             <label>End Y Position:</label>
             <div class="slider-container">
               <input type="range" id="drawer-move-end-y" min="0" max="100" step="0.1" value="${
-                obj.moveEndY || 100
+                obj.moveEndY !== undefined ? obj.moveEndY : obj.y
               }">
-              <span class="slider-value" id="drawer-move-end-y-value">${(
-                obj.moveEndY || 100
+              <span class="slider-value" id="drawer-move-end-y-value">${(obj.moveEndY !==
+              undefined
+                ? obj.moveEndY
+                : obj.y
               ).toFixed(1)}</span>
             </div>
           </div>
@@ -694,7 +779,18 @@ class UIManager {
         }
       });
     }
-    // Note: No else clause - drawer content remains empty for effects without settings
+
+    // Update the toggle buttons and state indicator to reflect current mode
+    // without calling toggleEffectEditMode (to avoid infinite loop)
+    this.updateToggleButtonStates();
+  }
+
+  /**
+   * Get current effect edit mode
+   * @returns {string} Current edit mode ('start' or 'end')
+   */
+  getCurrentEffectEditMode() {
+    return this.currentEffectEditMode;
   }
 
   /**

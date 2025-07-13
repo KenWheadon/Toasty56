@@ -113,13 +113,9 @@ class PreviewManager {
         const objElement = document.createElement("div");
         objElement.className = "preview-object";
         objElement.dataset.imageIndex = index;
-        objElement.style.left = `${imageData.x}%`;
-        objElement.style.top = `${imageData.y}%`;
-        objElement.style.transform = `translate(-50%, -50%) scale(${
-          imageData.scale || 1
-        }) rotate(${imageData.rotation || 0}deg)`;
-        objElement.style.zIndex = imageData.zIndex || 1;
-        objElement.style.opacity = imageData.opacity || 1;
+
+        // Apply visual properties based on effect edit mode
+        this.applyObjectVisualProperties(objElement, imageData, index);
 
         // Use natural image dimensions (same as game)
         const img = document.createElement("img");
@@ -203,6 +199,91 @@ class PreviewManager {
 
     // Maintain selection after re-render
     this.maintainSelection();
+  }
+
+  /**
+   * Apply visual properties to object element based on effect edit mode
+   * @param {Element} objElement - Object DOM element
+   * @param {Object} imageData - Object data
+   * @param {number} index - Object index
+   */
+  applyObjectVisualProperties(objElement, imageData, index) {
+    let x = imageData.x;
+    let y = imageData.y;
+    let scale = imageData.scale;
+
+    // If this is the selected object and has slide_to or scale_to effect,
+    // show the appropriate start/end position based on edit mode
+    if (this.selectedObject === index && window.uiManager) {
+      const editMode = window.uiManager.getCurrentEffectEditMode();
+
+      if (imageData.effect === "slide_to") {
+        if (editMode === "start") {
+          x =
+            imageData.moveStartX !== undefined
+              ? imageData.moveStartX
+              : imageData.x;
+          y =
+            imageData.moveStartY !== undefined
+              ? imageData.moveStartY
+              : imageData.y;
+        } else if (editMode === "end") {
+          x =
+            imageData.moveEndX !== undefined ? imageData.moveEndX : imageData.x;
+          y =
+            imageData.moveEndY !== undefined ? imageData.moveEndY : imageData.y;
+        }
+      } else if (imageData.effect === "scale_to") {
+        if (editMode === "start") {
+          scale =
+            imageData.scaleStart !== undefined
+              ? imageData.scaleStart
+              : imageData.scale;
+        } else if (editMode === "end") {
+          scale =
+            imageData.scaleEnd !== undefined
+              ? imageData.scaleEnd
+              : imageData.scale;
+        }
+      }
+    }
+
+    // Apply the calculated properties
+    objElement.style.left = `${x}%`;
+    objElement.style.top = `${y}%`;
+    objElement.style.transform = `translate(-50%, -50%) scale(${scale}) rotate(${
+      imageData.rotation || 0
+    }deg)`;
+    objElement.style.zIndex = imageData.zIndex || 1;
+    objElement.style.opacity = imageData.opacity || 1;
+  }
+
+  /**
+   * Update object visual for effect mode
+   * @param {string} mode - 'start' or 'end'
+   */
+  updateObjectVisualForEffectMode(mode) {
+    if (
+      this.selectedObject === null ||
+      !window.editor ||
+      !window.editor.currentScene
+    ) {
+      return;
+    }
+
+    const project = window.editor.projectManager.getProject();
+    const scene = project.scenes[window.editor.currentScene];
+    const obj = scene.images[this.selectedObject];
+
+    if (!obj) return;
+
+    const objElement = document.querySelector(
+      `[data-image-index="${this.selectedObject}"]`
+    );
+    if (!objElement) return;
+
+    // Apply the visual properties for the current mode
+    this.applyObjectVisualProperties(objElement, obj, this.selectedObject);
   }
 
   /**
@@ -335,19 +416,37 @@ class PreviewManager {
     const project = window.editor.projectManager.getProject();
     const scene = project.scenes[window.editor.currentScene];
     const obj = scene.images[this.selectedObject];
-    const startScale = obj.scale;
+
+    // Determine which scale property to modify based on effect and edit mode
+    let scaleProperty = "scale";
+    if (obj.effect === "scale_to" && window.uiManager) {
+      const editMode = window.uiManager.getCurrentEffectEditMode();
+      if (editMode === "start") {
+        scaleProperty = "scaleStart";
+        if (obj.scaleStart === undefined) obj.scaleStart = obj.scale;
+      } else if (editMode === "end") {
+        scaleProperty = "scaleEnd";
+        if (obj.scaleEnd === undefined) obj.scaleEnd = obj.scale;
+      }
+    }
+
+    const startScale = obj[scaleProperty];
 
     const mouseMoveHandler = (e) => {
       if (!this.isScaling) return;
 
       const deltaY = startMouseY - e.clientY;
       const scaleChange = deltaY * 0.01;
-      obj.scale = Math.max(0.1, Math.min(5, startScale + scaleChange));
+      obj[scaleProperty] = Math.max(0.1, Math.min(5, startScale + scaleChange));
 
       this.updateObjectVisual();
       if (window.editor) {
         window.editor.updateObjectProperties();
         window.editor.updateSceneObjectsList();
+        // Update drawer content if open
+        if (obj.effect === "scale_to") {
+          window.uiManager.updateEffectDrawerContent(obj);
+        }
       }
     };
 
@@ -427,11 +526,8 @@ class PreviewManager {
       `[data-image-index="${this.selectedObject}"]`
     );
     if (objElement) {
-      objElement.style.left = `${obj.x}%`;
-      objElement.style.top = `${obj.y}%`;
-      objElement.style.transform = `translate(-50%, -50%) scale(${obj.scale}) rotate(${obj.rotation}deg)`;
-      objElement.style.zIndex = obj.zIndex;
-      objElement.style.opacity = obj.opacity;
+      // Apply visual properties considering effect edit mode
+      this.applyObjectVisualProperties(objElement, obj, this.selectedObject);
     }
   }
 
@@ -464,8 +560,30 @@ class PreviewManager {
       const project = window.editor.projectManager.getProject();
       const scene = project.scenes[window.editor.currentScene];
       const obj = scene.images[this.selectedObject];
-      obj.x = Math.max(0, Math.min(100, x));
-      obj.y = Math.max(0, Math.min(100, y));
+
+      // Determine which position properties to modify based on effect and edit mode
+      if (obj.effect === "slide_to" && window.uiManager) {
+        const editMode = window.uiManager.getCurrentEffectEditMode();
+        if (editMode === "start") {
+          if (obj.moveStartX === undefined) obj.moveStartX = obj.x;
+          if (obj.moveStartY === undefined) obj.moveStartY = obj.y;
+          obj.moveStartX = Math.max(0, Math.min(100, x));
+          obj.moveStartY = Math.max(0, Math.min(100, y));
+        } else if (editMode === "end") {
+          if (obj.moveEndX === undefined) obj.moveEndX = obj.x;
+          if (obj.moveEndY === undefined) obj.moveEndY = obj.y;
+          obj.moveEndX = Math.max(0, Math.min(100, x));
+          obj.moveEndY = Math.max(0, Math.min(100, y));
+        }
+        // Update drawer content if open
+        if (window.uiManager) {
+          window.uiManager.updateEffectDrawerContent(obj);
+        }
+      } else {
+        // Standard position update
+        obj.x = Math.max(0, Math.min(100, x));
+        obj.y = Math.max(0, Math.min(100, y));
+      }
 
       this.updateObjectVisual();
       if (window.editor) {

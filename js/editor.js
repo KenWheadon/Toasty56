@@ -502,10 +502,20 @@ class StoryEditor {
     if (rotationInput) obj.rotation = parseFloat(rotationInput.value);
     if (zindexInput) obj.zIndex = parseInt(zindexInput.value);
     if (opacityInput) obj.opacity = parseFloat(opacityInput.value);
+
+    // Handle effect change
+    const previousEffect = obj.effect;
     if (effectSelect) obj.effect = effectSelect.value || undefined;
 
-    // Clear effect properties when effect changes
-    this.clearEffectProperties(obj);
+    // Initialize effect properties when effect is first applied
+    if (obj.effect && obj.effect !== previousEffect) {
+      this.initializeEffectProperties(obj);
+    }
+
+    // Clear effect properties when effect changes or is removed
+    if (!obj.effect || obj.effect !== previousEffect) {
+      this.clearEffectProperties(obj);
+    }
 
     this.previewManager.updateObjectVisual();
     this.uiManager.updateSceneObjectsList(
@@ -513,6 +523,24 @@ class StoryEditor {
       this.currentScene,
       selectedObject
     );
+  }
+
+  /**
+   * Initialize effect properties when an effect is first applied
+   * @param {Object} obj - Object data
+   */
+  initializeEffectProperties(obj) {
+    if (obj.effect === "scale_to") {
+      // Set default start values from current object state
+      if (obj.scaleStart === undefined) obj.scaleStart = obj.scale;
+      if (obj.scaleEnd === undefined) obj.scaleEnd = obj.scale;
+    } else if (obj.effect === "slide_to") {
+      // Set default start values from current object state
+      if (obj.moveStartX === undefined) obj.moveStartX = obj.x;
+      if (obj.moveStartY === undefined) obj.moveStartY = obj.y;
+      if (obj.moveEndX === undefined) obj.moveEndX = obj.x;
+      if (obj.moveEndY === undefined) obj.moveEndY = obj.y;
+    }
   }
 
   /**
