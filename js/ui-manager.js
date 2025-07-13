@@ -285,7 +285,16 @@ class UIManager {
         choicesList.appendChild(choiceItem);
       });
 
+      // Update choice dropdowns with all available scenes
       this.updateChoiceDropdowns(project);
+
+      // Set the saved values for each choice dropdown
+      const choiceSelects = document.querySelectorAll(".choice-next-scene");
+      scene.choices.forEach((choice, index) => {
+        if (choiceSelects[index]) {
+          choiceSelects[index].value = choice.nextScene || "";
+        }
+      });
     }
   }
 
