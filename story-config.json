@@ -1317,7 +1317,7 @@
         },
         {
           "text": "Go around it",
-          "nextScene": "29"
+          "nextScene": "37"
         }
       ]
     },
@@ -1401,7 +1401,7 @@
           "opacity": 1
         }
       ],
-      "content": "Just when you started making progress through center of the belt, you notice a massive butterstroid looming towards you.",
+      "content": "Just when you started making progress through the center of the belt, you notice a massive butterstroid looming towards you.",
       "choices": [
         {
           "text": "Land on it",
