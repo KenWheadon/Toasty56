@@ -6,11 +6,11 @@
     "version": "1.0.0",
     "tags": ["space", "comedy", "adventure", "toast", "first person"]
   },
-  "totalScenes": 42,
+  "totalScenes": 29,
   "currentScene": 1,
   "scenes": {
     "1": {
-      "id": "scene_1",
+      "id": "1",
       "type": "image",
       "background": "images/bg-empty-space.png",
       "overlay": {
@@ -21,17 +21,12 @@
       "images": [
         {
           "src": "images/toast-casual.png",
-          "x": 10.9,
-          "y": 82.7,
+          "x": 10.457516339869281,
+          "y": 80.93041583607621,
           "scale": 0.5,
           "rotation": 16,
           "zIndex": 1,
-          "opacity": 1,
-          "effect": "slide_to",
-          "moveStartX": 8.1,
-          "moveStartY": 86.8,
-          "moveEndX": 8.1,
-          "moveEndY": 82.8
+          "opacity": 1
         },
         {
           "src": "images/logo.png",
@@ -43,7 +38,7 @@
           "opacity": 1
         }
       ],
-      "content": "Choose Your Own Adventure\n",
+      "content": "Will you answer the call to Adventure?\n",
       "nextScene": "2"
     },
     "2": {
@@ -291,8 +286,9 @@
       "nextScene": "9"
     },
     "9": {
-      "id": "9",
+      "id": "scene_9",
       "type": "image",
+      "background": "images/bg-breadtopia.png",
       "overlay": {
         "color": "#000000",
         "opacity": 0.15,
@@ -321,8 +317,8 @@
         },
         {
           "src": "images/toast-dead.png",
-          "x": 60.6,
-          "y": 29.8,
+          "x": 63.39869281045751,
+          "y": 36.57456770664318,
           "scale": 0.4,
           "rotation": -80,
           "zIndex": 60,
@@ -331,7 +327,6 @@
         }
       ],
       "content": "You lay on the ground unable to move – soon your body shuts down completely. You drift around the butterstroid for another few weeks before…",
-      "background": "images/bg-breadtopia.png",
       "nextScene": "10"
     },
     "10": {
@@ -356,7 +351,7 @@
         }
       ],
       "content": "Your body is recovered and buried in the family plot on Breadtopia.",
-      "nextScene": null
+      "nextScene": "29"
     },
     "11": {
       "id": "scene_11",
@@ -370,7 +365,7 @@
       "images": [
         {
           "src": "images/toast-casual-sad.png",
-          "x": 25.816993464052292,
+          "x": 15,
           "y": 73.06800797366834,
           "scale": 0.4,
           "rotation": 0,
@@ -379,7 +374,7 @@
           "effect": "fade_in"
         }
       ],
-      "content": "The butterstroid was a fad for 10 months... until",
+      "content": "You ignore the butterstroid, and turns out it's just a fad. After 10 months most of the bigger butterheads had died and life went back to normal... until",
       "nextScene": "12"
     },
     "12": {
@@ -388,7 +383,7 @@
       "background": "images/bg-breadtopia.png",
       "overlay": {
         "color": "#000000",
-        "opacity": 0.2,
+        "opacity": 0.15,
         "zIndex": 1
       },
       "images": [
@@ -423,7 +418,7 @@
           "effect": "fade_in"
         }
       ],
-      "content": "Butter Pirates appeared - they'd been tracking this butterstroid for decades and weren't about to let us continue eating their profits.",
+      "content": "Butter Pirates appeared - they've been tracking this butterstroid for decades and aren't about to let us continue eating their profits.",
       "nextScene": "13"
     },
     "13": {
@@ -564,7 +559,7 @@
           "effect": "fade_in"
         }
       ],
-      "content": "The pirates took the butterstroid and leave.",
+      "content": "The pirates took the butterstroid and left.",
       "nextScene": "16"
     },
     "16": {
@@ -587,7 +582,7 @@
           "opacity": 1
         }
       ],
-      "content": "You continue on for 50 years - looking for something you really care about...",
+      "content": "You continue on for 50 years - looking for something you really care about but never taking any risks to find it.",
       "nextScene": "17"
     },
     "17": {
@@ -611,7 +606,7 @@
           "effect": "fade_in"
         }
       ],
-      "content": "One night as you walk the streets of Toast Town, you can feel that your time is almost up and you regret your choices. You remember that spaceship you still own. It’s not too late for adventure!",
+      "content": "One night as you walk the streets of Toast Town, you can feel that your time is coming to an end. You regret listening to the fear instead of going on adventures. Wait! You still own the Toasty 56 and it’s never too late!",
       "nextScene": "18"
     },
     "18": {
@@ -626,8 +621,8 @@
       "images": [
         {
           "src": "images/toast-spaceship-small.png",
-          "x": 50.1,
-          "y": 44.7,
+          "x": 48.69281045751634,
+          "y": 44.43697556905104,
           "scale": 0.8,
           "rotation": 22,
           "zIndex": 55,
@@ -644,7 +639,7 @@
           "opacity": 1
         }
       ],
-      "content": "It takes a bit of messing around to figure out the controls, but before long the Toasty 56 is up and leaving Breadtopia.",
+      "content": "It takes a bit of messing around to figure out the controls, but before long the Toasty 56 is up and leaving Breadtopia in it's rearview.",
       "nextScene": "19"
     },
     "19": {
@@ -683,8 +678,8 @@
       "images": [
         {
           "src": "images/toast-dead.png",
-          "x": 29.193899782135073,
-          "y": 35.5361364795327,
+          "x": 29.2,
+          "y": 35.5,
           "scale": 0.5,
           "rotation": -73,
           "zIndex": 50,
@@ -780,7 +775,7 @@
           "effect": "fade_in"
         }
       ],
-      "content": "You take Toasty 56 right up to the Pirate Ship, and notice just how massive it truly is.",
+      "content": "You take Toasty 56 right up to the Pirate Ship, and notice just how massive it truly is. Oh well - no time to hesitate now, it's only time for action!",
       "choices": [
         {
           "text": "Fire the lasers",
@@ -843,12 +838,13 @@
           "effect": "fade_in"
         }
       ],
-      "content": "Nothing happens – turns out you shouldn’t have just charged up here with a ship that’s been sitting in storage for years.",
+      "content": "Nothing happens – turns out you shouldn’t have just charged up here with a ship that’s been sitting in storage for years",
       "nextScene": "24"
     },
     "24": {
       "id": "scene_24",
       "type": "image",
+      "background": "images/bg-empty-space.png",
       "overlay": {
         "color": "#000000",
         "opacity": 0.15,
@@ -886,12 +882,12 @@
         }
       ],
       "content": "The pirate ship slips behind you - turns out it was just charging it's laser cannon. Ironically the shot misses your ship by a few meters ......",
-      "background": "images/bg-empty-space.png",
       "nextScene": "25"
     },
     "25": {
       "id": "scene_25",
       "type": "image",
+      "background": "images/bg-inside-toasty56.png",
       "overlay": {
         "color": "#000000",
         "opacity": 0.15,
@@ -910,7 +906,6 @@
         }
       ],
       "content": "but the radiation cooks you anyway and you die.",
-      "background": "images/bg-inside-toasty56.png",
       "nextScene": "26"
     },
     "26": {
@@ -957,7 +952,7 @@
       "nextScene": "10"
     },
     "28": {
-      "id": "scene_28",
+      "id": "28",
       "type": "image",
       "background": "images/bg-breadtopia.png",
       "overlay": {
@@ -988,10 +983,10 @@
         }
       ],
       "content": "You follow your gut and start out on your adventure! You live a happy and fulfilling life. Good for you I guess.",
-      "nextScene": "30"
+      "nextScene": "29"
     },
     "29": {
-      "id": "scene_29",
+      "id": "29",
       "type": "image",
       "background": "images/bg-next-time.png",
       "overlay": {
@@ -1002,552 +997,6 @@
       "images": [],
       "content": "END OF DEMO - will the adventure continue?",
       "nextScene": "1"
-    },
-    "30": {
-      "id": "scene_30",
-      "type": "choice",
-      "background": "images/bg-inside-toasty56.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast.png",
-          "x": 27.124183006535947,
-          "y": 72.62296601919243,
-          "scale": 0.68,
-          "rotation": 0,
-          "zIndex": 1,
-          "opacity": 1
-        }
-      ],
-      "content": "What air freshy do you wanna huff? ",
-      "choices": [
-        {
-          "text": "Mint",
-          "nextScene": "31"
-        },
-        {
-          "text": "Apple",
-          "nextScene": "32"
-        },
-        {
-          "text": "Dragon Fruit",
-          "nextScene": "33"
-        }
-      ]
-    },
-    "31": {
-      "id": "scene_31",
-      "type": "image",
-      "background": "images/bg-breadtopia.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-spaceship-small.png",
-          "x": 60.5,
-          "y": 55.7,
-          "scale": 1,
-          "rotation": 0,
-          "zIndex": 1,
-          "opacity": 1,
-          "effect": "glow"
-        },
-        {
-          "src": "images/bubble-empty.png",
-          "x": 78.87330825230859,
-          "y": 29.97708645456949,
-          "scale": 0.3,
-          "rotation": 0,
-          "zIndex": 2,
-          "opacity": 1
-        },
-        {
-          "src": "images/af-mint.png",
-          "x": 79,
-          "y": 27.7,
-          "scale": 0.2,
-          "rotation": 0,
-          "zIndex": 3,
-          "opacity": 1,
-          "effect": "wiggle"
-        }
-      ],
-      "content": "SNORF SNORF - Mint is never gonna get old",
-      "choices": [
-        {
-          "text": "Mint",
-          "nextScene": ""
-        },
-        {
-          "text": "Apple",
-          "nextScene": ""
-        },
-        {
-          "text": "Dragon Fruit",
-          "nextScene": ""
-        }
-      ],
-      "nextScene": "34"
-    },
-    "32": {
-      "id": "scene_32",
-      "type": "image",
-      "background": "images/bg-breadtopia.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-spaceship-small.png",
-          "x": 60.5,
-          "y": 55.7,
-          "scale": 1,
-          "rotation": 0,
-          "zIndex": 1,
-          "opacity": 1,
-          "effect": "glow"
-        },
-        {
-          "src": "images/bubble-empty.png",
-          "x": 79.602938062898,
-          "y": 31.81017008901031,
-          "scale": 0.3,
-          "rotation": 0,
-          "zIndex": 2,
-          "opacity": 1
-        },
-        {
-          "src": "images/af-apple.png",
-          "x": 79.4,
-          "y": 29.3,
-          "scale": 0.2,
-          "rotation": 0,
-          "zIndex": 3,
-          "opacity": 1,
-          "effect": "wiggle"
-        }
-      ],
-      "content": "SNORF SNORF - Apple is all I can smell now.....",
-      "choices": [
-        {
-          "text": "Mint",
-          "nextScene": ""
-        },
-        {
-          "text": "Apple",
-          "nextScene": ""
-        },
-        {
-          "text": "Dragon Fruit",
-          "nextScene": ""
-        }
-      ],
-      "nextScene": "34"
-    },
-    "33": {
-      "id": "scene_33",
-      "type": "image",
-      "background": "images/bg-breadtopia.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-spaceship-small.png",
-          "x": 60.45751633986928,
-          "y": 55.7113717491076,
-          "scale": 1,
-          "rotation": 0,
-          "zIndex": 1,
-          "opacity": 1
-        },
-        {
-          "src": "images/bubble-empty.png",
-          "x": 80.7494991938242,
-          "y": 27.156957786198994,
-          "scale": 0.4,
-          "rotation": 0,
-          "zIndex": 2,
-          "opacity": 1
-        },
-        {
-          "src": "images/af-dragonfruit.png",
-          "x": 81,
-          "y": 23.8,
-          "scale": 0.3,
-          "rotation": 13,
-          "zIndex": 3,
-          "opacity": 1
-        }
-      ],
-      "content": "SNORF SNORF - Dragon Fruit or bust BABYYYY",
-      "choices": [
-        {
-          "text": "Mint",
-          "nextScene": ""
-        },
-        {
-          "text": "Apple",
-          "nextScene": ""
-        },
-        {
-          "text": "Dragon Fruit",
-          "nextScene": ""
-        }
-      ],
-      "nextScene": "34"
-    },
-    "34": {
-      "id": "scene_34",
-      "type": "image",
-      "background": "images/spaceship-butterbelt.jpg",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-sad.png",
-          "x": 24.40087145969499,
-          "y": 72.02957674655788,
-          "scale": 0.8,
-          "rotation": 0,
-          "zIndex": 1,
-          "opacity": 1
-        }
-      ],
-      "content": "OH Crumble my biscuits - I forgot about the butter belt. No amount of fresh air goodness is gonna get me out of this mess!",
-      "nextScene": "35"
-    },
-    "35": {
-      "id": "scene_35",
-      "type": "choice",
-      "background": "images/bg-asteroidfield.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-spaceship-small.png",
-          "x": 27.77777777777778,
-          "y": 52.89277270409346,
-          "scale": 0.4,
-          "rotation": 0,
-          "zIndex": 1,
-          "opacity": 1
-        },
-        {
-          "src": "images/bubble-sad.png",
-          "x": 43.57298474945534,
-          "y": 29.453896435028508,
-          "scale": 0.4,
-          "rotation": 10,
-          "zIndex": 2,
-          "opacity": 1
-        }
-      ],
-      "content": "I have a few options, but this is starting to feel pretty dangerous. ",
-      "choices": [
-        {
-          "text": "Skirt the edge",
-          "nextScene": "38"
-        },
-        {
-          "text": "Go right though",
-          "nextScene": "39"
-        },
-        {
-          "text": "Turn back",
-          "nextScene": "36"
-        }
-      ]
-    },
-    "36": {
-      "id": "scene_36",
-      "type": "choice",
-      "background": "images/bg-asteroidfield.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-spaceship-small.png",
-          "x": 74.91246070910897,
-          "y": 51.833083634440825,
-          "scale": 0.4,
-          "rotation": 0,
-          "zIndex": 1,
-          "opacity": 1
-        },
-        {
-          "src": "images/butter-asteroid.png",
-          "x": 22.379114346671876,
-          "y": 47.179871331629506,
-          "scale": 0.71,
-          "rotation": 0,
-          "zIndex": 2,
-          "opacity": 1
-        }
-      ],
-      "content": "oh shittt - it's a butterstroid! While I was thinking about what to do it must have slipped behind me! That thing is massive! What should I do? ",
-      "choices": [
-        {
-          "text": "Fire the lasers",
-          "nextScene": "29"
-        },
-        {
-          "text": "Land and take a look",
-          "nextScene": "40"
-        },
-        {
-          "text": "Go around it",
-          "nextScene": "29"
-        }
-      ]
-    },
-    "37": {
-      "id": "37",
-      "type": "image",
-      "background": "images/bg-breadtopia.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-spaceship-small.png",
-          "x": 74.9,
-          "y": 51.8,
-          "scale": 0.4,
-          "rotation": -26,
-          "zIndex": 1,
-          "opacity": 1
-        }
-      ],
-      "content": "You make it around the butterstroid and head right back to Breadtopia. You are done with trying to be an adventurer - it's just too dangerous.",
-      "nextScene": "4"
-    },
-    "38": {
-      "id": "38",
-      "type": "image",
-      "background": "images/bg-asteroidfield.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-spaceship-small.png",
-          "x": 93.9,
-          "y": 42.8,
-          "scale": 0.4,
-          "rotation": 39,
-          "zIndex": 1,
-          "opacity": 1,
-          "effect": "slide_to",
-          "moveStartX": 1.6,
-          "moveStartY": 62.1,
-          "moveEndX": 93.9,
-          "moveEndY": 28.8
-        }
-      ],
-      "content": "You make it around the outside edge of the butter belt - it puts your nerves to the test a few times but you make it through.",
-      "nextScene": "29"
-    },
-    "39": {
-      "id": "39",
-      "type": "choice",
-      "background": "images/bg-asteroidfield.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/toast-spaceship-small.png",
-          "x": 20.71138906532467,
-          "y": 54.65321230281132,
-          "scale": 0.4,
-          "rotation": 0,
-          "zIndex": 1,
-          "opacity": 1
-        },
-        {
-          "src": "images/butter-asteroid.png",
-          "x": 75.43362485952998,
-          "y": 31.81017008901031,
-          "scale": 0.7,
-          "rotation": 0,
-          "zIndex": 2,
-          "opacity": 1
-        }
-      ],
-      "content": "Just when you started making progress through center of the belt, you notice a massive butterstroid looming towards you.",
-      "choices": [
-        {
-          "text": "Land on it",
-          "nextScene": "40"
-        },
-        {
-          "text": "Fire your lasers",
-          "nextScene": "29"
-        },
-        {
-          "text": "Navigate around",
-          "nextScene": "29"
-        }
-      ]
-    },
-    "40": {
-      "id": "40",
-      "type": "image",
-      "background": "images/bg-asteroidfield.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/butter-asteroid.png",
-          "x": 35.62091503267974,
-          "y": 92.50150665245005,
-          "scale": 0.9,
-          "rotation": 10,
-          "zIndex": 50,
-          "opacity": 1,
-          "effect": "fade_in"
-        },
-        {
-          "src": "images/toast-spaceship-small.png",
-          "x": 21.459694989106755,
-          "y": 33.90431597978768,
-          "scale": 0.8,
-          "rotation": -10,
-          "zIndex": 48,
-          "opacity": 1,
-          "effect": "slide_to"
-        },
-        {
-          "src": "images/toast-buttered.png",
-          "x": 49.673202614379086,
-          "y": 46.06879606879607,
-          "scale": 0.25,
-          "rotation": 0,
-          "zIndex": 60,
-          "opacity": 1,
-          "effect": "fade_in"
-        }
-      ],
-      "content": "You can't control yourself though - this close to the butter, you just can't stop! You keep eating and eating, day after day.",
-      "nextScene": "41"
-    },
-    "41": {
-      "id": "41",
-      "type": "image",
-      "background": "images/bg-asteroidfield.png",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.2,
-        "zIndex": 40
-      },
-      "images": [
-        {
-          "src": "images/butter-asteroid.png",
-          "x": 30.7,
-          "y": 92.4,
-          "scale": 1.1,
-          "rotation": 10,
-          "zIndex": 50,
-          "opacity": 1,
-          "effect": "fade_in"
-        },
-        {
-          "src": "images/toast-spaceship-small.png",
-          "x": 21.67755991285403,
-          "y": 21.591488572620648,
-          "scale": 0.8,
-          "rotation": -10,
-          "zIndex": 47,
-          "opacity": 1,
-          "effect": "slide_to"
-        },
-        {
-          "src": "images/toast-fat.png",
-          "x": 54.248366013071895,
-          "y": 44.73367020536832,
-          "scale": 0.3,
-          "rotation": 0,
-          "zIndex": 60,
-          "opacity": 1,
-          "effect": "fade_in"
-        }
-      ],
-      "content": "After a few weeks your starch can't absorb any more butter - your body is at its limit.",
-      "nextScene": "42"
-    },
-    "42": {
-      "id": "42",
-      "type": "image",
-      "overlay": {
-        "color": "#000000",
-        "opacity": 0.15,
-        "zIndex": 45
-      },
-      "images": [
-        {
-          "src": "images/butter-asteroid.png",
-          "x": 54.248366013071895,
-          "y": 99.918872560382,
-          "scale": 1.5,
-          "rotation": 10,
-          "zIndex": 50,
-          "opacity": 1,
-          "effect": "fade_in"
-        },
-        {
-          "src": "images/toast-spaceship-small.png",
-          "x": 20.588235294117645,
-          "y": 25.44851884474526,
-          "scale": 0.8,
-          "rotation": -10,
-          "zIndex": 47,
-          "opacity": 1,
-          "effect": "slide_to"
-        },
-        {
-          "src": "images/toast-dead.png",
-          "x": 60.6,
-          "y": 29.8,
-          "scale": 0.4,
-          "rotation": -80,
-          "zIndex": 60,
-          "opacity": 1,
-          "effect": "fade_in"
-        }
-      ],
-      "content": "You lay on the ground unable to move – soon your body shuts down completely. You drift around the butterstroid for another few weeks before…",
-      "background": "images/bg-asteroidfield.png",
-      "nextScene": "10"
     }
   }
 }
