@@ -121,12 +121,9 @@
   cursor: grabbing;
 }
 
-/* Preview Text Content */
+/* Preview Text Content - Now draggable */
 .preview-text-content {
   position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
   text-align: center;
   padding: 15px 20px;
   background: rgba(0, 0, 0, 0.85);
@@ -138,39 +135,50 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   color: white;
+  user-select: none;
 }
 
 .preview-text-content.choice-layout {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  transform: none;
   text-align: left;
   max-width: 55%;
 }
 
-/* Preview Continue Button */
+/* Draggable UI Elements */
+.draggable-ui {
+  position: absolute;
+  cursor: move;
+  border: 2px dashed transparent;
+  transition: border-color 0.2s ease;
+  user-select: none;
+}
+
+.draggable-ui:hover {
+  border-color: rgba(52, 152, 219, 0.5) !important;
+}
+
+.draggable-ui.selected {
+  border-color: #e74c3c !important;
+}
+
+/* Preview Continue Button - Now draggable */
 .preview-continue-button {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
   padding: 12px 24px;
   background: linear-gradient(135deg, #3498db, #2980b9);
   color: white;
   border: none;
   border-radius: 6px;
   font-size: 16px;
-  cursor: default;
+  cursor: move;
   z-index: 200;
   box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
-  pointer-events: none;
+  pointer-events: auto;
+  user-select: none;
 }
 
-/* Preview Choices */
+/* Preview Choices - Now individually draggable */
 .preview-choices-container {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -185,13 +193,153 @@
   border: none;
   border-radius: 6px;
   font-size: 14px;
-  cursor: default;
+  cursor: move;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
   box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+  pointer-events: auto;
+  user-select: none;
+  position: absolute;
+  z-index: 200;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Length Slider */
+.length-slider-container {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid #34495e;
+  border-radius: 6px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1001;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.length-slider-container label {
+  color: #ecf0f1;
+  font-size: 12px;
+  font-weight: 500;
+  min-width: 40px;
+  margin: 0;
+}
+
+.length-slider-container input[type="range"] {
+  width: 100px;
+  height: 6px;
+  border-radius: 3px;
+  background: #34495e;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+.length-slider-container input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3498db;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.length-slider-container input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3498db;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.length-slider-container span {
+  color: #bdc3c7;
+  font-size: 12px;
+  min-width: 35px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* UI Selection Indicators */
+.ui-selection-indicator {
+  position: absolute;
+  border: 2px solid #3498db;
+  background: rgba(52, 152, 219, 0.1);
+  border-radius: 4px;
   pointer-events: none;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.ui-selection-indicator.visible {
+  opacity: 1;
+}
+
+.ui-selection-indicator::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  background: #3498db;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.ui-selection-indicator::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 12px;
+  height: 12px;
+  background: #3498db;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* Dragging States */
+.draggable-ui.dragging {
+  opacity: 0.8;
+  transform: scale(1.05);
+  z-index: 1000;
+}
+
+.draggable-ui.drag-target {
+  border-color: #27ae60 !important;
+  background: rgba(39, 174, 96, 0.1);
+}
+
+/* Position Hints */
+.position-hint {
+  position: absolute;
+  background: rgba(52, 152, 219, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 1001;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.position-hint.visible {
+  opacity: 1;
 }
 
 /* Responsive Preview */
@@ -199,19 +347,14 @@
   .preview-text-content {
     font-size: 16px;
     max-width: 90%;
-    bottom: 100px;
   }
 
   .preview-text-content.choice-layout {
     max-width: 100%;
-    bottom: 160px;
   }
 
   .preview-choices-container {
     max-width: 100%;
-    bottom: 20px;
-    right: 20px;
-    left: 20px;
   }
 
   .preview-choice-button {

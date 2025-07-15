@@ -118,7 +118,6 @@
 }
 
 .panel-section h3 {
-  margin-bottom: 12px;
   font-size: 16px;
   color: #ecf0f1;
   border-bottom: 1px solid #34495e;
@@ -136,7 +135,7 @@
   background: #2c3e50;
   border-top: 1px solid #34495e;
   padding: 3px 5px;
-  height: 65px;
+  height: 95px;
   display: flex;
   flex-direction: column;
 }
@@ -149,7 +148,7 @@
 
 .scene-list-horizontal {
   display: flex;
-  gap: 4px;
+  gap: 2px;
   overflow-x: auto;
   flex: 1;
   position: relative;
@@ -171,7 +170,7 @@
 
 /* Overlay Controls */
 .overlay-controls {
-  display: none;
+  display: flex;
 }
 
 .overlay-controls .slider-group {
@@ -185,4 +184,70 @@
 .overlay-controls.visible {
   display: flex;
   flex-wrap: wrap;
+}
+
+/* Scene ID/Name field styles */
+.scene-id-name-group {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  max-width: 100%;
+}
+
+.scene-id-display {
+  color: #6c757d;
+  font-weight: 500;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  user-select: none;
+  min-width: fit-content;
+}
+
+.scene-name-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  flex: 1;
+  min-width: 0;
+  font-size: 0.875rem;
+  color: #495057;
+  padding: 0;
+}
+
+.scene-name-input::placeholder {
+  color: #adb5bd;
+}
+
+.scene-name-input:focus {
+  outline: none;
+}
+
+.scene-id-name-group:focus-within {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .scene-id-name-group {
+    background: #343a40;
+    border-color: #495057;
+  }
+
+  .scene-id-display {
+    color: #adb5bd;
+  }
+
+  .scene-name-input {
+    color: #f8f9fa;
+  }
+
+  .scene-name-input::placeholder {
+    color: #6c757d;
+  }
+
+  .scene-id-name-group:focus-within {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
 }

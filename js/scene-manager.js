@@ -5,6 +5,7 @@ class SceneManager {
     this.currentScene = null;
     this.draggedScene = null;
     this.insertionIndicator = null;
+    this.CHOICE_VERTICAL_SPACING = 7; // Vertical spacing between choice buttons in percentage
   }
 
   /**
@@ -14,11 +15,27 @@ class SceneManager {
    */
   addScene(project) {
     const sceneId = Utils.getNextSceneId(project.scenes);
+
+    // Get default UI positions from project
+    const defaultPositions = window.projectManager
+      ? window.projectManager.getDefaultUIPositions()
+      : {
+          textContent: { x: 50, y: 85, width: 80 },
+          buttonsContainer: { x: 80, y: 85, width: 40 },
+          choiceButton: { x: 80, y: 85, width: 40 },
+        };
+
     const newScene = {
       id: `scene_${sceneId}`,
+      name: "New Scene",
       type: "choice",
       content: "New scene content",
       choices: [],
+      // Use default UI positioning from project defaults
+      uiPositions: {
+        textContent: { ...defaultPositions.textContent },
+        buttonsContainer: { ...defaultPositions.buttonsContainer },
+      },
     };
 
     project.scenes[sceneId] = newScene;
@@ -40,6 +57,29 @@ class SceneManager {
     const duplicatedScene = JSON.parse(JSON.stringify(currentSceneData));
 
     duplicatedScene.id = `scene_${newSceneId}`;
+    duplicatedScene.name = duplicatedScene.name || "New Scene";
+
+    // Ensure UI positions are copied
+    if (!duplicatedScene.uiPositions) {
+      const defaultPositions = window.projectManager
+        ? window.projectManager.getDefaultUIPositions()
+        : {
+            textContent: { x: 50, y: 85, width: 80 },
+            buttonsContainer: { x: 80, y: 85, width: 40 },
+          };
+      duplicatedScene.uiPositions = {
+        textContent: { ...defaultPositions.textContent },
+        buttonsContainer: { ...defaultPositions.buttonsContainer },
+      };
+    }
+
+    // Ensure width properties exist for existing UI positions
+    if (!duplicatedScene.uiPositions.textContent.width) {
+      duplicatedScene.uiPositions.textContent.width = 80;
+    }
+    if (!duplicatedScene.uiPositions.buttonsContainer.width) {
+      duplicatedScene.uiPositions.buttonsContainer.width = 40;
+    }
 
     project.scenes[newSceneId] = duplicatedScene;
     project.totalScenes = Object.keys(project.scenes).length;
@@ -100,8 +140,18 @@ class SceneManager {
       sceneItem.dataset.sceneId = sceneId;
       sceneItem.dataset.sceneIndex = index;
       sceneItem.draggable = true;
+
+      // Add type-based CSS class for color coding
+      if (scene.type === "choice") {
+        sceneItem.classList.add("scene-type-choice");
+      } else if (scene.type === "image") {
+        sceneItem.classList.add("scene-type-image");
+      }
+
+      // Display scene number and name
+      const displayName = scene.name || "Untitled Scene";
       sceneItem.innerHTML = `
-        <div class="scene-item-id">${sceneId}</div>
+        <div class="scene-item-id">${sceneId}: ${displayName}</div>
       `;
 
       // Add click handler (not drag start)
@@ -349,11 +399,38 @@ class SceneManager {
     const newScenes = {};
     const oldScenes = { ...project.scenes };
 
+    // Get default positions for migration
+    const defaultPositions = window.projectManager
+      ? window.projectManager.getDefaultUIPositions()
+      : {
+          textContent: { x: 50, y: 85, width: 80 },
+          buttonsContainer: { x: 80, y: 85, width: 40 },
+        };
+
     // First pass: Create new scene objects with updated IDs
     Object.keys(oldScenes).forEach((oldId) => {
       const newId = idMapping[oldId];
       const scene = { ...oldScenes[oldId] };
       scene.id = `scene_${newId}`;
+
+      // Ensure UI positions exist during renumbering
+      if (!scene.uiPositions) {
+        scene.uiPositions = {
+          textContent: { ...defaultPositions.textContent },
+          buttonsContainer: { ...defaultPositions.buttonsContainer },
+        };
+      }
+
+      // Ensure width properties exist
+      if (!scene.uiPositions.textContent.width) {
+        scene.uiPositions.textContent.width =
+          defaultPositions.textContent.width;
+      }
+      if (!scene.uiPositions.buttonsContainer.width) {
+        scene.uiPositions.buttonsContainer.width =
+          defaultPositions.buttonsContainer.width;
+      }
+
       newScenes[newId] = scene;
     });
 
@@ -391,6 +468,92 @@ class SceneManager {
 
     const scene = project.scenes[sceneId];
     Object.assign(scene, properties);
+
+    // Ensure UI positions exist
+    if (!scene.uiPositions) {
+      const defaultPositions = window.projectManager
+        ? window.projectManager.getDefaultUIPositions()
+        : {
+            textContent: { x: 50, y: 85, width: 80 },
+            buttonsContainer: { x: 80, y: 85, width: 40 },
+          };
+      scene.uiPositions = {
+        textContent: { ...defaultPositions.textContent },
+        buttonsContainer: { ...defaultPositions.buttonsContainer },
+      };
+    }
+
+    // Ensure width properties exist
+    if (!scene.uiPositions.textContent.width) {
+      scene.uiPositions.textContent.width = 80;
+    }
+    if (!scene.uiPositions.buttonsContainer.width) {
+      scene.uiPositions.buttonsContainer.width = 40;
+    }
+  }
+
+  /**
+   * Update UI element position
+   * @param {Object} project - Project object
+   * @param {string} sceneId - Scene ID
+   * @param {string} elementType - 'textContent' or 'buttonsContainer'
+   * @param {number} x - X position percentage
+   * @param {number} y - Y position percentage
+   * @param {number} width - Width percentage (optional)
+   */
+  updateUIElementPosition(project, sceneId, elementType, x, y, width) {
+    if (!project.scenes[sceneId]) return;
+
+    const scene = project.scenes[sceneId];
+    const defaultPositions = window.projectManager
+      ? window.projectManager.getDefaultUIPositions()
+      : {
+          textContent: { x: 50, y: 85, width: 80 },
+          buttonsContainer: { x: 80, y: 85, width: 40 },
+        };
+
+    if (!scene.uiPositions) {
+      scene.uiPositions = {
+        textContent: { ...defaultPositions.textContent },
+        buttonsContainer: { ...defaultPositions.buttonsContainer },
+      };
+    }
+
+    if (width !== undefined) {
+      scene.uiPositions[elementType] = { x, y, width };
+    } else {
+      scene.uiPositions[elementType].x = x;
+      scene.uiPositions[elementType].y = y;
+    }
+  }
+
+  /**
+   * Update individual choice position
+   * @param {Object} project - Project object
+   * @param {string} sceneId - Scene ID
+   * @param {number} choiceIndex - Choice index
+   * @param {number} x - X position percentage
+   * @param {number} y - Y position percentage
+   * @param {number} width - Width percentage (optional)
+   */
+  updateChoicePosition(project, sceneId, choiceIndex, x, y, width) {
+    if (!project.scenes[sceneId]) return;
+
+    const scene = project.scenes[sceneId];
+    if (!scene.choices || !scene.choices[choiceIndex]) return;
+
+    const choice = scene.choices[choiceIndex];
+    const defaultChoicePosition = window.projectManager
+      ? window.projectManager.getDefaultUIPositions().choiceButton
+      : { x: 80, y: 85, width: 40 };
+
+    if (!choice.position) {
+      choice.position = { ...defaultChoicePosition };
+    }
+
+    if (x !== undefined) choice.position.x = x;
+    if (y !== undefined) choice.position.y = y;
+    if (width !== undefined) choice.position.width = width;
   }
 
   /**
@@ -404,6 +567,19 @@ class SceneManager {
 
     const scene = project.scenes[sceneId];
     if (!scene.choices) scene.choices = [];
+
+    // Add default position for new choice using project defaults
+    if (!choice.position) {
+      const defaultChoicePosition = window.projectManager
+        ? window.projectManager.getDefaultUIPositions().choiceButton
+        : { x: 80, y: 85, width: 40 };
+      const choiceCount = scene.choices.length;
+      choice.position = {
+        x: defaultChoicePosition.x,
+        y: defaultChoicePosition.y + choiceCount * this.CHOICE_VERTICAL_SPACING, // Use configurable spacing
+        width: defaultChoicePosition.width,
+      };
+    }
 
     scene.choices.push(choice);
   }

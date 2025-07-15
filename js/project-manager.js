@@ -5,6 +5,7 @@ class ProjectManager {
     this.project = null;
     this.autoSaveInterval = null;
     this.autoSaveStatus = "ready";
+    this.clipboardPosition = null; // For copy/paste functionality
   }
 
   /**
@@ -22,7 +23,145 @@ class ProjectManager {
       totalScenes: 0,
       currentScene: 1,
       scenes: {},
+      // Global default positions for UI elements
+      defaults: {
+        uiPositions: {
+          textContent: { x: 50, y: 85, width: 80 },
+          buttonsContainer: { x: 80, y: 85, width: 40 },
+          choiceButton: { x: 80, y: 85, width: 40 }, // Default for individual choice buttons
+        },
+      },
     };
+  }
+
+  /**
+   * Create a new scenario with a default first scene
+   */
+  createNewScenario() {
+    // Clear auto-save from localStorage first
+    localStorage.removeItem("story-editor-autosave");
+    this.clipboardPosition = null;
+
+    // Initialize new project
+    this.initializeProject();
+
+    // Create first scene
+    const firstScene = {
+      id: "scene_1",
+      name: "New Scene",
+      type: "choice",
+      content: "New scene content",
+      choices: [],
+      // Use default UI positioning from project defaults
+      uiPositions: {
+        textContent: { x: 50, y: 85, width: 80 },
+        buttonsContainer: { x: 80, y: 85, width: 40 },
+      },
+    };
+
+    this.project.scenes["1"] = firstScene;
+    this.project.totalScenes = 1;
+    this.project.currentScene = 1;
+
+    // Update auto-save status
+    this.updateAutoSaveStatus("ready");
+  }
+
+  /**
+   * Get default UI positions
+   * @returns {Object} Default UI positions
+   */
+  getDefaultUIPositions() {
+    if (!this.project.defaults) {
+      // Initialize defaults if they don't exist (for older projects)
+      this.project.defaults = {
+        uiPositions: {
+          textContent: { x: 50, y: 85, width: 80 },
+          buttonsContainer: { x: 80, y: 85, width: 40 },
+          choiceButton: { x: 80, y: 85, width: 40 },
+        },
+      };
+    }
+    return this.project.defaults.uiPositions;
+  }
+
+  /**
+   * Update default UI position
+   * @param {string} elementType - Type of UI element
+   * @param {number} x - X position percentage
+   * @param {number} y - Y position percentage
+   * @param {number} width - Width percentage
+   */
+  updateDefaultUIPosition(elementType, x, y, width) {
+    const defaults = this.getDefaultUIPositions();
+    defaults[elementType] = { x, y, width };
+  }
+
+  /**
+   * Copy object to clipboard
+   * @param {Object} objectData - Object data to copy
+   */
+  copyObject(objectData) {
+    // Create a deep copy of the object data
+    this.clipboardPosition = {
+      type: "object",
+      data: JSON.parse(JSON.stringify(objectData)),
+    };
+  }
+
+  /**
+   * Get copied object from clipboard
+   * @returns {Object|null} Copied object data or null if nothing copied
+   */
+  getPastedObject() {
+    if (this.clipboardPosition && this.clipboardPosition.type === "object") {
+      return JSON.parse(JSON.stringify(this.clipboardPosition.data));
+    }
+    return null;
+  }
+
+  /**
+   * Check if there's an object in clipboard
+   * @returns {boolean} True if object is available for pasting
+   */
+  hasClipboardObject() {
+    return (
+      this.clipboardPosition !== null &&
+      this.clipboardPosition.type === "object"
+    );
+  }
+
+  /**
+   * Copy position to clipboard
+   * @param {Object} position - Position object with x, y, width
+   */
+  copyPosition(position) {
+    this.clipboardPosition = {
+      type: "position",
+      data: { ...position },
+    };
+  }
+
+  /**
+   * Get copied position from clipboard
+   * @returns {Object|null} Copied position or null if nothing copied
+   */
+  getPastedPosition() {
+    if (this.clipboardPosition && this.clipboardPosition.type === "position") {
+      return { ...this.clipboardPosition.data };
+    }
+    return null;
+  }
+
+  /**
+   * Check if there's a position in clipboard
+   * @returns {boolean} True if position is available for pasting
+   */
+  hasClipboardPosition() {
+    return (
+      this.clipboardPosition !== null &&
+      this.clipboardPosition.type === "position"
+    );
   }
 
   /**
@@ -100,6 +239,69 @@ class ProjectManager {
   }
 
   /**
+   * Migrate old project data to include scene names, UI positions, and defaults
+   * @param {Object} projectData - Project data to migrate
+   */
+  migrateProjectData(projectData) {
+    if (!projectData.scenes) return projectData;
+
+    // Add defaults if they don't exist
+    if (!projectData.defaults) {
+      projectData.defaults = {
+        uiPositions: {
+          textContent: { x: 50, y: 85, width: 80 },
+          buttonsContainer: { x: 80, y: 85, width: 40 },
+          choiceButton: { x: 80, y: 85, width: 40 },
+        },
+      };
+    }
+
+    // Add default names and UI positions to scenes that don't have them
+    Object.keys(projectData.scenes).forEach((sceneId) => {
+      const scene = projectData.scenes[sceneId];
+
+      if (!scene.name) {
+        scene.name = "New Scene";
+      }
+
+      // Add default UI positions if they don't exist
+      if (!scene.uiPositions) {
+        scene.uiPositions = {
+          textContent: { x: 50, y: 85, width: 80 },
+          buttonsContainer: { x: 80, y: 85, width: 40 },
+        };
+      }
+
+      // Ensure width properties exist for existing UI positions
+      if (!scene.uiPositions.textContent.width) {
+        scene.uiPositions.textContent.width = 80;
+      }
+      if (!scene.uiPositions.buttonsContainer.width) {
+        scene.uiPositions.buttonsContainer.width = 40;
+      }
+
+      // Add positions to choices that don't have them
+      if (scene.choices) {
+        scene.choices.forEach((choice, index) => {
+          if (!choice.position) {
+            choice.position = {
+              x: 80,
+              y: 85 + index * 5, // Offset each choice slightly
+              width: 40,
+            };
+          }
+          // Ensure width property exists
+          if (!choice.position.width) {
+            choice.position.width = 40;
+          }
+        });
+      }
+    });
+
+    return projectData;
+  }
+
+  /**
    * Load project from localStorage
    * @returns {boolean} True if project loaded successfully
    */
@@ -108,7 +310,7 @@ class ProjectManager {
       const savedData = localStorage.getItem("story-editor-autosave");
       if (savedData) {
         const projectData = JSON.parse(savedData);
-        this.project = projectData;
+        this.project = this.migrateProjectData(projectData);
         this.updateAutoSaveStatus("ready");
         return true;
       }
@@ -126,7 +328,7 @@ class ProjectManager {
   loadFromJSON(jsonString) {
     try {
       const projectData = JSON.parse(jsonString);
-      this.project = projectData;
+      this.project = this.migrateProjectData(projectData);
       // Clear auto-save since we loaded a new project
       localStorage.removeItem("story-editor-autosave");
       this.updateAutoSaveStatus("ready");
@@ -209,6 +411,7 @@ class ProjectManager {
    */
   clearProject() {
     this.project = null;
+    this.clipboardPosition = null;
     localStorage.removeItem("story-editor-autosave");
     this.updateAutoSaveStatus("ready");
   }

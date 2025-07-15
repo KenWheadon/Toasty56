@@ -1,9 +1,9 @@
 /* Scene Items */
 .scene-item {
-  min-width: 27px;
-  height: 28px;
+  min-width: 80px;
+  height: 40px;
   background: #1a1a1a;
-  border: 1px solid #34495e;
+  border: 0px solid #34495e;
   border-radius: 5px;
   cursor: move;
   transition: all 0.2s ease;
@@ -11,7 +11,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 8px;
   text-align: center;
   user-select: none;
 }
@@ -37,6 +36,35 @@
   background: #1e3a2a;
 }
 
+/* Scene Type Color Coding */
+.scene-item.scene-type-choice {
+  background: #2980b9; /* Blue for choice scenes */
+  color: white;
+}
+
+.scene-item.scene-type-choice:hover {
+  background: #3498db; /* Lighter blue on hover */
+}
+
+.scene-item.scene-type-choice.active {
+  background: #1abc9c; /* Teal when active */
+  border-color: #16a085;
+}
+
+.scene-item.scene-type-image {
+  background: #5a9c12; /* Yellow for image scenes */
+  color: white;
+}
+
+.scene-item.scene-type-image:hover {
+  background: #e67e22; /* Orange on hover */
+}
+
+.scene-item.scene-type-image.active {
+  background: #e74c3c; /* Red when active */
+  border-color: #c0392b;
+}
+
 .scene-item-title {
   font-weight: bold;
   font-size: 11px;
@@ -51,6 +79,12 @@
   word-wrap: break-word;
 }
 
+/* Override text color for better contrast on colored backgrounds */
+.scene-item.scene-type-choice .scene-item-id,
+.scene-item.scene-type-image .scene-item-id {
+  color: rgba(255, 255, 255, 0.9);
+}
+
 /* Scene Objects List */
 .scene-objects-section {
   margin-top: 12px;
@@ -62,6 +96,8 @@
   border: 1px solid #34495e;
   border-radius: 4px;
   background: #1a1a1a;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .scene-object-item {
@@ -72,6 +108,7 @@
   border-bottom: 1px solid #34495e;
   cursor: pointer;
   transition: background-color 0.2s;
+  width: 49%;
 }
 
 .scene-object-item:hover {

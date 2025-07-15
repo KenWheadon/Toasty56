@@ -52,7 +52,7 @@
 
 /* Asset List */
 .asset-list {
-  max-height: 245px;
+  max-height: 325px;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;

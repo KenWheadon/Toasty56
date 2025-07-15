@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/scenes.css" />
     <link rel="stylesheet" href="css/assets.css" />
     <link rel="stylesheet" href="css/modal.css" />
+    <link rel="stylesheet" href="css/node-editor.css" />
   </head>
   <body>
     <div id="editor-container">
@@ -64,6 +65,288 @@
           </div>
         </div>
 
+        <!-- UI Positioning Drawer -->
+        <div id="ui-positioning-drawer" class="ui-positioning-drawer">
+          <div class="drawer-header">
+            <h4>UI Positioning</h4>
+            <button class="drawer-close" id="close-ui-positioning-drawer">
+              &times;
+            </button>
+          </div>
+          <div class="drawer-content" id="ui-positioning-drawer-content">
+            <!-- Default UI Position Controls -->
+            <div class="drawer-section">
+              <div class="default-position-controls">
+                <div class="default-position-group">
+                  <h4>Text Content Defaults</h4>
+                  <div class="slider-group">
+                    <label>X Position:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="default-text-pos-x"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="50"
+                      />
+                      <span class="slider-value" id="default-text-pos-x-value"
+                        >50.0%</span
+                      >
+                    </div>
+                  </div>
+                  <div class="slider-group">
+                    <label>Y Position:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="default-text-pos-y"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="85"
+                      />
+                      <span class="slider-value" id="default-text-pos-y-value"
+                        >85.0%</span
+                      >
+                    </div>
+                  </div>
+                  <div class="slider-group">
+                    <label>Width:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="default-text-width"
+                        min="10"
+                        max="100"
+                        step="1"
+                        value="80"
+                      />
+                      <span class="slider-value" id="default-text-width-value"
+                        >80%</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="default-position-group">
+                  <h4>Button Container Defaults</h4>
+                  <div class="slider-group">
+                    <label>X Position:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="default-buttons-pos-x"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="80"
+                      />
+                      <span
+                        class="slider-value"
+                        id="default-buttons-pos-x-value"
+                        >80.0%</span
+                      >
+                    </div>
+                  </div>
+                  <div class="slider-group">
+                    <label>Y Position:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="default-buttons-pos-y"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="85"
+                      />
+                      <span
+                        class="slider-value"
+                        id="default-buttons-pos-y-value"
+                        >85.0%</span
+                      >
+                    </div>
+                  </div>
+                  <div class="slider-group">
+                    <label>Width:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="default-buttons-width"
+                        min="10"
+                        max="100"
+                        step="1"
+                        value="40"
+                      />
+                      <span
+                        class="slider-value"
+                        id="default-buttons-width-value"
+                        >40%</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="default-position-group">
+                  <h4>Choice Button Defaults</h4>
+                  <div class="slider-group">
+                    <label>X Position:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="default-choice-pos-x"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="80"
+                      />
+                      <span class="slider-value" id="default-choice-pos-x-value"
+                        >80.0%</span
+                      >
+                    </div>
+                  </div>
+                  <div class="slider-group">
+                    <label>Y Position:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="default-choice-pos-y"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="85"
+                      />
+                      <span class="slider-value" id="default-choice-pos-y-value"
+                        >85.0%</span
+                      >
+                    </div>
+                  </div>
+                  <div class="slider-group">
+                    <label>Width:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="default-choice-width"
+                        min="10"
+                        max="100"
+                        step="1"
+                        value="40"
+                      />
+                      <span class="slider-value" id="default-choice-width-value"
+                        >40%</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Current Scene UI Position Controls -->
+            <div class="drawer-section">
+              <div class="ui-position-controls">
+                <div class="ui-position-group">
+                  <div class="position-group-header">
+                    <h4>Text Position</h4>
+                    <button
+                      class="btn btn-small btn-reset"
+                      id="reset-text-position"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                  <div class="slider-group">
+                    <label>X Position:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="text-pos-x"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="50"
+                      />
+                      <span class="slider-value" id="text-pos-x-value"
+                        >50.0%</span
+                      >
+                    </div>
+                  </div>
+                  <div class="slider-group">
+                    <label>Y Position:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="text-pos-y"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="85"
+                      />
+                      <span class="slider-value" id="text-pos-y-value"
+                        >85.0%</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-position-group">
+                  <div class="position-group-header">
+                    <h4>Buttons Position</h4>
+                    <button
+                      class="btn btn-small btn-reset"
+                      id="reset-buttons-position"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                  <div class="slider-group">
+                    <label>X Position:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="buttons-pos-x"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="80"
+                      />
+                      <span class="slider-value" id="buttons-pos-x-value"
+                        >80.0%</span
+                      >
+                    </div>
+                  </div>
+                  <div class="slider-group">
+                    <label>Y Position:</label>
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="buttons-pos-y"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="85"
+                      />
+                      <span class="slider-value" id="buttons-pos-y-value"
+                        >85.0%</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Choice Positions -->
+            <div
+              class="drawer-section"
+              id="choice-positions-section-drawer"
+              style="display: none"
+            >
+              <div
+                id="choice-positions-list"
+                class="choice-positions-list"
+              ></div>
+            </div>
+          </div>
+        </div>
+
         <!-- Center Panel: Scene Preview -->
         <div class="center-panel">
           <div class="scene-preview" id="scene-preview">
@@ -76,6 +359,9 @@
         <!-- Right Panel: Content & Choices -->
         <div class="right-panel">
           <div class="header-controls">
+            <button id="new-scenario" class="btn btn-primary">
+              New Scenario
+            </button>
             <button id="load-project" class="btn btn-secondary">
               Load Project
             </button>
@@ -102,8 +388,16 @@
 
           <div class="panel-section info-panel">
             <div class="form-group">
-              <label>Scene ID:</label>
-              <input type="text" id="scene-id" placeholder="Scene ID" />
+              <label>Scene:</label>
+              <div class="scene-id-name-group">
+                <span id="scene-id-display" class="scene-id-display">1:</span>
+                <input
+                  type="text"
+                  id="scene-name"
+                  placeholder="Scene Name"
+                  class="scene-name-input"
+                />
+              </div>
             </div>
             <div class="form-group">
               <label>Type:</label>
@@ -125,6 +419,17 @@
                 <option value="null">End</option>
               </select>
             </div>
+          </div>
+
+          <!-- UI Positioning Button -->
+          <div class="panel-section">
+            <button
+              id="open-ui-positioning"
+              class="btn btn-primary btn-full-width"
+            >
+              <span class="btn-icon">⚙️</span>
+              UI Positioning
+            </button>
           </div>
 
           <!-- Overlay Properties -->
@@ -191,7 +496,6 @@
 
           <!-- Choices -->
           <div class="panel-section" id="choices-section">
-            <h3>Choices</h3>
             <button id="add-choice" class="btn btn-small">Add Choice</button>
             <div id="choices-list" class="choices-list"></div>
           </div>
@@ -205,6 +509,13 @@
           <button id="duplicate-scene" class="btn btn-small">Duplicate</button>
           <button id="delete-scene" class="btn btn-small btn-danger">
             Delete
+          </button>
+          <button
+            id="open-node-editor"
+            class="btn btn-small node-editor-button"
+          >
+            <span class="node-editor-icon">🕸️</span>
+            Node Editor
           </button>
         </div>
         <div id="scene-list" class="scene-list-horizontal"></div>
@@ -220,6 +531,26 @@
       </div>
     </div>
 
+    <!-- Modal for new scenario confirmation -->
+    <div id="new-scenario-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="new-scenario-close">&times;</span>
+        <h3>New Scenario</h3>
+        <p id="new-scenario-message">
+          Are you sure you want to create a new scenario? This will clear all
+          current work and cannot be undone.
+        </p>
+        <div class="modal-buttons">
+          <button id="confirm-new-scenario" class="btn btn-danger">
+            Yes, Create New Scenario
+          </button>
+          <button id="cancel-new-scenario" class="btn btn-secondary">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- JavaScript Components -->
     <script src="js/utils.js"></script>
     <script src="js/project-manager.js"></script>
@@ -227,6 +558,7 @@
     <script src="js/scene-manager.js"></script>
     <script src="js/preview-manager.js"></script>
     <script src="js/ui-manager.js"></script>
+    <script src="js/node-editor.js"></script>
     <script src="js/editor.js"></script>
   </body>
 </html>

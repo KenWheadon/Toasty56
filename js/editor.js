@@ -59,12 +59,40 @@ class StoryEditor {
     this.assetManager.clearAssets();
     this.refreshSceneList();
     this.assetManager.refreshAssetLists();
-    this.updateSceneDropdowns(); // FIX: Add this missing call
+    this.updateSceneDropdowns();
     this.previewManager.clearPreview();
     this.uiManager.updateSceneObjectsList(
       this.projectManager.getProject(),
       null
     );
+  }
+
+  /**
+   * Create new scenario (clears everything and starts fresh)
+   */
+  createNewScenario() {
+    // Create new scenario with one default scene
+    this.projectManager.createNewScenario();
+
+    // Clear assets
+    this.assetManager.clearAssets();
+
+    // Refresh all UI components
+    this.refreshSceneList();
+    this.assetManager.refreshAssetLists();
+    this.updateSceneDropdowns();
+    this.previewManager.clearPreview();
+    this.uiManager.updateSceneObjectsList(
+      this.projectManager.getProject(),
+      null
+    );
+
+    // Select the first scene
+    const project = this.projectManager.getProject();
+    const firstSceneId = Object.keys(project.scenes)[0];
+    if (firstSceneId) {
+      this.selectScene(firstSceneId);
+    }
   }
 
   /**
@@ -78,7 +106,7 @@ class StoryEditor {
     );
     this.refreshSceneList();
     this.assetManager.refreshAssetLists();
-    this.updateSceneDropdowns(); // FIX: Add this missing call
+    this.updateSceneDropdowns();
 
     // Load first scene
     const project = this.projectManager.getProject();
@@ -215,35 +243,16 @@ class StoryEditor {
 
     const project = this.projectManager.getProject();
     const scene = project.scenes[this.currentScene];
-    const newSceneId = document.getElementById("scene-id").value;
+    const newSceneNameInput = document.getElementById("scene-name").value;
 
-    // Handle scene ID change
-    if (newSceneId !== this.currentScene) {
-      if (project.scenes[newSceneId]) {
-        this.showWarning("Scene ID already exists!");
-        document.getElementById("scene-id").value = this.currentScene;
-        return;
-      }
-
-      // Create mapping for the ID change
-      const idMapping = {};
-      Object.keys(project.scenes).forEach((id) => {
-        idMapping[id] = id === this.currentScene ? newSceneId : id;
-      });
-
-      // Apply the renumbering
-      this.sceneManager.renumberScenes(project, idMapping);
-      this.currentScene = newSceneId;
-
-      this.refreshSceneList();
-      this.updateSceneDropdowns();
-    }
+    // Update scene name - no validation needed since names can be duplicate
+    scene.name = newSceneNameInput || "New Scene";
 
     // Update other properties
     const sceneProperties = {
-      id: document.getElementById("scene-id").value,
       type: document.getElementById("scene-type").value,
       content: document.getElementById("scene-content").value,
+      name: scene.name, // Include name in properties update
     };
 
     const backgroundSelect = document.getElementById("scene-background");
@@ -265,6 +274,7 @@ class StoryEditor {
     );
 
     this.refreshSceneList();
+    this.updateSceneDropdowns(); // Update dropdowns to reflect name changes
     this.previewManager.renderPreview(project, this.currentScene);
     this.uiManager.updateChoicesVisibility();
     this.uiManager.updateSceneObjectsList(
@@ -272,6 +282,45 @@ class StoryEditor {
       this.currentScene,
       this.previewManager.getSelectedObject()
     );
+  }
+
+  /**
+   * Update UI positions
+   */
+  updateUIPositions() {
+    if (!this.currentScene) return;
+
+    const project = this.projectManager.getProject();
+
+    // Get slider values
+    const textPosX = parseFloat(document.getElementById("text-pos-x").value);
+    const textPosY = parseFloat(document.getElementById("text-pos-y").value);
+    const buttonsPosX = parseFloat(
+      document.getElementById("buttons-pos-x").value
+    );
+    const buttonsPosY = parseFloat(
+      document.getElementById("buttons-pos-y").value
+    );
+
+    // Update positions in scene data
+    this.sceneManager.updateUIElementPosition(
+      project,
+      this.currentScene,
+      "textContent",
+      textPosX,
+      textPosY
+    );
+
+    this.sceneManager.updateUIElementPosition(
+      project,
+      this.currentScene,
+      "buttonsContainer",
+      buttonsPosX,
+      buttonsPosY
+    );
+
+    // Re-render preview to show updated positions
+    this.previewManager.renderPreview(project, this.currentScene);
   }
 
   /**
@@ -348,6 +397,11 @@ class StoryEditor {
     );
     this.validateSceneReferences();
     this.previewManager.renderPreview(project, this.currentScene);
+
+    // Update choice positions if choice text changed (affects headers)
+    if (property === "text") {
+      this.uiManager.updateChoicePositions(project, this.currentScene);
+    }
   }
 
   /**
@@ -408,9 +462,33 @@ class StoryEditor {
   }
 
   /**
-   * Remove object from list
+   * Toggle object lock state
    * @param {number} index - Object index
    */
+  toggleObjectLock(index) {
+    if (!this.currentScene) return;
+
+    const project = this.projectManager.getProject();
+    const scene = project.scenes[this.currentScene];
+    if (scene.images && scene.images[index]) {
+      const obj = scene.images[index];
+      obj.locked = !obj.locked;
+
+      // If we're locking the currently selected object, deselect it
+      if (obj.locked && this.previewManager.getSelectedObject() === index) {
+        this.previewManager.deselectObject();
+        this.updateObjectProperties();
+      }
+
+      // Re-render preview to show lock state
+      this.previewManager.renderPreview(project, this.currentScene);
+      this.uiManager.updateSceneObjectsList(
+        project,
+        this.currentScene,
+        this.previewManager.getSelectedObject()
+      );
+    }
+  }
   removeObjectFromList(index) {
     if (!this.currentScene) return;
 
