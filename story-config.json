@@ -6,7 +6,7 @@
     "version": "1.0.0",
     "tags": ["space", "comedy", "adventure", "toast", "first person"]
   },
-  "totalScenes": 42,
+  "totalScenes": 45,
   "currentScene": 1,
   "scenes": {
     "1": {
@@ -28,15 +28,15 @@
           "zIndex": 1,
           "opacity": 1,
           "effect": "slide_to",
-          "moveStartX": 8.1,
-          "moveStartY": 86.8,
+          "moveStartX": 10.18387322682041,
+          "moveStartY": 77.8518165952721,
           "moveEndX": 8.1,
           "moveEndY": 82.8
         },
         {
           "src": "images/logo.png",
-          "x": 49.34640522875817,
-          "y": 40.579945296926425,
+          "x": 50.834676959658644,
+          "y": 41.839497057968096,
           "scale": 0.6,
           "rotation": 0,
           "zIndex": 2,
@@ -44,7 +44,20 @@
         }
       ],
       "content": "Choose Your Own Adventure\n",
-      "nextScene": "2"
+      "nextScene": "2",
+      "name": "Title",
+      "uiPositions": {
+        "textContent": {
+          "x": 26.1314962297031,
+          "y": 93.95833333333333,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "2": {
       "id": "scene_2",
@@ -67,7 +80,20 @@
         }
       ],
       "content": "You are Sir Toasterton IV, from a long line of adventurers.",
-      "nextScene": "3"
+      "nextScene": "3",
+      "name": "Start",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "3": {
       "id": "scene_3",
@@ -103,13 +129,36 @@
       "choices": [
         {
           "text": "Go on adventure",
-          "nextScene": "28"
+          "nextScene": "28",
+          "position": {
+            "x": 79.49870523281379,
+            "y": 88.95833333333333,
+            "width": 40
+          }
         },
         {
           "text": "Stay on Breadtopia",
-          "nextScene": "4"
+          "nextScene": "4",
+          "position": {
+            "x": 79.3944724027296,
+            "y": 95.76388888888889,
+            "width": 40
+          }
         }
-      ]
+      ],
+      "name": "Home - Go or stay",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 80,
+          "y": 85,
+          "width": 40
+        }
+      }
     },
     "4": {
       "id": "scene_4",
@@ -133,7 +182,20 @@
         }
       ],
       "content": "You put it in storage and continue life. But the spark is missing - you continue this for 3 years, until…",
-      "nextScene": "5"
+      "nextScene": "5",
+      "name": "Home - Stay",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "5": {
       "id": "scene_5",
@@ -156,17 +218,40 @@
           "effect": "fade_in"
         }
       ],
-      "content": "Butter Asteroid appears – mining quickly starts up and a lot of people start to get fat.",
+      "content": "A Butterstroid appears – mining quickly starts up and a lot of people start to get fat.",
       "choices": [
         {
           "text": "Join In",
-          "nextScene": "6"
+          "nextScene": "6",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 88.54166666666666,
+            "width": 40
+          }
         },
         {
           "text": "Hold off",
-          "nextScene": "11"
+          "nextScene": "11",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 95.625,
+            "width": 40
+          }
         }
-      ]
+      ],
+      "name": "Home - Butterstroid Appears",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 80,
+          "y": 85,
+          "width": 40
+        }
+      }
     },
     "6": {
       "id": "scene_6",
@@ -200,7 +285,20 @@
         }
       ],
       "content": "You jump in your ship and go right up – it’s easy to load in huge amounts into your cargo bay.",
-      "nextScene": "7"
+      "nextScene": "7",
+      "name": "Home - Butterstroid Go",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "7": {
       "id": "scene_7",
@@ -244,7 +342,20 @@
         }
       ],
       "content": "You can't control yourself though - this close to the butter, you just can't stop! You keep eating and eating, day after day.",
-      "nextScene": "8"
+      "nextScene": "8",
+      "name": "Home - Butterstroid Land",
+      "uiPositions": {
+        "textContent": {
+          "x": 26.0272633996189,
+          "y": 90.06944444444444,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "8": {
       "id": "scene_8",
@@ -274,7 +385,9 @@
           "rotation": -10,
           "zIndex": 47,
           "opacity": 1,
-          "effect": "slide_to"
+          "effect": "slide_to",
+          "moveStartX": 21.44101887591407,
+          "moveStartY": 23.891117608395096
         },
         {
           "src": "images/toast-fat.png",
@@ -288,10 +401,23 @@
         }
       ],
       "content": "After a few weeks your starch can't absorb any more butter - your body is at its limit.",
-      "nextScene": "9"
+      "nextScene": "9",
+      "name": "Home - Butterstroid Stay",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "9": {
-      "id": "9",
+      "id": "scene_9",
       "type": "image",
       "overlay": {
         "color": "#000000",
@@ -301,28 +427,31 @@
       "images": [
         {
           "src": "images/butter-asteroid.png",
-          "x": 54.248366013071895,
-          "y": 99.918872560382,
+          "x": 53.544730541847855,
+          "y": 90.32660184492646,
           "scale": 1.5,
           "rotation": 10,
           "zIndex": 50,
           "opacity": 1,
-          "effect": "fade_in"
+          "effect": "fade_in",
+          "locked": true
         },
         {
           "src": "images/toast-spaceship-small.png",
-          "x": 20.588235294117645,
-          "y": 25.44851884474526,
+          "x": 20.6,
+          "y": 25.4,
           "scale": 0.8,
-          "rotation": -10,
+          "rotation": -37,
           "zIndex": 47,
           "opacity": 1,
-          "effect": "slide_to"
+          "effect": "slide_to",
+          "moveStartX": 20.607156235240467,
+          "moveStartY": 19.974615262573376
         },
         {
           "src": "images/toast-dead.png",
-          "x": 60.6,
-          "y": 29.8,
+          "x": 61.362192798162894,
+          "y": 41.87801727068743,
           "scale": 0.4,
           "rotation": -80,
           "zIndex": 60,
@@ -332,7 +461,20 @@
       ],
       "content": "You lay on the ground unable to move – soon your body shuts down completely. You drift around the butterstroid for another few weeks before…",
       "background": "images/bg-breadtopia.png",
-      "nextScene": "10"
+      "nextScene": "10",
+      "name": "Home - Butterstroid Death",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.9230305695347,
+          "y": 90.06944444444444,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "10": {
       "id": "scene_10",
@@ -356,7 +498,19 @@
         }
       ],
       "content": "Your body is recovered and buried in the family plot on Breadtopia.",
-      "nextScene": null
+      "name": "Death - Family Plot",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "11": {
       "id": "scene_11",
@@ -380,7 +534,20 @@
         }
       ],
       "content": "The butterstroid was a fad for 10 months... until",
-      "nextScene": "12"
+      "nextScene": "12",
+      "name": "Home - Fad",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.401866419113695,
+          "y": 94.375,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "12": {
       "id": "scene_12",
@@ -414,17 +581,30 @@
         },
         {
           "src": "images/bagel-pirate.png",
-          "x": 8.714596949891067,
-          "y": 77.0733855639516,
-          "scale": 0.4,
-          "rotation": 22,
+          "x": 13.623556619599029,
+          "y": 68.56825547925024,
+          "scale": 0.53,
+          "rotation": 3,
           "zIndex": 60,
           "opacity": 1,
           "effect": "fade_in"
         }
       ],
-      "content": "Butter Pirates appeared - they'd been tracking this butterstroid for decades and weren't about to let us continue eating their profits.",
-      "nextScene": "13"
+      "content": "Butter Hungry Bagel Pirates appeared - they'd been tracking this butterstroid for decades and weren't about to let us continue eating their profits.",
+      "nextScene": "13",
+      "name": "Home - Pirates Appear",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.714564909366295,
+          "y": 90.34722222222223,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "13": {
       "id": "scene_13",
@@ -458,8 +638,8 @@
         },
         {
           "src": "images/bagel-pirate.png",
-          "x": 34.20479302832244,
-          "y": 64.76055815678457,
+          "x": 28.00768717121871,
+          "y": 64.9418644183042,
           "scale": 0.4,
           "rotation": 0,
           "zIndex": 74,
@@ -468,8 +648,8 @@
         },
         {
           "src": "images/eclair-crew.png",
-          "x": 54.46623093681917,
-          "y": 67.1341152473228,
+          "x": 46.2,
+          "y": 68.9,
           "scale": 0.3,
           "rotation": 16,
           "zIndex": 65,
@@ -478,8 +658,8 @@
         },
         {
           "src": "images/cross-crew.png",
-          "x": 13.725490196078432,
-          "y": 66.83742061100551,
+          "x": 7.994983795052198,
+          "y": 69.58364497631513,
           "scale": 0.3,
           "rotation": -16,
           "zIndex": 70,
@@ -491,13 +671,36 @@
       "choices": [
         {
           "text": "Let someone else do it",
-          "nextScene": "14"
+          "nextScene": "14",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 88.54166666666666,
+            "width": 40
+          }
         },
         {
           "text": "Answer the call",
-          "nextScene": "21"
+          "nextScene": "21",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 95.54166666666666,
+            "width": 40
+          }
         }
-      ]
+      ],
+      "name": "Home - Pirates Choice",
+      "uiPositions": {
+        "textContent": {
+          "x": 26.1314962297031,
+          "y": 89.65277777777779,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 80,
+          "y": 85,
+          "width": 40
+        }
+      }
     },
     "14": {
       "id": "scene_14",
@@ -540,8 +743,21 @@
           "effect": "fade_in"
         }
       ],
-      "content": "No one else does anything either. The butterstroid was nice – but not worth dying for.",
-      "nextScene": "15"
+      "content": "You assume someone else will take care of the problem - and so does everyone else. The pirates, unopposed, get ready to haul the butterstroid away. It was nice – but not worth dying for.",
+      "nextScene": "15",
+      "name": "Home - Pirates Unopposed",
+      "uiPositions": {
+        "textContent": {
+          "x": 31.238904903828928,
+          "y": 89.79166666666667,
+          "width": 60
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "15": {
       "id": "scene_15",
@@ -565,7 +781,20 @@
         }
       ],
       "content": "The pirates took the butterstroid and leave.",
-      "nextScene": "16"
+      "nextScene": "16",
+      "name": "Home - Pirates Haul",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "16": {
       "id": "scene_16",
@@ -588,7 +817,20 @@
         }
       ],
       "content": "You continue on for 50 years - looking for something you really care about...",
-      "nextScene": "17"
+      "nextScene": "17",
+      "name": "Home - Old Toast",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "17": {
       "id": "scene_17",
@@ -602,9 +844,9 @@
       "images": [
         {
           "src": "images/toast-old.png",
-          "x": 13.071895424836603,
-          "y": 78.70520606369664,
-          "scale": 0.3,
+          "x": 14.770117750525236,
+          "y": 68.56825547925024,
+          "scale": 0.43,
           "rotation": 0,
           "zIndex": 50,
           "opacity": 1,
@@ -612,7 +854,20 @@
         }
       ],
       "content": "One night as you walk the streets of Toast Town, you can feel that your time is almost up and you regret your choices. You remember that spaceship you still own. It’s not too late for adventure!",
-      "nextScene": "18"
+      "nextScene": "18",
+      "name": "Home - Old 2",
+      "uiPositions": {
+        "textContent": {
+          "x": 33.11509584534454,
+          "y": 89.93055555555556,
+          "width": 64
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "18": {
       "id": "scene_18",
@@ -629,23 +884,38 @@
           "x": 50.1,
           "y": 44.7,
           "scale": 0.8,
-          "rotation": 22,
+          "rotation": -6,
           "zIndex": 55,
           "opacity": 1,
-          "effect": "slide_to"
+          "effect": "slide_to",
+          "moveStartX": 55.212455823195064,
+          "moveStartY": 43.03846241019016
         },
         {
           "src": "images/toast-old-astro.png",
-          "x": 6.1002178649237475,
-          "y": 84.63909879004218,
-          "scale": 0.4,
+          "x": 12.789693978925426,
+          "y": 75.82103760114232,
+          "scale": 0.5800000000000001,
           "rotation": 22,
           "zIndex": 2,
           "opacity": 1
         }
       ],
       "content": "It takes a bit of messing around to figure out the controls, but before long the Toasty 56 is up and leaving Breadtopia.",
-      "nextScene": "19"
+      "nextScene": "19",
+      "name": "Home - Old Space",
+      "uiPositions": {
+        "textContent": {
+          "x": 28.945782641976514,
+          "y": 92.43055555555556,
+          "width": 56
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "19": {
       "id": "scene_19",
@@ -659,8 +929,8 @@
       "images": [
         {
           "src": "images/toast-old-astro-sleep.png",
-          "x": 23.311546840958606,
-          "y": 67.72750451995735,
+          "x": 22.48334717675608,
+          "y": 70.19039309125891,
           "scale": 0.6,
           "rotation": 0,
           "zIndex": 50,
@@ -669,7 +939,20 @@
         }
       ],
       "content": "You push down the throttle – but the sudden speed and pressure are too much for your body at this age...",
-      "nextScene": "20"
+      "nextScene": "20",
+      "name": "Home - Old Space 2",
+      "uiPositions": {
+        "textContent": {
+          "x": 26.965358870376704,
+          "y": 92.43055555555556,
+          "width": 52
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "20": {
       "id": "scene_20",
@@ -693,7 +976,20 @@
         }
       ],
       "content": "You die and float through space for just over 11 years before...",
-      "nextScene": "10"
+      "nextScene": "10",
+      "name": "Home - Drift 2",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "21": {
       "id": "scene_21",
@@ -727,7 +1023,20 @@
         }
       ],
       "content": "You answer the call – and activate your Toasty 56 to come and pick you up! You’re ready to face those evil butter crazed pirates.",
-      "nextScene": "22"
+      "nextScene": "22",
+      "name": "Home - Answer Pirates",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.8187977394505,
+          "y": 89.79166666666667,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "22": {
       "id": "scene_22",
@@ -784,13 +1093,36 @@
       "choices": [
         {
           "text": "Fire the lasers",
-          "nextScene": "23"
+          "nextScene": "23",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 88.54166666666666,
+            "width": 40
+          }
         },
         {
           "text": "Hail them on comms",
-          "nextScene": "23"
+          "nextScene": "23",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 95.54166666666666,
+            "width": 40
+          }
         }
-      ]
+      ],
+      "name": "Home - Pirates Confront",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 80,
+          "y": 85,
+          "width": 40
+        }
+      }
     },
     "23": {
       "id": "scene_23",
@@ -824,8 +1156,8 @@
         },
         {
           "src": "images/toast-scared.png",
-          "x": 6.753812636165578,
-          "y": 79.44694265448983,
+          "x": 8.828846435725803,
+          "y": 72.48475782507197,
           "scale": 0.4,
           "rotation": 29,
           "zIndex": 60,
@@ -834,8 +1166,8 @@
         },
         {
           "src": "images/bubble-sad.png",
-          "x": 21.895424836601308,
-          "y": 43.546891660099206,
+          "x": 24.672236608524294,
+          "y": 41.87801727068743,
           "scale": 0.3,
           "rotation": 0,
           "zIndex": 65,
@@ -844,7 +1176,20 @@
         }
       ],
       "content": "Nothing happens – turns out you shouldn’t have just charged up here with a ship that’s been sitting in storage for years.",
-      "nextScene": "24"
+      "nextScene": "24",
+      "name": "Home - Dud Ship",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.506099249197895,
+          "y": 90.20833333333333,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "24": {
       "id": "scene_24",
@@ -887,7 +1232,20 @@
       ],
       "content": "The pirate ship slips behind you - turns out it was just charging it's laser cannon. Ironically the shot misses your ship by a few meters ......",
       "background": "images/bg-empty-space.png",
-      "nextScene": "25"
+      "nextScene": "25",
+      "name": "Home - Pirates Laser",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.506099249197895,
+          "y": 90.34722222222223,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "25": {
       "id": "scene_25",
@@ -911,7 +1269,20 @@
       ],
       "content": "but the radiation cooks you anyway and you die.",
       "background": "images/bg-inside-toasty56.png",
-      "nextScene": "26"
+      "nextScene": "26",
+      "name": "Home-Cooked",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.401866419113695,
+          "y": 94.375,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "26": {
       "id": "scene_26",
@@ -930,7 +1301,20 @@
         }
       ],
       "content": "The pirates made off with the butter with no other resistance.",
-      "nextScene": "27"
+      "nextScene": "27",
+      "name": "Pirates Steal Butterstroid",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "27": {
       "id": "scene_27",
@@ -954,7 +1338,20 @@
         }
       ],
       "content": "Your dead body drifted space for 5 years before…",
-      "nextScene": "10"
+      "nextScene": "10",
+      "name": "Home - Drift",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "28": {
       "id": "scene_28",
@@ -968,8 +1365,8 @@
       "images": [
         {
           "src": "images/toast.png",
-          "x": 14.37908496732026,
-          "y": 84.78744610820083,
+          "x": 16.125144541619843,
+          "y": 72.91992475238548,
           "scale": 0.4,
           "rotation": 0,
           "zIndex": 50,
@@ -988,7 +1385,20 @@
         }
       ],
       "content": "You follow your gut and start out on your adventure! You live a happy and fulfilling life. Good for you I guess.",
-      "nextScene": "30"
+      "nextScene": "30",
+      "name": "Home - Adventure",
+      "uiPositions": {
+        "textContent": {
+          "x": 26.0272633996189,
+          "y": 89.51388888888889,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "29": {
       "id": "scene_29",
@@ -1000,8 +1410,21 @@
         "zIndex": 45
       },
       "images": [],
-      "content": "END OF DEMO - will the adventure continue?",
-      "nextScene": "1"
+      "content": "END OF DEMO - I hope you enjoyed it! \nMore to come as I have time :) ",
+      "nextScene": "1",
+      "name": "DEMO END",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "30": {
       "id": "scene_30",
@@ -1027,17 +1450,45 @@
       "choices": [
         {
           "text": "Mint",
-          "nextScene": "31"
+          "nextScene": "31",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 81.73611111111111,
+            "width": 40
+          }
         },
         {
           "text": "Apple",
-          "nextScene": "32"
+          "nextScene": "32",
+          "position": {
+            "x": 78.87330825230859,
+            "y": 88.81944444444444,
+            "width": 40
+          }
         },
         {
           "text": "Dragon Fruit",
-          "nextScene": "33"
+          "nextScene": "33",
+          "position": {
+            "x": 79.08177391247699,
+            "y": 95.90277777777779,
+            "width": 40
+          }
         }
-      ]
+      ],
+      "name": "Air Freshener",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.714564909366295,
+          "y": 93.81944444444444,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 80,
+          "y": 85,
+          "width": 40
+        }
+      }
     },
     "31": {
       "id": "scene_31",
@@ -1083,18 +1534,46 @@
       "choices": [
         {
           "text": "Mint",
-          "nextScene": ""
+          "nextScene": "",
+          "position": {
+            "x": 80,
+            "y": 85,
+            "width": 40
+          }
         },
         {
           "text": "Apple",
-          "nextScene": ""
+          "nextScene": "",
+          "position": {
+            "x": 80,
+            "y": 90,
+            "width": 40
+          }
         },
         {
           "text": "Dragon Fruit",
-          "nextScene": ""
+          "nextScene": "",
+          "position": {
+            "x": 80,
+            "y": 95,
+            "width": 40
+          }
         }
       ],
-      "nextScene": "34"
+      "nextScene": "34",
+      "name": "Air - Mint",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.401866419113695,
+          "y": 94.23611111111111,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "32": {
       "id": "scene_32",
@@ -1140,18 +1619,46 @@
       "choices": [
         {
           "text": "Mint",
-          "nextScene": ""
+          "nextScene": "",
+          "position": {
+            "x": 80,
+            "y": 85,
+            "width": 40
+          }
         },
         {
           "text": "Apple",
-          "nextScene": ""
+          "nextScene": "",
+          "position": {
+            "x": 80,
+            "y": 90,
+            "width": 40
+          }
         },
         {
           "text": "Dragon Fruit",
-          "nextScene": ""
+          "nextScene": "",
+          "position": {
+            "x": 80,
+            "y": 95,
+            "width": 40
+          }
         }
       ],
-      "nextScene": "34"
+      "nextScene": "34",
+      "name": "Air - Apple",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.089167928861094,
+          "y": 94.375,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "33": {
       "id": "scene_33",
@@ -1195,18 +1702,46 @@
       "choices": [
         {
           "text": "Mint",
-          "nextScene": ""
+          "nextScene": "",
+          "position": {
+            "x": 80,
+            "y": 85,
+            "width": 40
+          }
         },
         {
           "text": "Apple",
-          "nextScene": ""
+          "nextScene": "",
+          "position": {
+            "x": 80,
+            "y": 90,
+            "width": 40
+          }
         },
         {
           "text": "Dragon Fruit",
-          "nextScene": ""
+          "nextScene": "",
+          "position": {
+            "x": 80,
+            "y": 95,
+            "width": 40
+          }
         }
       ],
-      "nextScene": "34"
+      "nextScene": "34",
+      "name": "Air - Dragonfruit",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.297633589029495,
+          "y": 94.375,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "34": {
       "id": "scene_34",
@@ -1229,7 +1764,20 @@
         }
       ],
       "content": "OH Crumble my biscuits - I forgot about the butter belt. No amount of fresh air goodness is gonna get me out of this mess!",
-      "nextScene": "35"
+      "nextScene": "35",
+      "name": "BB - Start",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.506099249197895,
+          "y": 90.76388888888889,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "35": {
       "id": "scene_35",
@@ -1264,17 +1812,45 @@
       "choices": [
         {
           "text": "Skirt the edge",
-          "nextScene": "38"
+          "nextScene": "38",
+          "position": {
+            "x": 79.08177391247699,
+            "y": 82.43055555555556,
+            "width": 40
+          }
         },
         {
           "text": "Go right though",
-          "nextScene": "39"
+          "nextScene": "42",
+          "position": {
+            "x": 79.29023957264539,
+            "y": 89.375,
+            "width": 40
+          }
         },
         {
           "text": "Turn back",
-          "nextScene": "36"
+          "nextScene": "36",
+          "position": {
+            "x": 79.29023957264539,
+            "y": 96.18055555555556,
+            "width": 40
+          }
         }
-      ]
+      ],
+      "name": "BB - What to do",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 80,
+          "y": 85,
+          "width": 40
+        }
+      }
     },
     "36": {
       "id": "scene_36",
@@ -1309,20 +1885,48 @@
       "choices": [
         {
           "text": "Fire the lasers",
-          "nextScene": "29"
+          "nextScene": "29",
+          "position": {
+            "x": 74.59976221885637,
+            "y": 38.40277777777778,
+            "width": 19
+          }
         },
         {
           "text": "Land and take a look",
-          "nextScene": "40"
+          "nextScene": "43",
+          "position": {
+            "x": 27.069591700460904,
+            "y": 55.34722222222223,
+            "width": 19
+          }
         },
         {
           "text": "Go around it",
-          "nextScene": "37"
+          "nextScene": "37",
+          "position": {
+            "x": 89.40082409081286,
+            "y": 95.34722222222223,
+            "width": 19
+          }
         }
-      ]
+      ],
+      "name": "BB - Encounter Behind",
+      "uiPositions": {
+        "textContent": {
+          "x": 34.26165697627074,
+          "y": 92.01388888888889,
+          "width": 66
+        },
+        "buttonsContainer": {
+          "x": 80,
+          "y": 85,
+          "width": 40
+        }
+      }
     },
     "37": {
-      "id": "37",
+      "id": "scene_37",
       "type": "image",
       "background": "images/bg-breadtopia.png",
       "overlay": {
@@ -1342,11 +1946,24 @@
         }
       ],
       "content": "You make it around the butterstroid and head right back to Breadtopia. You are done with trying to be an adventurer - it's just too dangerous.",
-      "nextScene": "4"
+      "nextScene": "4",
+      "name": "Home - Back from BB",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.714564909366295,
+          "y": 90.06944444444444,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
     "38": {
-      "id": "38",
-      "type": "image",
+      "id": "scene_38",
+      "type": "choice",
       "background": "images/bg-asteroidfield.png",
       "overlay": {
         "color": "#000000",
@@ -1363,17 +1980,179 @@
           "zIndex": 1,
           "opacity": 1,
           "effect": "slide_to",
-          "moveStartX": 1.6,
-          "moveStartY": 62.1,
-          "moveEndX": 93.9,
+          "moveStartX": 19.14789661406166,
+          "moveStartY": 54.869454325793676,
+          "moveEndX": 51.4,
           "moveEndY": 28.8
         }
       ],
       "content": "You make it around the outside edge of the butter belt - it puts your nerves to the test a few times but you make it through.",
-      "nextScene": "29"
+      "nextScene": "29",
+      "name": "BB - Edge Choice",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.714564909366295,
+          "y": 89.65277777777779,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "choices": [
+        {
+          "text": "Jam Jar",
+          "nextScene": "",
+          "position": {
+            "x": 89.81775541114966,
+            "y": 81.73611111111111,
+            "width": 18
+          }
+        },
+        {
+          "text": "Tub of Butter",
+          "nextScene": "",
+          "position": {
+            "x": 89.92198824123385,
+            "y": 88.68055555555556,
+            "width": 18
+          }
+        },
+        {
+          "text": "Toaster",
+          "nextScene": "",
+          "position": {
+            "x": 89.92198824123385,
+            "y": 95.48611111111111,
+            "width": 18
+          }
+        }
+      ]
     },
     "39": {
-      "id": "39",
+      "id": "scene_39",
+      "name": "Wooden Jam",
+      "type": "image",
+      "content": "What a wonderfully rendered jar of jam - woody flavor!",
+      "choices": [],
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "background": "images/bg-butter-belt-far2.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship-small.png",
+          "x": 34.6,
+          "y": 56.6,
+          "scale": 1,
+          "rotation": 13,
+          "zIndex": 1,
+          "opacity": 1
+        },
+        {
+          "src": "images/bubble-empty.png",
+          "x": 52.189703750753246,
+          "y": 32.10282569299953,
+          "scale": 0.3,
+          "rotation": 0,
+          "zIndex": 2,
+          "opacity": 1
+        }
+      ]
+    },
+    "40": {
+      "id": "scene_40",
+      "name": "Wooden Butter",
+      "type": "image",
+      "content": "What a wonderfully rendered tub of butter. Oh man, I wish I could rub myself down with some of that good farm raised butter.",
+      "choices": [],
+      "uiPositions": {
+        "textContent": {
+          "x": 25.506099249197895,
+          "y": 90.48611111111111,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "background": "images/bg-butter-belt-far2.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship-small.png",
+          "x": 34.6,
+          "y": 56.6,
+          "scale": 1,
+          "rotation": 13,
+          "zIndex": 1,
+          "opacity": 1
+        },
+        {
+          "src": "images/bubble-empty.png",
+          "x": 52.189703750753246,
+          "y": 32.10282569299953,
+          "scale": 0.3,
+          "rotation": 0,
+          "zIndex": 2,
+          "opacity": 1
+        }
+      ]
+    },
+    "41": {
+      "id": "scene_41",
+      "name": "Wooden Toaster",
+      "type": "image",
+      "content": "What a wonderfully rendered toaster. Now I have a wooden toaster inside my toasty!",
+      "choices": [],
+      "uiPositions": {
+        "textContent": {
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "background": "images/bg-butter-belt-far2.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship-small.png",
+          "x": 34.6,
+          "y": 56.6,
+          "scale": 1,
+          "rotation": 13,
+          "zIndex": 1,
+          "opacity": 1
+        },
+        {
+          "src": "images/bubble-empty.png",
+          "x": 52.189703750753246,
+          "y": 32.10282569299953,
+          "scale": 0.3,
+          "rotation": 0,
+          "zIndex": 2,
+          "opacity": 1
+        }
+      ]
+    },
+    "42": {
+      "id": "scene_42",
       "type": "choice",
       "background": "images/bg-asteroidfield.png",
       "overlay": {
@@ -1405,20 +2184,48 @@
       "choices": [
         {
           "text": "Land on it",
-          "nextScene": "40"
+          "nextScene": "43",
+          "position": {
+            "x": 65.42727317144671,
+            "y": 38.125,
+            "width": 19
+          }
         },
         {
           "text": "Fire your lasers",
-          "nextScene": "29"
+          "nextScene": "29",
+          "position": {
+            "x": 20.398690575072067,
+            "y": 41.736111111111114,
+            "width": 19
+          }
         },
         {
           "text": "Navigate around",
-          "nextScene": "29"
+          "nextScene": "29",
+          "position": {
+            "x": 89.40082409081286,
+            "y": 95.34722222222223,
+            "width": 19
+          }
         }
-      ]
+      ],
+      "name": "BB - Encounter Ahead",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.297633589029495,
+          "y": 90.625,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 80,
+          "y": 85,
+          "width": 40
+        }
+      }
     },
-    "40": {
-      "id": "40",
+    "43": {
+      "id": "scene_43",
       "type": "image",
       "background": "images/bg-asteroidfield.png",
       "overlay": {
@@ -1459,10 +2266,23 @@
         }
       ],
       "content": "You can't control yourself though - this close to the butter, you just can't stop! You keep eating and eating, day after day.",
-      "nextScene": "41"
+      "nextScene": "44",
+      "name": "BB - Butterstroid Land",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.506099249197895,
+          "y": 90.625,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
     },
-    "41": {
-      "id": "41",
+    "44": {
+      "id": "scene_44",
       "type": "image",
       "background": "images/bg-asteroidfield.png",
       "overlay": {
@@ -1503,10 +2323,23 @@
         }
       ],
       "content": "After a few weeks your starch can't absorb any more butter - your body is at its limit.",
-      "nextScene": "42"
+      "nextScene": "45",
+      "name": "BB - Butterstroid Stay",
+      "uiPositions": {
+        "textContent": {
+          "x": 50,
+          "y": 85,
+          "width": 80
+        },
+        "buttonsContainer": {
+          "x": 80,
+          "y": 85,
+          "width": 40
+        }
+      }
     },
-    "42": {
-      "id": "42",
+    "45": {
+      "id": "scene_45",
       "type": "image",
       "overlay": {
         "color": "#000000",
@@ -1547,7 +2380,39 @@
       ],
       "content": "You lay on the ground unable to move – soon your body shuts down completely. You drift around the butterstroid for another few weeks before…",
       "background": "images/bg-asteroidfield.png",
-      "nextScene": "10"
+      "nextScene": "10",
+      "name": "BB - Butterstroid Dead",
+      "uiPositions": {
+        "textContent": {
+          "x": 35.19975244702855,
+          "y": 91.73611111111111,
+          "width": 68
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      }
+    }
+  },
+  "defaults": {
+    "uiPositions": {
+      "textContent": {
+        "x": 25.610332079282095,
+        "y": 91.875,
+        "width": 49
+      },
+      "buttonsContainer": {
+        "x": 90.23468673148646,
+        "y": 95.48611111111111,
+        "width": 17
+      },
+      "choiceButton": {
+        "x": 78.9775410823928,
+        "y": 88.54166666666666,
+        "width": 40
+      }
     }
   }
 }
