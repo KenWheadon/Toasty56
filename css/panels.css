@@ -135,7 +135,7 @@
   background: #2c3e50;
   border-top: 1px solid #34495e;
   padding: 3px 5px;
-  height: 95px;
+  height: 85px;
   display: flex;
   flex-direction: column;
 }
@@ -143,7 +143,7 @@
 .scene-controls {
   display: flex;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .scene-list-horizontal {
