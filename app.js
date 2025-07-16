@@ -501,6 +501,13 @@ class ScenarioGenerator {
   }
 
   renderScene() {
+    // Add null check for scenario
+    if (!this.scenario || !this.scenario.scenes) {
+      console.error("Scenario not loaded or invalid");
+      this.showErrorScreen();
+      return;
+    }
+
     const scene = this.scenario.scenes[this.currentScene];
     if (!scene) {
       this.renderEndScene();
@@ -736,6 +743,13 @@ class ScenarioGenerator {
   }
 
   handleContinue(event) {
+    // Add null check for scenario before handling continue
+    if (!this.scenario || !this.scenario.scenes) {
+      console.error("Scenario not loaded, cannot continue");
+      this.showErrorScreen();
+      return;
+    }
+
     const nextSceneId = event.target.dataset.nextScene;
     if (nextSceneId === "restart") {
       this.restart();
@@ -745,11 +759,25 @@ class ScenarioGenerator {
   }
 
   handleChoice(event) {
+    // Add null check for scenario before handling choice
+    if (!this.scenario || !this.scenario.scenes) {
+      console.error("Scenario not loaded, cannot make choice");
+      this.showErrorScreen();
+      return;
+    }
+
     const nextSceneId = event.target.dataset.nextScene;
     this.goToScene(nextSceneId === "null" ? null : nextSceneId);
   }
 
   goToScene(sceneId) {
+    // Add null check for scenario before going to scene
+    if (!this.scenario || !this.scenario.scenes) {
+      console.error("Scenario not loaded, cannot go to scene");
+      this.showErrorScreen();
+      return;
+    }
+
     if (sceneId === null) {
       this.renderEndScene();
       return;
@@ -779,6 +807,13 @@ class ScenarioGenerator {
   }
 
   restart() {
+    // Add null check for scenario before restarting
+    if (!this.scenario || !this.scenario.scenes) {
+      console.error("Scenario not loaded, cannot restart");
+      this.showErrorScreen();
+      return;
+    }
+
     this.currentScene = this.scenario.currentScene;
     this.renderScene();
   }

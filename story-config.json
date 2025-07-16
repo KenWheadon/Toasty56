@@ -6,7 +6,7 @@
     "version": "1.0.0",
     "tags": ["space", "comedy", "adventure", "toast", "first person"]
   },
-  "totalScenes": 45,
+  "totalScenes": 55,
   "currentScene": 1,
   "scenes": {
     "1": {
@@ -1812,7 +1812,7 @@
       "choices": [
         {
           "text": "Skirt the edge",
-          "nextScene": "38",
+          "nextScene": "39",
           "position": {
             "x": 79.08177391247699,
             "y": 82.43055555555556,
@@ -1821,7 +1821,7 @@
         },
         {
           "text": "Go right though",
-          "nextScene": "42",
+          "nextScene": "43",
           "position": {
             "x": 79.29023957264539,
             "y": 89.375,
@@ -1885,7 +1885,7 @@
       "choices": [
         {
           "text": "Fire the lasers",
-          "nextScene": "29",
+          "nextScene": "37",
           "position": {
             "x": 74.59976221885637,
             "y": 38.40277777777778,
@@ -1894,7 +1894,7 @@
         },
         {
           "text": "Land and take a look",
-          "nextScene": "43",
+          "nextScene": "45",
           "position": {
             "x": 27.069591700460904,
             "y": 55.34722222222223,
@@ -1903,7 +1903,7 @@
         },
         {
           "text": "Go around it",
-          "nextScene": "37",
+          "nextScene": "38",
           "position": {
             "x": 89.40082409081286,
             "y": 95.34722222222223,
@@ -1927,6 +1927,71 @@
     },
     "37": {
       "id": "scene_37",
+      "type": "image",
+      "background": "images/bg-bb-asteroid-behind-laster.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [
+        {
+          "src": "images/toast-spaceship-small.png",
+          "x": 80.124102213319,
+          "y": 82.79079132827707,
+          "scale": 0.4,
+          "rotation": 0,
+          "zIndex": 1,
+          "opacity": 1
+        }
+      ],
+      "content": "I fire the beta laser but it has no effect at all!",
+      "choices": [
+        {
+          "text": "Fire the lasers",
+          "nextScene": "29",
+          "position": {
+            "x": 74.59976221885637,
+            "y": 38.40277777777778,
+            "width": 19
+          }
+        },
+        {
+          "text": "Land and take a look",
+          "nextScene": "45",
+          "position": {
+            "x": 27.069591700460904,
+            "y": 55.34722222222223,
+            "width": 19
+          }
+        },
+        {
+          "text": "Go around it",
+          "nextScene": "38",
+          "position": {
+            "x": 89.40082409081286,
+            "y": 95.34722222222223,
+            "width": 19
+          }
+        }
+      ],
+      "name": "BB - Encounter Behind Fire",
+      "uiPositions": {
+        "textContent": {
+          "x": 34.15742414618654,
+          "y": 93.95833333333333,
+          "width": 66
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "nextScene": "36"
+    },
+    "38": {
+      "id": "scene_38",
       "type": "image",
       "background": "images/bg-breadtopia.png",
       "overlay": {
@@ -1961,10 +2026,10 @@
         }
       }
     },
-    "38": {
-      "id": "scene_38",
+    "39": {
+      "id": "scene_39",
       "type": "choice",
-      "background": "images/bg-asteroidfield.png",
+      "background": "images/bg-butterbelt-far.png",
       "overlay": {
         "color": "#000000",
         "opacity": 0.15,
@@ -2004,7 +2069,7 @@
       "choices": [
         {
           "text": "Jam Jar",
-          "nextScene": "",
+          "nextScene": "40",
           "position": {
             "x": 89.81775541114966,
             "y": 81.73611111111111,
@@ -2013,7 +2078,7 @@
         },
         {
           "text": "Tub of Butter",
-          "nextScene": "",
+          "nextScene": "41",
           "position": {
             "x": 89.92198824123385,
             "y": 88.68055555555556,
@@ -2022,7 +2087,7 @@
         },
         {
           "text": "Toaster",
-          "nextScene": "",
+          "nextScene": "42",
           "position": {
             "x": 89.92198824123385,
             "y": 95.48611111111111,
@@ -2031,8 +2096,8 @@
         }
       ]
     },
-    "39": {
-      "id": "scene_39",
+    "40": {
+      "id": "scene_40",
       "name": "Wooden Jam",
       "type": "image",
       "content": "What a wonderfully rendered jar of jam - woody flavor!",
@@ -2068,11 +2133,22 @@
           "rotation": 0,
           "zIndex": 2,
           "opacity": 1
+        },
+        {
+          "src": "images/wood-jam.png",
+          "x": 52.3,
+          "y": 29.1,
+          "scale": 0.7,
+          "rotation": 0,
+          "zIndex": 3,
+          "opacity": 1,
+          "effect": "glow"
         }
-      ]
+      ],
+      "nextScene": "48"
     },
-    "40": {
-      "id": "scene_40",
+    "41": {
+      "id": "scene_41",
       "name": "Wooden Butter",
       "type": "image",
       "content": "What a wonderfully rendered tub of butter. Oh man, I wish I could rub myself down with some of that good farm raised butter.",
@@ -2108,11 +2184,22 @@
           "rotation": 0,
           "zIndex": 2,
           "opacity": 1
+        },
+        {
+          "src": "images/wood-butter.png",
+          "x": 52.1,
+          "y": 29.5,
+          "scale": 1,
+          "rotation": 0,
+          "zIndex": 3,
+          "opacity": 1,
+          "effect": "wiggle"
         }
-      ]
+      ],
+      "nextScene": "48"
     },
-    "41": {
-      "id": "scene_41",
+    "42": {
+      "id": "scene_42",
       "name": "Wooden Toaster",
       "type": "image",
       "content": "What a wonderfully rendered toaster. Now I have a wooden toaster inside my toasty!",
@@ -2148,11 +2235,22 @@
           "rotation": 0,
           "zIndex": 2,
           "opacity": 1
+        },
+        {
+          "src": "images/wood-toaster.png",
+          "x": 51.7,
+          "y": 30.4,
+          "scale": 0.8,
+          "rotation": 0,
+          "zIndex": 3,
+          "opacity": 1,
+          "effect": "glow"
         }
-      ]
+      ],
+      "nextScene": "48"
     },
-    "42": {
-      "id": "scene_42",
+    "43": {
+      "id": "scene_43",
       "type": "choice",
       "background": "images/bg-asteroidfield.png",
       "overlay": {
@@ -2184,7 +2282,61 @@
       "choices": [
         {
           "text": "Land on it",
-          "nextScene": "43",
+          "nextScene": "45",
+          "position": {
+            "x": 65.42727317144671,
+            "y": 38.125,
+            "width": 19
+          }
+        },
+        {
+          "text": "Fire your lasers",
+          "nextScene": "44",
+          "position": {
+            "x": 20.398690575072067,
+            "y": 41.736111111111114,
+            "width": 19
+          }
+        },
+        {
+          "text": "Navigate around",
+          "nextScene": "39",
+          "position": {
+            "x": 89.40082409081286,
+            "y": 95.34722222222223,
+            "width": 19
+          }
+        }
+      ],
+      "name": "BB - Encounter Ahead",
+      "uiPositions": {
+        "textContent": {
+          "x": 25.297633589029495,
+          "y": 90.625,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 80,
+          "y": 85,
+          "width": 40
+        }
+      }
+    },
+    "44": {
+      "id": "scene_44",
+      "type": "image",
+      "background": "images/bg-shoot-butter-front.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.15,
+        "zIndex": 45
+      },
+      "images": [],
+      "content": "You fire your alpha beam at full power - you want to believe something will happen but after 30 seconds you don't notice any difference.",
+      "choices": [
+        {
+          "text": "Land on it",
+          "nextScene": "45",
           "position": {
             "x": 65.42727317144671,
             "y": 38.125,
@@ -2210,22 +2362,23 @@
           }
         }
       ],
-      "name": "BB - Encounter Ahead",
+      "name": "BB - Encounter Ahead Fire",
       "uiPositions": {
         "textContent": {
-          "x": 25.297633589029495,
-          "y": 90.625,
+          "x": 26.0272633996189,
+          "y": 89.375,
           "width": 49
         },
         "buttonsContainer": {
-          "x": 80,
-          "y": 85,
-          "width": 40
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
         }
-      }
+      },
+      "nextScene": "43"
     },
-    "43": {
-      "id": "scene_43",
+    "45": {
+      "id": "scene_45",
       "type": "image",
       "background": "images/bg-asteroidfield.png",
       "overlay": {
@@ -2266,7 +2419,7 @@
         }
       ],
       "content": "You can't control yourself though - this close to the butter, you just can't stop! You keep eating and eating, day after day.",
-      "nextScene": "44",
+      "nextScene": "46",
       "name": "BB - Butterstroid Land",
       "uiPositions": {
         "textContent": {
@@ -2281,8 +2434,8 @@
         }
       }
     },
-    "44": {
-      "id": "scene_44",
+    "46": {
+      "id": "scene_46",
       "type": "image",
       "background": "images/bg-asteroidfield.png",
       "overlay": {
@@ -2323,23 +2476,23 @@
         }
       ],
       "content": "After a few weeks your starch can't absorb any more butter - your body is at its limit.",
-      "nextScene": "45",
+      "nextScene": "47",
       "name": "BB - Butterstroid Stay",
       "uiPositions": {
         "textContent": {
-          "x": 50,
-          "y": 85,
-          "width": 80
+          "x": 25.610332079282095,
+          "y": 91.875,
+          "width": 49
         },
         "buttonsContainer": {
-          "x": 80,
-          "y": 85,
-          "width": 40
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
         }
       }
     },
-    "45": {
-      "id": "scene_45",
+    "47": {
+      "id": "scene_47",
       "type": "image",
       "overlay": {
         "color": "#000000",
@@ -2394,6 +2547,454 @@
           "width": 17
         }
       }
+    },
+    "48": {
+      "id": "scene_48",
+      "name": "After BB",
+      "type": "image",
+      "content": "It took awhile but you're finally clear of the butterbelt. This is where the adventure should truly begin!",
+      "choices": [],
+      "uiPositions": {
+        "textContent": {
+          "x": 25.506099249197895,
+          "y": 90.20833333333333,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "background": "images/bg-starryspace.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship.png",
+          "x": 42.91298187325939,
+          "y": 48.85562789448956,
+          "scale": 0.4,
+          "rotation": 25,
+          "zIndex": 1,
+          "opacity": 1
+        },
+        {
+          "src": "images/ship-pirate.png",
+          "x": 85.5,
+          "y": 50.3,
+          "scale": 0.1,
+          "rotation": 0,
+          "zIndex": 100,
+          "opacity": 0.6
+        }
+      ],
+      "nextScene": "49"
+    },
+    "49": {
+      "id": "scene_49",
+      "name": "After BB Choice",
+      "type": "choice",
+      "content": "You check your viewscreen and see a massive pirate ship. You can try to approach them, or can go the other way instead.",
+      "choices": [
+        {
+          "text": "To the pirate ship!",
+          "nextScene": "50",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 88.54166666666666,
+            "width": 40
+          }
+        },
+        {
+          "text": "Run  run away!",
+          "nextScene": "51",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 95.54166666666666,
+            "width": 40
+          }
+        }
+      ],
+      "uiPositions": {
+        "textContent": {
+          "x": 25.506099249197895,
+          "y": 90.20833333333333,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "background": "images/bg-starryspace.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship.png",
+          "x": 29.46694679239752,
+          "y": 46.27827370964494,
+          "scale": 0.4,
+          "rotation": -17,
+          "zIndex": 1,
+          "opacity": 1
+        },
+        {
+          "src": "images/ship-pirate.png",
+          "x": 85.5410335336558,
+          "y": 50.27596930442759,
+          "scale": 0.1,
+          "rotation": 0,
+          "zIndex": 1752634799364,
+          "opacity": 1
+        }
+      ]
+    },
+    "50": {
+      "id": "scene_50",
+      "name": "Pirate - Apprach",
+      "type": "choice",
+      "content": "The pirate ship see's you moving towards them and easily outmaneuvers you and gets behind your ship.",
+      "choices": [
+        {
+          "text": "Fire your lasers",
+          "nextScene": "29",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 88.54166666666666,
+            "width": 40
+          }
+        },
+        {
+          "text": "Hail them on comms",
+          "nextScene": "29",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 95.54166666666666,
+            "width": 40
+          }
+        }
+      ],
+      "uiPositions": {
+        "textContent": {
+          "x": 25.506099249197895,
+          "y": 90.20833333333333,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "background": "images/bg-starryspace.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship.png",
+          "x": 72.93203693750915,
+          "y": 53.43759088976889,
+          "scale": 0.18000000000000002,
+          "rotation": -18,
+          "zIndex": 1,
+          "opacity": 1
+        },
+        {
+          "src": "images/ship-pirate.png",
+          "x": 24.35953811827169,
+          "y": 40.694006309148264,
+          "scale": 0.6,
+          "rotation": 0,
+          "zIndex": 2,
+          "opacity": 1
+        }
+      ]
+    },
+    "51": {
+      "id": "scene_51",
+      "name": "After BB Choice",
+      "type": "image",
+      "content": "No point picking a fight if you don't have to! You see the direction of the pirate ship and go the other way - full speed ahead!",
+      "choices": [
+        {
+          "text": "To the pirate ship!",
+          "nextScene": "",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 88.54166666666666,
+            "width": 40
+          }
+        },
+        {
+          "text": "Run  run away!",
+          "nextScene": "",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 95.54166666666666,
+            "width": 40
+          }
+        }
+      ],
+      "uiPositions": {
+        "textContent": {
+          "x": 25.506099249197895,
+          "y": 90.20833333333333,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "background": "images/bg-starryspace.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship.png",
+          "x": 20.1,
+          "y": 24.2,
+          "scale": 0.4,
+          "rotation": -27,
+          "zIndex": 1,
+          "opacity": 1
+        },
+        {
+          "src": "images/ship-pirate.png",
+          "x": 80.5410335336558,
+          "y": 45.27596930442759,
+          "scale": 0.1,
+          "rotation": 0,
+          "zIndex": 2,
+          "opacity": 1
+        }
+      ],
+      "nextScene": "52"
+    },
+    "52": {
+      "id": "scene_52",
+      "name": "Jam - First",
+      "type": "image",
+      "content": "You've been flying for a little over a day now since you saw the pirate ship. Your food supplies are starting to get low.",
+      "choices": [
+        {
+          "text": "To the pirate ship!",
+          "nextScene": "",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 88.54166666666666,
+            "width": 40
+          }
+        },
+        {
+          "text": "Run  run away!",
+          "nextScene": "",
+          "position": {
+            "x": 78.9775410823928,
+            "y": 95.54166666666666,
+            "width": 40
+          }
+        }
+      ],
+      "uiPositions": {
+        "textContent": {
+          "x": 51.87700526050064,
+          "y": 89.23611111111111,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "background": "images/bg-starryspace.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship.png",
+          "x": 60.73679581765769,
+          "y": 58.01955388504821,
+          "scale": 0.4,
+          "rotation": 13,
+          "zIndex": 1,
+          "opacity": 1
+        },
+        {
+          "src": "images/toast-sad.png",
+          "x": 15.916678881451443,
+          "y": 80.64299617423988,
+          "scale": 0.6,
+          "rotation": 0,
+          "zIndex": 3,
+          "opacity": 1
+        }
+      ],
+      "nextScene": "53"
+    },
+    "53": {
+      "id": "scene_53",
+      "name": "Jam - Encounter",
+      "type": "choice",
+      "content": "Another day and you're starving - or at least feel like you are! But you finally come across a habitable planet. This is your chance to restock your supplies.",
+      "choices": [
+        {
+          "text": "Scan",
+          "nextScene": "54",
+          "position": {
+            "x": 14.874350580609436,
+            "y": 42.56944444444444,
+            "width": 12
+          }
+        },
+        {
+          "text": "Land",
+          "nextScene": "29",
+          "position": {
+            "x": 52.189703750753246,
+            "y": 60.34722222222222,
+            "width": 14
+          }
+        },
+        {
+          "text": "Keep going",
+          "nextScene": "29",
+          "position": {
+            "x": 90.75585088190746,
+            "y": 95.20833333333333,
+            "width": 16
+          }
+        }
+      ],
+      "uiPositions": {
+        "textContent": {
+          "x": 26.2357290597873,
+          "y": 89.51388888888889,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "background": "images/bg-spacejam.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship.png",
+          "x": 16.437843031872447,
+          "y": 56.30131776181847,
+          "scale": 0.22000000000000003,
+          "rotation": 13,
+          "zIndex": 1,
+          "opacity": 1
+        }
+      ]
+    },
+    "54": {
+      "id": "scene_54",
+      "name": "Jam - Encounter Scan",
+      "type": "image",
+      "content": "You don't pick up any life signs, the only reading is the mass of organic goo that covers the entire planet. It might be edible, or at least you hope.",
+      "choices": [
+        {
+          "text": "Scan",
+          "nextScene": "",
+          "position": {
+            "x": 14.874350580609436,
+            "y": 42.56944444444444,
+            "width": 12
+          }
+        },
+        {
+          "text": "Land",
+          "nextScene": "",
+          "position": {
+            "x": 52.189703750753246,
+            "y": 60.34722222222222,
+            "width": 14
+          }
+        },
+        {
+          "text": "Keep going",
+          "nextScene": "",
+          "position": {
+            "x": 90.75585088190746,
+            "y": 95.20833333333333,
+            "width": 16
+          }
+        }
+      ],
+      "uiPositions": {
+        "textContent": {
+          "x": 26.2357290597873,
+          "y": 89.51388888888889,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "background": "images/bg-spacejam.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship.png",
+          "x": 16.437843031872447,
+          "y": 56.30131776181847,
+          "scale": 0.22000000000000003,
+          "rotation": 13,
+          "zIndex": 1,
+          "opacity": 1
+        }
+      ],
+      "nextScene": "55"
+    },
+    "55": {
+      "id": "scene_55",
+      "name": "Jam - Encounter After Scan",
+      "type": "choice",
+      "content": "The reading show that there's a single source of potential food - strange that there aren't any life forms already taking advantage of it.",
+      "choices": [
+        {
+          "text": "Land",
+          "nextScene": "29",
+          "position": {
+            "x": 52.189703750753246,
+            "y": 60.34722222222222,
+            "width": 14
+          }
+        },
+        {
+          "text": "Keep going",
+          "nextScene": "29",
+          "position": {
+            "x": 90.75585088190746,
+            "y": 95.20833333333333,
+            "width": 16
+          }
+        }
+      ],
+      "uiPositions": {
+        "textContent": {
+          "x": 26.2357290597873,
+          "y": 89.51388888888889,
+          "width": 49
+        },
+        "buttonsContainer": {
+          "x": 90.23468673148646,
+          "y": 95.48611111111111,
+          "width": 17
+        }
+      },
+      "background": "images/bg-spacejam.png",
+      "images": [
+        {
+          "src": "images/toast-spaceship.png",
+          "x": 16.437843031872447,
+          "y": 56.30131776181847,
+          "scale": 0.22000000000000003,
+          "rotation": 13,
+          "zIndex": 1,
+          "opacity": 1
+        }
+      ]
     }
   },
   "defaults": {
